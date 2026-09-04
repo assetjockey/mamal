@@ -29,6 +29,7 @@ const config: NextConfig = {
     '@mamal/storage',
     '@mamal/domains',
     '@mamal/tool-market',
+    '@mamal/integrations',
   ],
   typedRoutes: false,
 

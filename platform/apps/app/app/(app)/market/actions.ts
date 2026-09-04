@@ -6,8 +6,10 @@ import { sql } from 'drizzle-orm';
 import { withWorkspace } from '@mamal/db';
 import {
   createRankConfig, recomputeOpportunities, saveConnection, setOpportunityStatus,
-  trackKeywords, upsertKeywords, MarketNotAllowed,
+  syncSearchConsole, trackKeywords, upsertKeywords, MarketNotAllowed,
 } from '@mamal/tool-market';
+import { decryptCredential, encryptCredential } from '@mamal/ai';
+import type { GoogleCredentials } from '@mamal/integrations';
 import { getSession } from '@/lib/session';
 import { db } from '@/lib/db';
 
@@ -167,4 +169,61 @@ export async function disconnect(id: string): Promise<ActionResult> {
      where id = ${id} and workspace_id = ${ws}`), { db: database });
   revalidatePath('/market/connections');
   return { ok: true };
+}
+
+/**
+ * Pulls Search Console now, rather than waiting for the six-hourly sweep.
+ *
+ * It runs the *same* `syncSearchConsole` the cron runs — so the button and the
+ * background job cannot disagree about what Google said, which is the mistake
+ * the domain "Check now" button originally made.
+ *
+ * Then recomputes, because the finders compare windows: new rows without a
+ * recompute means fresh data and a stale answer, which is worse than neither.
+ */
+export async function syncNow(connectionId: string): Promise<ActionResult<{
+  days: number; rows: number; opportunities: number;
+}>> {
+  const { ws, database } = await ctx();
+
+  const outcome = await withWorkspace(ws, async (tx) => {
+    const result = await syncSearchConsole(tx, { workspaceId: ws, connectionId }, {
+      oauth: {
+        clientId: process.env.GOOGLE_CLIENT_ID ?? '',
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
+      },
+      decrypt: (encrypted) => JSON.parse(decryptCredential(encrypted)) as GoogleCredentials,
+      encrypt: (credentials) => encryptCredential(JSON.stringify(credentials)),
+    });
+    if (result.failed) return { result, opportunities: 0 };
+
+    const projectId = await defaultProject(tx, ws);
+    const found = await recomputeOpportunities(tx, { workspaceId: ws, projectId });
+    return { result, opportunities: found.found };
+  }, { db: database });
+
+  revalidatePath('/market/connections');
+  revalidatePath('/market/opportunities');
+
+  if (outcome.result.failed) {
+    const { reason, message } = outcome.result.failed;
+    return {
+      ok: false,
+      error:
+        reason === 'misconfigured'
+          // An operator's problem, not the customer's, and saying which is the
+          // difference between a support ticket and a config change.
+          ? `${message} This is an instance setting, not something you can fix from here.`
+          : reason === 'rate_limited'
+            ? `${message} Google is pacing us — the scheduled sync will pick up where this stopped.`
+            : message,
+    };
+  }
+
+  return {
+    ok: true,
+    days: outcome.result.days,
+    rows: outcome.result.rows,
+    opportunities: outcome.opportunities,
+  };
 }

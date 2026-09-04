@@ -77,6 +77,9 @@ importers:
       '@mamal/geo':
         specifier: workspace:*
         version: link:../../packages/geo
+      '@mamal/integrations':
+        specifier: workspace:*
+        version: link:../../packages/integrations
       '@mamal/jobs':
         specifier: workspace:*
         version: link:../../packages/jobs
@@ -672,12 +675,18 @@ importers:
 
   services/worker-core:
     dependencies:
+      '@mamal/ai':
+        specifier: workspace:*
+        version: link:../../packages/ai
       '@mamal/db':
         specifier: workspace:*
         version: link:../../packages/db
       '@mamal/domains':
         specifier: workspace:*
         version: link:../../packages/domains
+      '@mamal/integrations':
+        specifier: workspace:*
+        version: link:../../packages/integrations
       '@mamal/retention':
         specifier: workspace:*
         version: link:../../packages/retention
@@ -687,6 +696,9 @@ importers:
       '@mamal/tool-confirm':
         specifier: workspace:*
         version: link:../../tools/confirm
+      '@mamal/tool-market':
+        specifier: workspace:*
+        version: link:../../tools/market
       drizzle-orm:
         specifier: ^0.45.2
         version: 0.45.2(kysely@0.29.5)(postgres@3.4.9)

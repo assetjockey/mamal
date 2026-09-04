@@ -313,6 +313,56 @@ path that does the writing — so a clean check cannot be followed by a surprise
 
 ---
 
+## Search Console data looks wrong or missing
+
+```bash
+pnpm --filter @mamal/worker-core market      # sync, then recompute
+```
+
+```sql
+select provider, display_name, status, last_error, last_synced_at, expires_at
+  from market_connections where provider = 'google_search_console';
+
+select connection_id, min(captured_on), max(captured_on), count(*)
+  from market_search_performance group by connection_id;
+```
+
+Three behaviours surprise people, and all three are deliberate:
+
+- **The newest data is three days old.** Search Console publishes late and
+  publishes *partial* first. `dataState: 'final'` and a three-day lag mean we
+  never store a half-formed day — because a partial day compared against a
+  complete one reads as a traffic collapse.
+- **Every run re-fetches the last five complete days.** Those days are still
+  being revised as late attribution lands, so the sync overwrites rather than
+  appends. There is no "nothing to do" state while a property has data; six
+  requests a day is the price of not permanently understating the most recent
+  week.
+- **Several countries collapse into one row.** The stored key is
+  `(connection, day, query, page, device)` — an opportunity is about a page and
+  a query, not a market — so per-country rows are summed with an
+  impression-weighted position before insert.
+
+**Status tells you whose problem it is:**
+
+| Status | Cause | Who fixes it |
+|---|---|---|
+| `expired` | 401; the token needs refreshing | Us, automatically, next run |
+| `revoked` | `invalid_grant` — password change, revocation, six months idle | The customer, by reconnecting |
+| `error` | 403/404, or credentials that will not decrypt | The customer, or check `STORAGE_KEK` |
+| `active` with a stale `last_synced_at` | Rate limited, or a 500 | Nobody — it resumes |
+
+A rate limit **never** marks the connection broken. Doing so would train people
+to ignore the badge that is supposed to mean "you must act". Same for a missing
+`GOOGLE_CLIENT_ID`: that is an operator's configuration, and sending every
+customer to reconnect over it would be the wrong call in the most visible way.
+
+**`last_synced_at` is stamped on claim, not on success.** A sync that crashes is
+therefore not retried by the next scheduler tick — it waits for its interval,
+which is what stops a poison connection from consuming the whole quota.
+
+---
+
 ## A short link is going to the wrong place
 
 Work down the resolver's own order — it is the same order `resolve()` evaluates,

@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import {
   Button, Card, EmptyState, SectionLabel, StatusBadge, useToast, type Status,
 } from '@mamal/ui';
-import { connectProvider, disconnect } from '../actions';
+import { connectProvider, disconnect, syncNow } from '../actions';
 
 export type ConnectionRow = {
   id: string;
@@ -108,7 +108,28 @@ export function ConnectionList({
                     </p>
                   ) : null}
 
-                  <div className="mt-4 flex gap-2 border-t border-[var(--border-hairline)] pt-3">
+                  <div className="mt-4 flex flex-wrap gap-2 border-t border-[var(--border-hairline)] pt-3">
+                    {row.provider === 'google_search_console' ? (
+                      <Button
+                        size="sm" variant="quiet" disabled={pending}
+                        onClick={() => start(async () => {
+                          const result = await syncNow(row.id);
+                          toast(
+                            result.ok
+                              ? {
+                                  kind: 'ok',
+                                  message:
+                                    `Pulled ${result.rows.toLocaleString()} row(s) across ${result.days} day(s). ` +
+                                    `${result.opportunities} opportunit${result.opportunities === 1 ? 'y' : 'ies'} now open.`,
+                                }
+                              : { kind: 'error', message: result.error },
+                          );
+                          router.refresh();
+                        })}
+                      >
+                        Sync now
+                      </Button>
+                    ) : null}
                     <Button
                       size="sm" variant="quiet" disabled={pending}
                       onClick={() => start(async () => {

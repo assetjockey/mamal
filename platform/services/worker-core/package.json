@@ -6,14 +6,18 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "retention": "tsx src/retention.ts",
-    "domains": "tsx src/domains.ts"
+    "domains": "tsx src/domains.ts",
+    "market": "tsx src/market.ts"
   },
   "dependencies": {
+    "@mamal/ai": "workspace:*",
     "@mamal/db": "workspace:*",
     "@mamal/domains": "workspace:*",
+    "@mamal/integrations": "workspace:*",
     "@mamal/retention": "workspace:*",
     "@mamal/tool-audit": "workspace:*",
     "@mamal/tool-confirm": "workspace:*",
+    "@mamal/tool-market": "workspace:*",
     "drizzle-orm": "^0.45.2"
   },
   "devDependencies": {

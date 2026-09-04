@@ -20,6 +20,7 @@
     "@mamal/domains": "workspace:*",
     "@mamal/entitlements": "workspace:*",
     "@mamal/geo": "workspace:*",
+    "@mamal/integrations": "workspace:*",
     "@mamal/jobs": "workspace:*",
     "@mamal/link-catalog": "workspace:*",
     "@mamal/qr": "workspace:*",
