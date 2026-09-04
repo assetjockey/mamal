@@ -21,6 +21,15 @@ export type GenerationResult = {
   externalTaskId?: string;
   url?: string;
   bytes?: Uint8Array;
+  /**
+   * Sources, when the model grounded its answer in them.
+   *
+   * Search-grounded providers return these; the rest do not, and a driver that
+   * cannot ground simply omits the field. It is on the *result* rather than
+   * parsed out of the text because the structured form is authoritative — a
+   * URL in prose may be one the model invented.
+   */
+  citations?: { url: string; title?: string }[];
   /** What we actually consumed — drives the credit true-up. */
   units: number;
   inputTokens: number;

@@ -421,6 +421,12 @@ export const visibilityPrompts = pgTable(
     schedule: varchar({ length: 16 }).notNull().default('weekly'),
     nextRunAt: timestamp({ withTimezone: true }),
     ...timestamps,
+    /*
+     * Soft, because the runs are the evidence behind snapshots already drawn
+     * on the chart. A hard delete cascades them and quietly rewrites months of
+     * share-of-voice history.
+     */
+    ...softDelete,
   },
   (t) => [
     unique('market_ai_prompts_key').on(t.projectId, t.prompt),

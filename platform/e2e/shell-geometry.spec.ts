@@ -24,7 +24,10 @@ const WIDTHS = [
 ];
 
 /** One per tool, plus a table-heavy page and a three-pane editor. */
-const ROUTES = ['/', '/link', '/link/qr', '/link/bio', '/audit', '/confirm', '/settings'];
+const ROUTES = [
+  '/', '/link', '/link/qr', '/link/bio', '/audit', '/confirm', '/settings',
+  '/market/opportunities', '/market/visibility',
+];
 
 test.describe('shell geometry', () => {
   for (const route of ROUTES) {

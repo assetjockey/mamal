@@ -57,14 +57,40 @@ describe('finding a brand in prose', () => {
     expect(reading.brands[0]!.mentioned).toBe(false);
   });
 
-  it('counts an alias as the brand', () => {
+  it('counts an alias as the brand, once', () => {
+    /*
+     * "Acme" is a prefix of "Acme Corporation", so matching each term
+     * separately counts one occurrence twice — and a brand with three aliases
+     * would triple its own share of voice against competitors who have none.
+     */
     const reading = readAnswer(
       answer({ text: 'Acme Corporation makes them.' }),
       [{ name: 'Acme', aliases: ['Acme Corporation'], isSelf: true }],
     );
-    // Both the name and the alias match here, which is the honest count of
-    // how many times the brand appears in the text.
+    expect(reading.brands[0]!.mentions).toBe(1);
+  });
+
+  it('counts genuinely separate occurrences separately', () => {
+    const reading = readAnswer(
+      answer({ text: 'Acme Corporation makes them. Acme also sells parts.' }),
+      [{ name: 'Acme', aliases: ['Acme Corporation'], isSelf: true }],
+    );
     expect(reading.brands[0]!.mentions).toBe(2);
+  });
+
+  it('does not let aliases inflate share of voice', () => {
+    // The bug this guards: an aliased brand out-scoring an unaliased one on
+    // identical prose.
+    const withAliases = readAnswer(
+      answer({ text: 'Acme Corporation and Widgetly are the two options.' }),
+      [
+        { name: 'Acme', aliases: ['Acme Corporation', 'Acme Corp', 'acme.com'], isSelf: true },
+        { name: 'Widgetly', isSelf: false },
+      ],
+    );
+    const acme = withAliases.brands.find((b) => b.brand === 'Acme')!;
+    const widgetly = withAliases.brands.find((b) => b.brand === 'Widgetly')!;
+    expect(acme.mentions).toBe(widgetly.mentions);
   });
 });
 

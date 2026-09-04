@@ -263,6 +263,9 @@ export const marketManifest = defineTool({
   crons: [
     { key: 'market.gsc.sync', schedule: '17 */6 * * *', description: 'Pull Search Console performance' },
     { key: 'market.rank.due', schedule: '*/10 * * * *', description: 'Claim due rank checks' },
+    // Hourly claim, weekly cadence per prompt: the claim pushes `next_run_at`
+    // out on claim, so the sweep is cheap and an outage cannot become a loop.
+    { key: 'market.visibility.due', schedule: '35 * * * *', description: 'Run due AI visibility probes' },
     { key: 'market.opportunities', schedule: '40 4 * * *', description: 'Recompute opportunities' },
     { key: 'market.publish.due', schedule: '* * * * *', description: 'Publish due social posts' },
     { key: 'market.trends', schedule: '*/30 * * * *', description: 'Poll trend watches' },

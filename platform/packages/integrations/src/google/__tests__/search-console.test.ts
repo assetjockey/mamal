@@ -97,7 +97,9 @@ describe('deciding which days to fetch', () => {
 
 describe('querying a day', () => {
   it('reads the flat key array in the order the dimensions were asked for', async () => {
-    const fetchImpl = vi.fn(async () =>
+    // Parameters declared so `mock.calls[n]` is a tuple rather than `[]` —
+    // this mock's arguments are the thing under test.
+    const fetchImpl = vi.fn(async (_url: string, _init?: RequestInit) =>
       ok({
         rows: [
           { keys: ['widget reviews', 'https://example.com/a', 'MOBILE', 'gbr'],
@@ -117,7 +119,7 @@ describe('querying a day', () => {
       date: '2026-03-10',
     }]);
 
-    const body = JSON.parse((fetchImpl.mock.calls[0]![1] as RequestInit).body as string);
+    const body = JSON.parse(fetchImpl.mock.calls[0]![1]!.body as string);
     expect(body.dimensions).toEqual(['query', 'page', 'device', 'country']);
     // `final` excludes still-settling rows; `all` would look like a collapse
     // the moment it is compared against a complete day.
@@ -144,11 +146,11 @@ describe('querying a day', () => {
 
     expect(rows).toHaveLength(25_010);
     expect(fetchImpl).toHaveBeenCalledTimes(2);
-    expect(JSON.parse((fetchImpl.mock.calls[1]![1] as RequestInit).body as string).startRow).toBe(25_000);
+    expect(JSON.parse(fetchImpl.mock.calls[1]![1]!.body as string).startRow).toBe(25_000);
   });
 
   it('stops after one request when the first page is short', async () => {
-    const fetchImpl = vi.fn(async () => ok({ rows: [] }));
+    const fetchImpl = vi.fn(async (_url: string, _init?: RequestInit) => ok({ rows: [] }));
     const client = searchConsoleClient({ accessToken: 'token' }, config(fetchImpl as never));
     expect(await client.queryDay('sc-domain:example.com', '2026-03-10')).toEqual([]);
     expect(fetchImpl).toHaveBeenCalledTimes(1);
@@ -201,7 +203,8 @@ describe('token handling', () => {
      * its second. A refresh that happens slightly early is far easier to reason
      * about than a 401 halfway through a page loop.
      */
-    const fetchImpl = vi.fn(async () => ok({ access_token: 'new', expires_in: 3600 }));
+    const fetchImpl = vi.fn(async (_url: string, _init?: RequestInit) =>
+      ok({ access_token: 'new', expires_in: 3600 }));
     const result = await freshAccessToken(
       { accessToken: 'stale', refreshToken: 'r', expiresAt: Date.now() + 50_000 },
       config(fetchImpl as never),

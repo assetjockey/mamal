@@ -229,7 +229,7 @@ const TOOL_PLANS: PlanSeed[] = [
     { feature: 'market.ai_image', mode: 'credits', creditCost: 8 },
     { feature: 'market.ai_video', mode: 'credits', creditCost: 20 },
     { feature: 'market.ai_blog', mode: 'credits', creditCost: 30 },
-    { feature: 'market.ai_visibility', mode: 'credits', creditCost: 40 },
+    { feature: 'market.ai_visibility', mode: 'credits', creditCost: 10 }, // ×4 models = the advertised 40/probe
   ]),
 
   toolPlan('monitor', 'starter', 1900, 200, [

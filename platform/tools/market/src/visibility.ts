@@ -15,6 +15,8 @@
  * guessing, and a visibility number nobody trusts is worse than none.
  */
 
+import { mentionsOf } from './text.ts';
+
 export type Brand = {
   /** How the brand is written. */
   name: string;
@@ -57,32 +59,11 @@ export type AnswerReading = {
 
 /* ------------------------------------------------------------------ parsing */
 
-/**
- * Finds a brand as a *word*, not as a substring.
- *
- * "Ace" must not match "surface", and a brand called "Go" must not match every
- * sentence containing the verb. Word boundaries around an escaped literal are
- * the whole trick — and the reason this is not a naive `includes`, which is how
- * most visibility tools produce numbers that are quietly nonsense.
- *
- * Boundaries are Unicode-aware: a brand ending in a letter should not match
- * inside a longer word in any script, and `\b` alone is ASCII-only.
+/*
+ * Word matching lives in `text.ts` — the content editor needs exactly the same
+ * Unicode-aware boundaries and the same overlap merging, and two copies of the
+ * trickiest matching logic in the tool would drift.
  */
-function mentionsOf(text: string, term: string): number[] {
-  const needle = term.trim();
-  if (needle.length < 2) return [];
-
-  const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  // `(?<![\p{L}\p{N}])` rather than `\b`: "Café" and "Ω-corp" have boundaries
-  // that ASCII `\b` gets wrong in both directions.
-  const pattern = new RegExp(`(?<![\\p{L}\\p{N}])${escaped}(?![\\p{L}\\p{N}])`, 'giu');
-
-  const out: number[] = [];
-  for (const match of text.matchAll(pattern)) {
-    if (match.index !== undefined) out.push(match.index);
-  }
-  return out;
-}
 
 /** `https://www.Example.com/x` and `example.com` are the same host. */
 export function hostOf(url: string): string {
@@ -105,8 +86,7 @@ export function readAnswer(answer: ModelAnswer, brands: Brand[]): AnswerReading 
   const citations = answer.citations ?? [];
 
   const readings: BrandReading[] = brands.map((brand) => {
-    const terms = [brand.name, ...(brand.aliases ?? [])];
-    const offsets = terms.flatMap((term) => mentionsOf(answer.text, term)).sort((a, b) => a - b);
+    const offsets = mentionsOf(answer.text, [brand.name, ...(brand.aliases ?? [])]);
 
     const citedUrls = brand.domain
       ? citations

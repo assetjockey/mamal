@@ -22,11 +22,12 @@
     "@mamal/resources": "workspace:*",
     "@mamal/tool-kit": "workspace:*",
     "drizzle-orm": "^0.45.2",
+    "marked": "^18.0.11",
     "zod": "^4.5.4"
   },
   "devDependencies": {
+    "tsx": "^4.20.6",
     "typescript": "^5.9.3",
-    "vitest": "^4.1.11",
-    "tsx": "^4.20.6"
+    "vitest": "^4.1.11"
   }
 }

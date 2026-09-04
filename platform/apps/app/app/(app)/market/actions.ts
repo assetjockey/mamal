@@ -5,10 +5,11 @@ import { redirect } from 'next/navigation';
 import { sql } from 'drizzle-orm';
 import { withWorkspace } from '@mamal/db';
 import {
-  createRankConfig, recomputeOpportunities, saveConnection, setOpportunityStatus,
-  syncSearchConsole, trackKeywords, upsertKeywords, MarketNotAllowed,
+  addPrompt, createRankConfig, deleteCompetitor, deletePrompt, recomputeOpportunities,
+  runVisibilityProbes, saveCompetitor, saveConnection, setOpportunityStatus, setPromptTracked,
+  setSelfBrand, syncSearchConsole, trackKeywords, upsertKeywords, MarketNotAllowed,
 } from '@mamal/tool-market';
-import { decryptCredential, encryptCredential } from '@mamal/ai';
+import { decryptCredential, driverFor, encryptCredential } from '@mamal/ai';
 import type { GoogleCredentials } from '@mamal/integrations';
 import { getSession } from '@/lib/session';
 import { db } from '@/lib/db';
@@ -226,4 +227,124 @@ export async function syncNow(connectionId: string): Promise<ActionResult<{
     rows: outcome.result.rows,
     opportunities: outcome.opportunities,
   };
+}
+
+/* ------------------------------------------------------------- visibility */
+
+export async function addVisibilityPrompt(
+  prompt: string,
+  schedule: 'daily' | 'weekly' | 'monthly',
+): Promise<ActionResult<{ id: string }>> {
+  const { ws, database } = await ctx();
+  const result = await attempt(() =>
+    withWorkspace(ws, async (tx) => {
+      const projectId = await defaultProject(tx, ws);
+      return addPrompt(tx, { workspaceId: ws, projectId, prompt, schedule });
+    }, { db: database }),
+  );
+  if (!result.ok) return result;
+  revalidatePath('/market/visibility');
+  return { ok: true, id: result.value };
+}
+
+export async function toggleVisibilityPrompt(
+  promptId: string,
+  tracked: boolean,
+): Promise<ActionResult> {
+  const { ws, database } = await ctx();
+  const result = await attempt(() =>
+    withWorkspace(ws, async (tx) => {
+      const projectId = await defaultProject(tx, ws);
+      await setPromptTracked(tx, { workspaceId: ws, projectId, promptId, tracked });
+    }, { db: database }),
+  );
+  if (!result.ok) return result;
+  revalidatePath('/market/visibility');
+  return { ok: true };
+}
+
+export async function removeVisibilityPrompt(promptId: string): Promise<ActionResult> {
+  const { ws, database } = await ctx();
+  const result = await attempt(() =>
+    withWorkspace(ws, async (tx) => {
+      const projectId = await defaultProject(tx, ws);
+      await deletePrompt(tx, { projectId, promptId });
+    }, { db: database }),
+  );
+  if (!result.ok) return result;
+  revalidatePath('/market/visibility');
+  return { ok: true };
+}
+
+export async function saveVisibilityBrand(
+  brand: string,
+  domain: string,
+  isSelf: boolean,
+): Promise<ActionResult<{ id: string }>> {
+  const { ws, database } = await ctx();
+  const result = await attempt(() =>
+    withWorkspace(ws, async (tx) => {
+      const projectId = await defaultProject(tx, ws);
+      return saveCompetitor(tx, { workspaceId: ws, projectId, brand, domain, isSelf });
+    }, { db: database }),
+  );
+  if (!result.ok) return result;
+  revalidatePath('/market/visibility');
+  return { ok: true, id: result.value };
+}
+
+export async function setVisibilitySelf(competitorId: string): Promise<ActionResult> {
+  const { ws, database } = await ctx();
+  const result = await attempt(() =>
+    withWorkspace(ws, async (tx) => {
+      const projectId = await defaultProject(tx, ws);
+      await setSelfBrand(tx, { projectId, competitorId });
+    }, { db: database }),
+  );
+  if (!result.ok) return result;
+  revalidatePath('/market/visibility');
+  return { ok: true };
+}
+
+export async function removeVisibilityBrand(competitorId: string): Promise<ActionResult> {
+  const { ws, database } = await ctx();
+  const result = await attempt(() =>
+    withWorkspace(ws, async (tx) => {
+      const projectId = await defaultProject(tx, ws);
+      await deleteCompetitor(tx, { projectId, competitorId });
+    }, { db: database }),
+  );
+  if (!result.ok) return result;
+  revalidatePath('/market/visibility');
+  return { ok: true };
+}
+
+/**
+ * Run the probes now, from the button.
+ *
+ * The cost is stated before the click, not discovered after: four assistants
+ * at ten credits each, times the number of tracked prompts. `runVisibilityProbes`
+ * holds and releases per call, so an assistant that never answers costs nothing
+ * — but the *estimate* has to be the worst case or it is not a warning.
+ */
+export async function runVisibilityNow(): Promise<ActionResult<{
+  answered: number; failed: number; probes: number; problem: string | null;
+  unavailable: { assistant: string; reason: string }[];
+}>> {
+  const { ws, database } = await ctx();
+
+  const result = await attempt(() =>
+    withWorkspace(ws, async (tx) => {
+      const projectId = await defaultProject(tx, ws);
+      return runVisibilityProbes(tx, { workspaceId: ws, projectId }, {
+        driverFor,
+        decrypt: decryptCredential,
+      });
+    }, { db: database }),
+  );
+  if (!result.ok) return result;
+
+  revalidatePath('/market/visibility');
+  const { answered, failed, probes, problem, unavailable } = result.value;
+  return { ok: true, answered, failed, probes, problem, unavailable };
 }

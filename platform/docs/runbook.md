@@ -363,6 +363,75 @@ which is what stops a poison connection from consuming the whole quota.
 
 ---
 
+## AI visibility numbers look wrong, or a model is missing
+
+```bash
+pnpm --filter @mamal/worker-core market-visibility   # claim due prompts and run them
+```
+
+```sql
+-- What was asked, and what came back.
+select p.prompt, r.model, r.status, r.brand_mentioned, r.mention_position, r.error, r.created_at
+  from market_ai_prompt_runs r
+  join market_ai_prompts p on p.id = r.prompt_id
+ where p.project_id = :project
+ order by r.created_at desc limit 40;
+
+-- The tracked set. Exactly one row must have is_self.
+select brand, domain, is_self from market_ai_competitors where project_id = :project;
+```
+
+**A blank column means "not asked", never "never mentioned".** The two are very
+different claims and the UI says which. An assistant is skipped when no enabled
+model exists for its provider — `perplexity` has no seeded provider at all, so
+it is skipped on every instance until an admin adds one. Check with:
+
+```sql
+select m.provider_key, m.model_id, m.is_enabled, p.is_enabled as provider_enabled
+  from ai_models m join ai_providers p on p.key = m.provider_key
+ where m.modality = 'text';
+```
+
+**The assistant is the dimension, not the model.** `market_ai_prompt_runs.model`
+holds `claude` / `chatgpt` / `gemini` / `perplexity`, and which concrete model
+answers is an operator's choice in the AI registry. That is deliberate: swapping
+Sonnet for Opus must not fragment a year of history into two series. The mapping
+lives in `ASSISTANTS` in `tools/market/src/visibility-runner.ts`.
+
+**Why a run costs what it costs.** Ten credits per assistant per prompt, so a
+four-assistant probe is the 40 the price list advertises. Twelve tracked prompts
+is 480 credits a run — which is why the button states the estimate before the
+click and why the cadence is weekly by default. Credits are *held* and released
+per model call, so an assistant that never answers costs nothing.
+
+**One model failing must never blank the comparison.** Each is settled
+independently; a failure is stored as a `failed` run with its reason rather
+than thrown. If every model failed, look at `error` on those rows before
+suspecting the runner.
+
+**`next_run_at` moves on claim, not on success.** A provider outage therefore
+costs one wasted claim rather than a retry loop that drains the balance. A
+prompt that looks stuck for an hour after a failure is behaving correctly.
+
+Two configuration problems refuse the whole project *before* spending anything,
+and both say so in the UI:
+
+| Symptom | Cause |
+|---|---|
+| "No brand is marked as yours" | Share of voice has no numerator. Mark one. |
+| "N brands are marked as yours" | The ratio is meaningless with several. |
+
+**Share of voice counts mentions, not answers.** A model that names a competitor
+three times and you once in the same answer has told you something, and counting
+each answer as one vote would hide it. Aliases are merged before counting — a
+brand with three spellings cannot inflate its own share by matching each one.
+
+**A deleted prompt keeps its runs.** `deleted_at` is set and `is_tracked`
+cleared; the answers stay, because they are the evidence behind snapshots
+already drawn on the chart.
+
+---
+
 ## A short link is going to the wrong place
 
 Work down the resolver's own order — it is the same order `resolve()` evaluates,

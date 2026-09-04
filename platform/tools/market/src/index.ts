@@ -29,3 +29,98 @@ export {
   type SyncResult,
   type SyncDeps,
 } from './sync.ts';
+export {
+  readAnswer,
+  summarise,
+  isNotableShift,
+  buildProbe,
+  prepareBrands,
+  hostOf,
+  type Brand,
+  type ModelAnswer,
+  type AnswerReading,
+  type BrandReading,
+  type VisibilitySnapshot,
+} from './visibility.ts';
+export {
+  runVisibilityProbes,
+  claimDuePrompts,
+  citedSources,
+  urlsIn,
+  ASSISTANTS,
+  DEFAULT_MODELS,
+  type ProbeResult,
+  type RunVisibilityResult,
+} from './visibility-runner.ts';
+export {
+  addPrompt,
+  setPromptTracked,
+  deletePrompt,
+  saveCompetitor,
+  setSelfBrand,
+  deleteCompetitor,
+  listPrompts,
+  listCompetitors,
+  visibilityOverview,
+  promptAnswers,
+  type PromptRow,
+  type CompetitorRow,
+  type VisibilityOverview,
+} from './visibility-service.ts';
+export {
+  parseBody,
+  scoreContent,
+  readingEase,
+  syllablesIn,
+  wordsOf,
+  DENSITY_BAND,
+  type Check,
+  type ContentScore,
+  type Doc,
+  type Brief,
+  type Parsed,
+} from './content-score.ts';
+export {
+  createDoc,
+  saveDoc,
+  deleteDoc,
+  listDocs,
+  getDoc,
+  saveBrief,
+  briefFromSearchConsole,
+  saveDestination,
+  slugify,
+  DESTINATION_KINDS,
+  type DocRow,
+  type SaveResult,
+} from './content.ts';
+export {
+  diffTrends,
+  worthWriting,
+  snapshotKey,
+  MIN_INTEREST,
+  BASELINE_STALE_DAYS,
+  type Reading,
+  type Snapshot,
+  type Shift,
+  type DiffResult,
+} from './trends.ts';
+export { appearsIn, appearsInflected, mentionsOf, spansOf } from './text.ts';
+export {
+  runPipeline,
+  nextTrigger,
+  claimDuePipelines,
+  pendingPublishes,
+  type PipelineRow,
+  type Trigger,
+  type RunOutcome,
+} from './pipelines.ts';
+export {
+  runWatch,
+  claimDueWatches,
+  saveWatch,
+  listWatches,
+  type TrendSource,
+  type WatchRow,
+  type WatchOutcome,
+} from './trends-runner.ts';

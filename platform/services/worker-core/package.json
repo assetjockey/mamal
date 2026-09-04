@@ -7,7 +7,8 @@
     "typecheck": "tsc --noEmit",
     "retention": "tsx src/retention.ts",
     "domains": "tsx src/domains.ts",
-    "market": "tsx src/market.ts"
+    "market": "tsx src/market.ts",
+    "market-visibility": "tsx src/market-visibility.ts"
   },
   "dependencies": {
     "@mamal/ai": "workspace:*",

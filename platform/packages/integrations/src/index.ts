@@ -14,3 +14,14 @@ export {
   type SearchConsoleClient,
   type SearchAnalyticsRow,
 } from './google/search-console.ts';
+export {
+  wordpressPublisher,
+  ghostPublisher,
+  shopifyPublisher,
+  webhookPublisher,
+  PublishError,
+  type Publisher,
+  type PublishInput,
+  type PublishResult,
+  type PublishFailure,
+} from './cms/publish.ts';

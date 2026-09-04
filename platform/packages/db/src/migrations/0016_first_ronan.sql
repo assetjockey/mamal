@@ -1,0 +1,1 @@
+ALTER TABLE "market_ai_prompts" ADD COLUMN "deleted_at" timestamp with time zone;

@@ -148,8 +148,12 @@ export const FEATURES: FeatureSeed[] = [
     isAi: true, defaultCreditCost: 3, unit: 'call' },
   { key: 'market.ai_insight', tool: 'market', name: 'AI ad insight', kind: 'metered',
     isAi: true, defaultCreditCost: 20, unit: 'call' },
+  // Priced per MODEL, not per probe. The price list advertises "prompt-visibility
+  // probe (4 models) — 40 credits", and a probe is four separate `ai.execute`
+  // calls; charging the headline figure on each would bill 160 for the thing
+  // the pricing page sells at 40.
   { key: 'market.ai_visibility', tool: 'market', name: 'AI visibility probes', kind: 'metered',
-    isAi: true, defaultCreditCost: 40, unit: 'call' },
+    isAi: true, defaultCreditCost: 10, unit: 'call' },  // one call = one model asked
 
   // ----------------------------------------------------------------- monitor
   { key: 'monitor.monitors', tool: 'monitor', name: 'Monitors', kind: 'limit', freeTierAllowed: true },
