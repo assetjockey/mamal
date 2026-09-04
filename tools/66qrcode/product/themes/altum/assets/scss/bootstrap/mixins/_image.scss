@@ -1,0 +1,50 @@
+/*
+ * Copyright (c) 2026 AltumCode (https://altumcode.com/)
+ *
+ * This software is proprietary software owned and licensed by AltumCode.
+ * A valid license is required to use, modify, or distribute this software.
+ * Unauthorized use, reproduction, modification, or distribution is prohibited.
+ *
+ * 🌍 Explore all AltumCode projects: https://altumcode.com/
+ * 📧 Support & general inquiries: https://altumcode.com/contact
+ * 📤 Download the latest version: https://altumcode.com/downloads
+ *
+ * 🐦 X/Twitter: https://x.com/AltumCode
+ */
+
+// Image Mixins
+// - Responsive image
+// - Retina image
+
+
+// Responsive image
+//
+// Keep images from scaling beyond the width of their parents.
+
+@mixin img-fluid() {
+  // Part 1: Set a maximum relative to the parent
+  max-width: 100%;
+  // Part 2: Override the height to auto, otherwise images will be stretched
+  // when setting a width and height attribute on the img element.
+  height: auto;
+}
+
+
+// Retina image
+//
+// Short retina mixin for setting background-image and -size.
+
+@mixin img-retina($file-1x, $file-2x, $width-1x, $height-1x) {
+  background-image: url($file-1x);
+
+  // Autoprefixer takes care of adding -webkit-min-device-pixel-ratio and -o-min-device-pixel-ratio,
+  // but doesn't convert dppx=>dpi.
+  // There's no such thing as unprefixed min-device-pixel-ratio since it's nonstandard.
+  // Compatibility info: https://caniuse.com/css-media-resolution
+  @media only screen and (min-resolution: 192dpi), // IE9-11 don't support dppx
+    only screen and (min-resolution: 2dppx) { // Standardized
+    background-image: url($file-2x);
+    background-size: $width-1x $height-1x;
+  }
+  @include deprecate("`img-retina()`", "v4.3.0", "v5");
+}

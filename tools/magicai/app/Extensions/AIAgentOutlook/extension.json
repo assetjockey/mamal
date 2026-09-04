@@ -1,0 +1,6 @@
+{
+    "name": "AI Agent: Outlook",
+    "type": "extension",
+    "version": "1.0",
+    "description": "Integrates Microsoft Outlook with AIAgent: mail, calendar, and contacts management via Microsoft Graph API."
+}

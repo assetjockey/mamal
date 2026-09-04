@@ -1,0 +1,29 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "mamal-app",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--dir",
+        "platform",
+        "--filter",
+        "@mamal/app",
+        "dev"
+      ],
+      "port": 3000
+    },
+    {
+      "name": "mamal-worker-audit",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--dir",
+        "platform",
+        "--filter",
+        "@mamal/worker-audit",
+        "start"
+      ],
+      "port": 3999
+    }
+  ]
+}

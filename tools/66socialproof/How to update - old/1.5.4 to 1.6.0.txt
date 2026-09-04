@@ -1,0 +1,68 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+FILE CHANGES
+———————————————————
+This update is massive and all the files have been touched or changed.
+
+Replace all the folders / files except the "uploads" folder, "install" folder and the "app/config/config.php" file.
+
+
+DATABASE CHANGES 
+--------------------
+IMPORTANT: MAKE SURE YOU BACKUP YOUR DATABASE JUST TO BE SAFE. 
+
+You will have to run the following queries into your database. 
+
+You can run those with PhpMyAdmin -> selecting the database -> going to the SQL tab and running the following mysql query.
+
+
+COPY & RUN THE FOLLOWING QUERIES
+--------
+update settings set `key` = 'default_timezone' WHERE `key` = 'time_zone';
+create index track_conversions_date_index on track_conversions (date);
+create index track_logs_last_date_index on track_logs (last_date);
+create index track_notifications_date_index on track_notifications (date);
+create index campaigns_domain_index on campaigns (domain);
+alter table users add timezone varchar(16) default 'UTC';
+alter table users modify timezone varchar(32) default 'UTC' null;
+CREATE TABLE `pages_categories` (
+  `pages_category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `url` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `title` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `description` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT '',
+  `icon` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `order` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`pages_category_id`),
+  KEY `url` (`url`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+alter table pages add pages_category_id int null after page_id;
+create index pages_pages_category_id_index on pages (pages_category_id);
+create index pages_url_index on pages (url);
+alter table pages add constraint pages_pages_categories_pages_category_id_fk foreign key (pages_category_id) references pages_categories (pages_category_id) on update cascade on delete cascade;
+alter table pages add `order` int default 0 null;
+alter table pages add total_views int default 0 null;
+alter table pages modify title varchar(64) default '' not null after url;
+alter table pages change description content text null;
+alter table pages add description varchar(128) null after title;
+alter table pages add date datetime null;
+alter table pages add last_date datetime null;
+update pages set date = now(), last_date = now();
+--------
+
+
+
+COPY & RUN THE FOLLOWING QUERIES ONLY IF YOU HAVE THE EXTENDED LICENSE
+--------
+alter table payments add code varchar(32) null after plan;
+alter table payments modify date datetime null after amount;
+--------
+
+
+LAST STEP
+--------------------
+To update and get the Coupons / Codes system you need to go to the Admin panel -> Settings -> License tab and re-enter your license and update it.
+
+The coupons system is only available for Extended License users.

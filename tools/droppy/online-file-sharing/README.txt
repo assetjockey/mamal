@@ -1,0 +1,1 @@
+If you're experiencing any issues with Droppy then make sure to check the available articles at https://support.proxibolt.com

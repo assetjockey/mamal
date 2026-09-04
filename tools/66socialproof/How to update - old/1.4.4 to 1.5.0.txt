@@ -1,0 +1,88 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+FILE CHANGES
+———————————————————
+1. THE EASIEST WAY
+Replace all the folders / files except the "uploads" folder, "install" folder and the "app/config/config.php" file.
+
+2. THE ADVANCED WAY
+Copy/Paste the following files, replace if needed.
+
+app/controllers/Account.php
+app/controllers/Campaign.php
+app/controllers/CampaignsAjax.php
+app/controllers/Dashboard.php
+app/controllers/Notification.php
+app/controllers/NotificationDataAjax.php
+app/controllers/NotificationsAjax.php
+app/controllers/Pixel.php
+app/controllers/PixelTrack.php
+app/controllers/WebhookPaypal.php
+app/controllers/WebhookStripe.php
+app/controllers/admin/AdminStatistics.php
+app/controllers/admin/AdminUserUpdate.php
+app/controllers/admin/AdminUsers.php
+app/core/App.php
+app/core/Controller.php
+app/core/Database.php
+app/core/Model.php
+app/core/View.php
+app/helpers/Date.php
+app/helpers/others.php
+app/helpers/strings.php
+app/includes/notifications.php
+app/includes/product.php
+app/init.php
+app/languages/english.json
+app/models/Package.php
+app/models/User.php
+app/traits/Paramsable.php
+themes/altum/assets/css/admin-custom.css
+themes/altum/assets/css/custom.css
+themes/altum/assets/css/fontawesome.min.css
+themes/altum/assets/css/pixel.css
+themes/altum/assets/css/pixel/base.css
+themes/altum/assets/js/functions.js
+themes/altum/assets/js/pixel-header.js
+themes/altum/views/account/index.php
+themes/altum/views/admin/index/index.php
+themes/altum/views/admin/package-create/index.php
+themes/altum/views/admin/package-update/index.php
+themes/altum/views/admin/packages/index.php
+themes/altum/views/admin/page-create/index.php
+themes/altum/views/admin/page-update/index.php
+themes/altum/views/admin/settings/index.php
+themes/altum/views/admin/statistics/index.php
+themes/altum/views/admin/user-update/index.php
+themes/altum/views/admin/user-view/index.php
+themes/altum/views/admin/wrapper.php
+themes/altum/views/campaign/create_campaign_modal.php
+themes/altum/views/campaign/custom_branding_campaign_modal.php
+themes/altum/views/campaign/index.php
+themes/altum/views/campaign/update_campaign_modal.php
+themes/altum/views/dashboard/index.php
+themes/altum/views/login/index.php
+themes/altum/views/lost-password/index.php
+themes/altum/views/notification-create/index.php
+themes/altum/views/notification/ - WHOLE FOLDER
+themes/altum/views/partials/ - WHOLE FOLDER
+themes/altum/views/pay/index.php
+themes/altum/views/register/index.php
+themes/altum/views/resend-activation/index.php
+themes/altum/views/reset-password/index.php
+themes/altum/views/wrapper.php
+
+DATABASE CHANGES 
+--------------------
+IMPORTANT: MAKE SURE YOU BACKUP YOUR DATABASE JUST TO BE SAFE. 
+
+You will have to run the following queries into your database. 
+
+You can run those with PhpMyAdmin -> selecting the database -> going to the SQL tab and running the following mysql query.
+
+
+alter table campaigns add include_subdomains int default 0 null after domain;
+

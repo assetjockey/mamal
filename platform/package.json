@@ -1,0 +1,40 @@
+{
+  "name": "mamal",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.24.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "eslint .",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test --concurrency=1",
+    "db:generate": "pnpm --filter @mamal/db generate",
+    "db:migrate": "pnpm --filter @mamal/db migrate",
+    "db:seed": "pnpm --filter @mamal/db seed",
+    "db:reset": "pnpm --filter @mamal/db reset",
+    "ci:check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build && node scripts/build-matrix.mjs && node scripts/check-nav.mjs",
+    "db:test:setup": "pnpm --filter @mamal/db test:setup",
+    "e2e": "playwright test",
+    "load": "node scripts/load.mjs",
+    "a11y": "playwright test e2e/a11y.spec.ts"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@mamal/db": "workspace:*",
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.4.1",
+    "axe-core": "^4.13.0",
+    "drizzle-orm": "^0.45.2",
+    "eslint": "^10.9.1",
+    "prettier": "^3.9.6",
+    "tsx": "^4.23.13",
+    "turbo": "^2.10.12",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.69.0",
+    "vitest": "^4.1.11"
+  }
+}

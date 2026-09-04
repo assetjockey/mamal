@@ -1,0 +1,4 @@
+name,target,project_id,server_check_interval_seconds,notifications,alert_metric[0],alert_rule[0],alert_value[0],alert_trigger[0],alert_metric[1],alert_rule[1],alert_value[1],alert_trigger[1]
+Server A,1.1.1.1,1,300,"1","cpu_usage","is_higher","80","5","ram_usage","is_lower","20","3"
+Server B,example-server.net,2,600,"1,2","disk_usage","is_higher","90","5","","","",""
+Server C,192.168.1.10,,900,"3","cpu_usage","is_higher","85","4","","","",""

@@ -1,0 +1,11 @@
+{
+    "name": "AppShortLinkApi",
+    "alias": "appshortlinkapi",
+    "description": "API keys and webhooks for short-link SaaS workflows.",
+    "keywords": ["short links", "api", "webhooks"],
+    "priority": 1,
+    "providers": [
+        "Modules\\AppShortLinkApi\\Providers\\AppShortLinkApiServiceProvider"
+    ],
+    "files": []
+}

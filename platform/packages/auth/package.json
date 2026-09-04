@@ -1,0 +1,28 @@
+{
+  "name": "@mamal/auth",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./client": "./src/client.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "mint-key": "tsx scripts/mint-key.ts"
+  },
+  "dependencies": {
+    "@mamal/db": "workspace:*",
+    "better-auth": "^1.7.2",
+    "drizzle-orm": "^0.45.2",
+    "@mamal/entitlements": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.11",
+    "tsx": "^4.20.6"
+  }
+}

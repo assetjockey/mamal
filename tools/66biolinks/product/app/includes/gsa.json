@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "altumcodedev",
+  "private_key_id": "502ec8444fb3abfcd1c970da3991e3f3fcc96ad4",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQC4ayiPIpYlrNvD\nWSUcO0bY6G0hgwWpzh6ZD5NT6ZABHm5AzHjQqEI7q1QnWhM1Z/ZR0wy6MnaGeC+8\nha/dEa35nCYbR9tPRjrtYVVLDX0waZ/LdbHBZKye95zBvf0lHlYvB+KhRnESnyYP\nqcuEC61fz4qkJV5sLiWRBOiL0kvN75s4XXIXf9915TKPLC62h4f+0Cu21ExsN0lg\n48aFCuH/tFsY2NqCYedAQNoGxZscUheolbgxZ3SO5v3CY5O701QRz4pB6deN5Yp6\nyx5yUWHxUJwprU1gkOlmYM1avc4qMwK5TkrJ3BtR2dqO1lYl+zRhVFdQkljCkIsX\n4Hudtt5rAgMBAAECggEACwhxXYujXlwNE1uawMM7GQouttNXD2WcpwOR7z88TxTT\nyJFzDBveeogxeXk5SCsQ4KxQfDZwqNk5e30NnGgzKryQx9w9eDl3ZQqhrUlm5/KQ\nJzGPXnnFA6DeTyj5CbN0hhouqmXDqTckPv0/IIZvHoBIILHe1RIEGInDb9Odyizy\nMSn5XuxQHKYg5DiybXxFhqn79pCEyCZZOcE7Q+1BO5jSu6HNgSF708NDED6cg//F\n3fxyi+wzbFmlbpwzKD0oiZiYNOxvNwkmIeEaHdw1RasZZDo1euvDefapuAfNfyYh\nUWI310rB5tCBiK9NywVs1rigZFIzEs0utCw1ucx0gQKBgQDyTqKcIFPTNHoas6eW\nPF2Jm+1B3FhnNXG2WRurb/OCxgkBD9QQa5uUtQPPUrEkCe4OhPslpQfJCKdHGLoV\nlkNWs3f7nsB3gkRhZ+w8AfKbr39pbN/MZqd/H13RAxC4bHYJfVRirQzt3IcN/zUc\n0IPMRUP0AREwYOFa3m6qagV30QKBgQDC1xJEYeGSl2gD6EOMN2Oe0Jw5ycovV8nR\n6eZjJGoJCQ/NftL8+4WyyE64rPigetckf9rj57Vt2h6VymkudfuKo5U7ibviF05l\nupewhL8ZSp7agXBCOKsZkTOINOSqurujIbuQQqqJIZdpf9pCN/PxNwaS1YZrssmS\nplHHMtG9ewKBgQDrtweFLgWdrq0iEKb1BaBQ37j8muf87wbBxwmdyvhuvUvBFq7L\nkoL1NOqR4vWkA2zr/v16b4KVVK+2AB32Jgk37LrJsnO1TqpKv5gWACcMwLsHyfwk\nkbBbgB352CuJ3SkurhdLLuEm+6L+QMhgUZAFRVSHqAoasARKK5wod57+IQKBgQCl\n2DuMSWSgSpAXA1S7vUnmnNrdtY2LzsXTD60zJoO7PSNeX11oSQ/8pdOcDl9y+hy2\nzL2c0FX2M3tlNO1ixrpdv+/+xbZPNFde7/y+G8At3v5oL1VGiMXa9WVPwvYA/QFK\nUiQ9HwHZx+YBvvog80+JOrU1ttq8QWqikT96tx8gkQKBgQCXgzX8QeWc6+STd56b\nmo1jpRU9NjPlLAkLjf5MyqVoA+9PChOZsIKg0PVy0mwrtxft/YUeyYUv8aN+9bRf\nzOAnHO8Luv0/miqhRtMJCizTrYlcZegSJqEJkIS+pnJdIoxcDSX5rud3kBrbCIfC\nZdVUdkl4BW0IsWhHXMnZSK9r4Q==\n-----END PRIVATE KEY-----\n",
+  "client_email": "google-wallet@altumcodedev.iam.gserviceaccount.com",
+  "client_id": "115182462600674002146",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/google-wallet%40altumcodedev.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

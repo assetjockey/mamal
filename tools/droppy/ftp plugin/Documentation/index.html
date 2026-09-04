@@ -1,0 +1,260 @@
+<!doctype html>  
+<!--[if IE 6 ]><html lang="en-us" class="ie6"> <![endif]-->
+<!--[if IE 7 ]><html lang="en-us" class="ie7"> <![endif]-->
+<!--[if IE 8 ]><html lang="en-us" class="ie8"> <![endif]-->
+<!--[if (gt IE 7)|!(IE)]><!-->
+<html lang="en-us"><!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	
+	<title>FTP plugin - Droppy online file sharing</title>
+	
+	<meta name="description" content="">
+	<meta name="author" content="Proxibolt">
+	<meta name="copyright" content="Proxibolt">
+	<meta name="generator" content="Documenter v2.0 http://rxa.li/documenter">
+	<meta name="date" content="2019-03-02T00:00:00+01:00">
+	
+	<link rel="stylesheet" href="assets/css/documenter_style.css" media="all">
+	
+	
+	
+	<script src="assets/js/jquery.js"></script>
+	
+	<script src="assets/js/jquery.scrollTo.js"></script>
+	<script src="assets/js/jquery.easing.js"></script>
+	
+	<script>document.createElement('section');var duration='500',easing='swing';</script>
+	<script src="assets/js/script.js"></script>
+	
+	<style>
+		html{background-color:#FFFFFF;color:#383838;}
+		::-moz-selection{background:#444444;color:#DDDDDD;}
+		::selection{background:#444444;color:#DDDDDD;}
+		#documenter_sidebar #documenter_logo{background-image:url(assets/images/image_1.png);}
+		a{color:#0000FF;}
+		.btn {
+			border-radius:3px;
+		}
+		.btn-primary {
+			  background-image: -moz-linear-gradient(top, #0088CC, #0044CC);
+			  background-image: -ms-linear-gradient(top, #0088CC, #0044CC);
+			  background-image: -webkit-gradient(linear, 0 0, 0 0088CC%, from(#DDDDDD), to(#0044CC));
+			  background-image: -webkit-linear-gradient(top, #0088CC, #0044CC);
+			  background-image: -o-linear-gradient(top, #0088CC, #0044CC);
+			  background-image: linear-gradient(top, #0088CC, #0044CC);
+			  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0088CC', endColorstr='#0044CC', GradientType=0);
+			  border-color: #0044CC #0044CC #bfbfbf;
+			  color:#FFFFFF;
+		}
+		.btn-primary:hover,
+		.btn-primary:active,
+		.btn-primary.active,
+		.btn-primary.disabled,
+		.btn-primary[disabled] {
+		  border-color: #0088CC #0088CC #bfbfbf;
+		  background-color: #0044CC;
+		}
+		hr{border-top:1px solid #EBEBEB;border-bottom:1px solid #FFFFFF;}
+		#documenter_sidebar, #documenter_sidebar ul a{background-color:#DDDDDD;color:#222222;}
+		#documenter_sidebar ul a{-webkit-text-shadow:1px 1px 0px #EEEEEE;-moz-text-shadow:1px 1px 0px #EEEEEE;text-shadow:1px 1px 0px #EEEEEE;}
+		#documenter_sidebar ul{border-top:1px solid #AAAAAA;}
+		#documenter_sidebar ul a{border-top:1px solid #EEEEEE;border-bottom:1px solid #AAAAAA;color:#444444;}
+		#documenter_sidebar ul a:hover{background:#444444;color:#DDDDDD;border-top:1px solid #444444;}
+		#documenter_sidebar ul a.current{background:#444444;color:#DDDDDD;border-top:1px solid #444444;}
+		#documenter_copyright{display:block !important;visibility:visible !important;}
+	</style>
+	
+</head>
+<body class="documenter-project-ftp-plugin-droppy-online-file-sharing">
+	<div id="documenter_sidebar">
+		<a href="#documenter_cover" id="documenter_logo"></a>
+		<ul id="documenter_nav">
+			<li><a class="current" href="#documenter_cover">Start</a></li>
+				
+			<li><a href="#introduction" title="Introduction">Introduction</a></li>
+			<li><a href="#installation_setup" title="Installation & Setup">Installation & Setup</a></li>
+			<li><a href="#configuration" title="Configuration">Configuration</a></li>
+			<li><a href="#progress_of_the_system" title="Progress of the system">Progress of the system</a></li>
+			<li><a href="#troubleshoot" title="Troubleshoot">Troubleshoot</a></li>
+			<li><a href="#changelog" title="Changelog">Changelog</a></li>
+
+		</ul>
+		<div id="documenter_copyright">Copyright Proxibolt 2019<br>
+		made with the <a href="http://rxa.li/documenter">Documenter v2.0</a> 
+		</div>
+	</div>
+	<div id="documenter_content">
+	<section id="documenter_cover">
+	<h1>FTP plugin - Droppy online file sharing</h1>
+	
+	<div id="documenter_buttons">
+		
+	</div>
+	<hr>
+	<ul>
+	<li>created: 08/24/2016</li>
+	<li>latest update: 03/02/2019</li>
+	<li>by: Proxibolt</li>
+	<li><a href=""></a></li>
+	<li>email: <a href="mailto:&#115;&#117;&#112;&#112;&#111;&#114;&#116;&#64;&#112;&#114;&#111;&#120;&#105;&#98;&#111;&#108;&#116;&#46;&#99;&#111;&#109;">&#115;&#117;&#112;&#112;&#111;&#114;&#116;&#64;&#112;&#114;&#111;&#120;&#105;&#98;&#111;&#108;&#116;&#46;&#99;&#111;&#109;</a></li>
+	</ul>
+	<p></p>
+	</section>
+	
+	<section id="introduction">
+	<div class="page-header"><h3>Introduction</h3><hr class="notop"></div>
+<p>
+	<span style="color: rgb(56, 56, 56); font-family: Arial, verdana, arial, sans-serif; line-height: 18px;">Thank you for purchasing the FTP plugin for Droppy - Online file sharing, this documentation will help you installing, setting up the plugin.</span></p>
+</section>
+<section id="installation_setup">
+	<div class="page-header"><h3>Installation & Setup</h3><hr class="notop"></div>
+<p>
+	To install the Droppy FTP plugin you will need to follow the steps below, or you can follow the instruction video below.</p>
+<p>
+	&nbsp;</p>
+<ol>
+	<li>
+		Unzip the file you downloaded from Codecanyon.</li>
+	<li>
+		Go to the folder called &quot;Files&quot; and then open the folder called &quot;droppy_ftp&quot; inside there will be a file named &quot;settings.json&quot;, open this file with your preferred text editor.</li>
+	<li>
+		Inside the file will be a list of different options, all available values can be found in the &quot;configuration&quot; section.</li>
+	<li>
+		Make sure to save the json file after you&#39;ve changed the settings.</li>
+	<li>
+		Upload the entire &quot;droppy_ftp&quot; folder to the path application/plugins/ on your web server.</li>
+	<li>
+		That&#39;s it. The FTP plugin is now installed, please refer to the troubleshoot section if your uploads aren&#39;t working.</li>
+</ol>
+<p>
+	&nbsp;</p>
+<p>
+	Installation video:</p>
+<br>
+<p>
+	<iframe frameborder="0" height="400" scrolling="no" src="https://www.youtube.com/embed/AS9USkF1GqU" width="600"></iframe></p>
+<p>
+	&nbsp;</p>
+<p>
+	&nbsp;</p>
+<p>
+	Continue to the section &quot;Configuration&quot; for more information about how to configure your FTP server.</p>
+</section>
+<section id="configuration">
+	<div class="page-header"><h3>Configuration</h3><hr class="notop"></div>
+<p>	To configure the FTP plugin you&#39;ll need to open up the settings.json file that&#39;s inside the droppy_ftp folder</p>
+<p>	&nbsp;</p>
+<p>	The FTP plugin supports different types of FTP connections. You are able to connect to a FTP server by username and password, you&#39;re able to connect to a SFTP server using an username and password and you&#39;re able to a SFTP server using an username and a RSA Private key.</p>
+<p>	&nbsp;</p>
+<p>	The settings.json file has the following options:</p>
+<p>	&nbsp;</p>
+<p>	<strong>type: </strong>(Choose the connection type)</p>
+<ul>	<li>		ftp</li>
+	<li>		sftp</li>
+</ul>
+<p>	<strong>method:</strong> (Login using a key file or a username and password)</p>
+<ul>	<li>		key (Login using a key file, use option &quot;key&quot; to specify the path to the key file)</li>
+	<li>		password (Login using a password)</li>
+</ul>
+<p>	<strong>host:</strong> (The connection address to the FTP/SFTP server (can be IP or a domain address)).</p>
+<p>	<strong>port</strong>: (The port of the FTP/SFTP server)</p>
+<p>	<strong>username</strong>: (The username to login with)</p>
+<p>	<strong>password</strong>: (The password of the user (Only use when <strong>method </strong>is set to password))</p>
+<p>	<strong>passphrase</strong>: (The passphrase of the key file (Only use when <strong>method </strong>is set to key))</p>
+<p>	<strong>key</strong>: (The local path to the RSA key file)</p>
+<p>	<strong>remote_path</strong>: (The storage path on the FTP server)</p>
+<p>	&nbsp;</p>
+<h2>
+	Example configurations:</h2>
+<p>	&nbsp;</p>
+<h3>
+	FTP connection using username and password, storing files in a directory named &quot;uploaddir&quot;</h3>
+<pre style="background-image: url(&quot;../../_img/pre_bg.png&quot;); background-color: rgb(43, 43, 43); color: rgb(169, 183, 198); font-family: &quot;Courier New&quot;;">
+{
+  <span style="color: rgb(152, 118, 170);">&quot;ftp&quot;</span><span style="color: rgb(204, 120, 50);">: </span>{
+    <span style="color: rgb(152, 118, 170);">&quot;type&quot;        </span><span style="color: rgb(204, 120, 50);">: </span><span style="color: rgb(106, 135, 89);">&quot;ftp&quot;</span><span style="color: rgb(204, 120, 50);">,
+</span><span style="color: rgb(204, 120, 50);">    </span><span style="color: rgb(152, 118, 170);">&quot;method&quot;      </span><span style="color: rgb(204, 120, 50);">: </span><span style="color: rgb(106, 135, 89);">&quot;password&quot;</span><span style="color: rgb(204, 120, 50);">,
+</span><span style="color: rgb(204, 120, 50);">    </span><span style="color: rgb(152, 118, 170);">&quot;host&quot;        </span><span style="color: rgb(204, 120, 50);">: </span><span style="color: rgb(106, 135, 89);">&quot;ftp.myhost.com&quot;</span><span style="color: rgb(204, 120, 50);">,
+</span><span style="color: rgb(204, 120, 50);">    </span><span style="color: rgb(152, 118, 170);">&quot;port&quot;        </span><span style="color: rgb(204, 120, 50);">: </span><span style="color: rgb(106, 135, 89);">&quot;21&quot;</span><span style="color: rgb(204, 120, 50);">,
+</span><span style="color: rgb(204, 120, 50);">    </span><span style="color: rgb(152, 118, 170);">&quot;username&quot;    </span><span style="color: rgb(204, 120, 50);">: </span><span style="color: rgb(106, 135, 89);">&quot;proxibolt&quot;</span><span style="color: rgb(204, 120, 50);">,
+</span><span style="color: rgb(204, 120, 50);">    </span><span style="color: rgb(152, 118, 170);">&quot;password&quot;    </span><span style="color: rgb(204, 120, 50);">: </span><span style="color: rgb(106, 135, 89);">&quot;myS3cretP@ssword&quot;</span><span style="color: rgb(204, 120, 50);">,
+</span><span style="color: rgb(204, 120, 50);">    </span><span style="color: rgb(152, 118, 170);">&quot;passphrase&quot;  </span><span style="color: rgb(204, 120, 50);">: </span><span style="color: rgb(106, 135, 89);">&quot;&quot;</span><span style="color: rgb(204, 120, 50);">,
+</span><span style="color: rgb(204, 120, 50);">    </span><span style="color: rgb(152, 118, 170);">&quot;key&quot;         </span><span style="color: rgb(204, 120, 50);">: </span><span style="color: rgb(106, 135, 89);">&quot;&quot;</span><span style="color: rgb(204, 120, 50);">,
+</span><span style="color: rgb(204, 120, 50);">    </span><span style="color: rgb(152, 118, 170);">&quot;remote_path&quot; </span><span style="color: rgb(204, 120, 50);">: </span><span style="color: rgb(106, 135, 89);">&quot;uploaddir/&quot;
+</span><span style="color: rgb(106, 135, 89);">  </span>}
+}</pre>
+<p>	&nbsp;</p>
+<p>	SFTP connection using a RSA key file (secured with a passphrase), storing files in the home directory of the user</p>
+<pre style="background-image: url(&quot;../../_img/pre_bg.png&quot;); background-color: rgb(43, 43, 43); color: rgb(169, 183, 198); font-family: &quot;Courier New&quot;;">
+{
+  <span style="color: rgb(152, 118, 170);">&quot;ftp&quot;</span><span style="color: rgb(204, 120, 50);">: </span>{
+    <span style="color: rgb(152, 118, 170);">&quot;type&quot;        </span><span style="color: rgb(204, 120, 50);">: </span><span style="color: rgb(106, 135, 89);">&quot;sftp&quot;</span><span style="color: rgb(204, 120, 50);">,
+</span><span style="color: rgb(204, 120, 50);">    </span><span style="color: rgb(152, 118, 170);">&quot;method&quot;      </span><span style="color: rgb(204, 120, 50);">: </span><span style="color: rgb(106, 135, 89);">&quot;key&quot;</span><span style="color: rgb(204, 120, 50);">,
+</span><span style="color: rgb(204, 120, 50);">    </span><span style="color: rgb(152, 118, 170);">&quot;host&quot;        </span><span style="color: rgb(204, 120, 50);">: </span><span style="color: rgb(106, 135, 89);">&quot;server.mydomain.com&quot;</span><span style="color: rgb(204, 120, 50);">,
+</span><span style="color: rgb(204, 120, 50);">    </span><span style="color: rgb(152, 118, 170);">&quot;port&quot;        </span><span style="color: rgb(204, 120, 50);">: </span><span style="color: rgb(106, 135, 89);">&quot;22&quot;</span><span style="color: rgb(204, 120, 50);">,
+</span><span style="color: rgb(204, 120, 50);">    </span><span style="color: rgb(152, 118, 170);">&quot;username&quot;    </span><span style="color: rgb(204, 120, 50);">: </span><span style="color: rgb(106, 135, 89);">&quot;storageuser&quot;</span><span style="color: rgb(204, 120, 50);">,
+</span><span style="color: rgb(204, 120, 50);">    </span><span style="color: rgb(152, 118, 170);">&quot;password&quot;    </span><span style="color: rgb(204, 120, 50);">: </span><span style="color: rgb(106, 135, 89);">&quot;&quot;</span><span style="color: rgb(204, 120, 50);">,
+</span><span style="color: rgb(204, 120, 50);">    </span><span style="color: rgb(152, 118, 170);">&quot;passphrase&quot;  </span><span style="color: rgb(204, 120, 50);">: </span><span style="color: rgb(106, 135, 89);">&quot;mysecretpassphrase&quot;</span><span style="color: rgb(204, 120, 50);">,
+</span><span style="color: rgb(204, 120, 50);">    </span><span style="color: rgb(152, 118, 170);">&quot;key&quot;         </span><span style="color: rgb(204, 120, 50);">: </span><span style="color: rgb(106, 135, 89);">&quot;keys/rsa.pub&quot;</span><span style="color: rgb(204, 120, 50);">,
+</span><span style="color: rgb(204, 120, 50);">    </span><span style="color: rgb(152, 118, 170);">&quot;remote_path&quot; </span><span style="color: rgb(204, 120, 50);">: </span><span style="color: rgb(106, 135, 89);">&quot;home/storageuser/&quot;
+</span><span style="color: rgb(106, 135, 89);">  </span>}
+}</pre>
+<p>	&nbsp;</p>
+<p>	If you need any help setting up your config then please feel free to contact us.</p>
+</section>
+<section id="progress_of_the_system">
+	<div class="page-header"><h3>Progress of the system</h3><hr class="notop"></div>
+<section id="progress_of_system" style="padding-top: 70px; color: rgb(56, 56, 56); font-family: Arial, verdana, arial, sans-serif;">
+	<p style="margin: 18px 0px; padding: 0px; border: 0px; outline: 0px; font-weight: inherit; font-style: inherit; font-family: inherit; vertical-align: baseline; line-height: 1.5em;">
+		This will explain how the upload is going from a file on someone&#39;s computer to a file stored on the FTP server.</p>
+	<ol style="margin: 18px 0px; padding-right: 0px; padding-left: 0px; border: 0px; outline: 0px; font-weight: inherit; font-style: inherit; font-family: inherit; vertical-align: baseline; line-height: 1.5em;">
+		<li style="margin: 0px 0px 0px 36px; padding: 0px; border: 0px; outline: 0px; font-weight: inherit; font-style: inherit; font-family: inherit; vertical-align: baseline; list-style: decimal;">
+			The user selects their files and clicks upload.</li>
+		<li style="margin: 0px 0px 0px 36px; padding: 0px; border: 0px; outline: 0px; font-weight: inherit; font-style: inherit; font-family: inherit; vertical-align: baseline; list-style: decimal;">
+			All the files will first be separately uploaded to your web server.</li>
+		<li style="margin: 0px 0px 0px 36px; padding: 0px; border: 0px; outline: 0px; font-weight: inherit; font-style: inherit; font-family: inherit; vertical-align: baseline; list-style: decimal;">
+			After all the files have been uploaded to your server Droppy will start zipping them together to one single file.</li>
+		<li style="margin: 0px 0px 0px 36px; padding: 0px; border: 0px; outline: 0px; font-weight: inherit; font-style: inherit; font-family: inherit; vertical-align: baseline; list-style: decimal;">
+			The zip file will then be uploaded to your FTP Server.</li>
+		<li style="margin: 0px 0px 0px 36px; padding: 0px; border: 0px; outline: 0px; font-weight: inherit; font-style: inherit; font-family: inherit; vertical-align: baseline; list-style: decimal;">
+			When the file(s) are successfully uploaded to your FTP server, Droppy will send out the emails to the receivers of the file.</li>
+	</ol>
+</section>
+<section id="troubleshoot" style="padding-top: 70px; color: rgb(56, 56, 56); font-family: Arial, verdana, arial, sans-serif;">
+	<div class="page-header" style="margin: 0px; padding: 0px; border: 0px; outline: 0px; font-weight: inherit; font-style: inherit; font-family: inherit; vertical-align: baseline;">
+		&nbsp;</div>
+</section>
+</section>
+<section id="troubleshoot">
+	<div class="page-header"><h3>Troubleshoot</h3><hr class="notop"></div>
+<p style="margin: 18px 0px; padding: 0px; border: 0px; outline: 0px; font-family: Arial, verdana, arial, sans-serif; vertical-align: baseline; line-height: 1.5em; color: rgb(56, 56, 56);">
+	Troubleshooting some problems that can occur:</p>
+<p style="margin: 18px 0px; padding: 0px; border: 0px; outline: 0px; font-family: Arial, verdana, arial, sans-serif; vertical-align: baseline; line-height: 1.5em; color: rgb(56, 56, 56);">
+	&nbsp;</p>
+<p style="margin: 18px 0px; padding: 0px; border: 0px; outline: 0px; font-family: Arial, verdana, arial, sans-serif; vertical-align: baseline; line-height: 1.5em; color: rgb(56, 56, 56);">
+	Q: When I try to download a file it says &quot;We are currently processing your files, please be patient&quot;</p>
+<p style="margin: 18px 0px; padding: 0px; border: 0px; outline: 0px; font-family: Arial, verdana, arial, sans-serif; vertical-align: baseline; line-height: 1.5em; color: rgb(56, 56, 56);">
+	A: This is the process when the file on your server is uploading to the FTP server, it can take a moment sometimes, this also really depends on your server&#39;s internet connection and disk speed. Please contact us when this process takes longer than you think it should take.</p>
+<p style="margin: 18px 0px; padding: 0px; border: 0px; outline: 0px; font-family: Arial, verdana, arial, sans-serif; vertical-align: baseline; line-height: 1.5em; color: rgb(56, 56, 56);">
+	&nbsp;</p>
+<p style="margin: 18px 0px; padding: 0px; border: 0px; outline: 0px; font-family: Arial, verdana, arial, sans-serif; vertical-align: baseline; line-height: 1.5em; color: rgb(56, 56, 56);">
+	Q: When I try to install the plugin it says &quot;Upload failed&quot;</p>
+<p style="margin: 18px 0px; padding: 0px; border: 0px; outline: 0px; font-family: Arial, verdana, arial, sans-serif; vertical-align: baseline; line-height: 1.5em; color: rgb(56, 56, 56);">
+	A: It can be that the upload fails, I will suggest you to try it again. If this problem keeps occuring I will suggest to contact us.</p>
+<p style="margin: 18px 0px; padding: 0px; border: 0px; outline: 0px; font-family: Arial, verdana, arial, sans-serif; vertical-align: baseline; line-height: 1.5em; color: rgb(56, 56, 56);">
+	&nbsp;</p>
+<p style="margin: 18px 0px; padding: 0px; border: 0px; outline: 0px; font-family: Arial, verdana, arial, sans-serif; vertical-align: baseline; line-height: 1.5em; color: rgb(56, 56, 56);">
+	Q: There is no &quot;Plugins&quot; tab in my admin panel</p>
+<p style="margin: 18px 0px; padding: 0px; border: 0px; outline: 0px; font-family: Arial, verdana, arial, sans-serif; vertical-align: baseline; line-height: 1.5em; color: rgb(56, 56, 56);">
+	A: Please update to the latest version of Droppy, Contact us if this didn&#39;t worked.</p>
+</section>
+<section id="changelog">
+	<div class="page-header"><h3>Changelog</h3><hr class="notop"></div>
+<p>	V 1.0</p>
+<p>	- Intial release</p>
+</section>
+
+	</div>
+</body>
+</html>

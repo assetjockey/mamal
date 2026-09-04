@@ -1,0 +1,6 @@
+{
+  "name": "Creative Suite Annotations",
+  "type": "extension",
+  "version": "1.3",
+  "description": "Annotation mode for Creative Suite — mark regions and submit targeted AI edits with a per-region prompt."
+}

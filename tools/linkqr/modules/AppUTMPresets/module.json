@@ -1,0 +1,8 @@
+{
+    "name": "AppUTMPresets",
+    "alias": "apputmpresets",
+    "description": "UTM presets module for campaign tagging.",
+    "providers": [
+        "Modules\\AppUTMPresets\\Providers\\AppUTMPresetsServiceProvider"
+    ]
+}

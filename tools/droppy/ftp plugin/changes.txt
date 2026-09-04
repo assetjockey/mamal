@@ -1,0 +1,15 @@
+V2.0.4
+- Updated SFTP library
+- Added support for file previews
+
+V2.0.3
+- Fixed issue with external FTP servers that don't support ascii
+
+V2.0.2
+- Fixed issues with download from FTP server
+
+V2.0.1
+- Fixed port value from settings file wasn't used
+
+V2.0
++ Support for Droppy V2 (Plugin has been rewritten from scratch)

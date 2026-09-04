@@ -1,0 +1,24 @@
+/*
+ * Copyright (c) 2026 AltumCode (https://altumcode.com/)
+ *
+ * This software is proprietary software owned and licensed by AltumCode.
+ * A valid license is required to use, modify, or distribute this software.
+ * Unauthorized use, reproduction, modification, or distribution is prohibited.
+ *
+ * 🌍 Explore all AltumCode projects: https://altumcode.com/
+ * 📧 Support & general inquiries: https://altumcode.com/contact
+ * 📤 Download the latest version: https://altumcode.com/downloads
+ *
+ * 🐦 X/Twitter: https://x.com/AltumCode
+ */
+
+// Deprecate mixin
+//
+// This mixin can be used to deprecate mixins or functions.
+// `$enable-deprecation-messages` is a global variable, `$ignore-warning` is a variable that can be passed to
+// some deprecated mixins to suppress the warning (for example if the mixin is still be used in the current version of Bootstrap)
+@mixin deprecate($name, $deprecate-version, $remove-version, $ignore-warning: false) {
+  @if($enable-deprecation-messages != false and $ignore-warning != true) {
+    @warn "#{$name} has been deprecated as of #{$deprecate-version}. It will be removed entirely in #{$remove-version}.";
+  }
+}

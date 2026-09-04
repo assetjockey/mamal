@@ -1,0 +1,13 @@
+{
+  "premium": {
+    "name": "Droppy Premium",
+    "version": "2.1.8",
+    "load": "droppy_premium",
+    "translation": "premium_lang",
+    "sandbox": false,
+    "cancel_suspend": 604800,
+    "cron": "gateway/paypal/cron.php",
+    "init": "init.php",
+    "css": "assets/plugins/droppy_premium/css/account_styles.css"
+  }
+}

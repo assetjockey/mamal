@@ -1,0 +1,25 @@
+/*
+ * Copyright (c) 2026 AltumCode (https://altumcode.com/)
+ *
+ * This software is proprietary software owned and licensed by AltumCode.
+ * A valid license is required to use, modify, or distribute this software.
+ * Unauthorized use, reproduction, modification, or distribution is prohibited.
+ *
+ * 🌍 Explore all AltumCode projects: https://altumcode.com/
+ * 📧 Support & general inquiries: https://altumcode.com/contact
+ * 📤 Download the latest version: https://altumcode.com/downloads
+ *
+ * 🐦 X/Twitter: https://x.com/AltumCode
+ */
+
+// Horizontal dividers
+//
+// Dividers (basically an hr) within dropdowns and nav lists
+
+@mixin nav-divider($color: $nav-divider-color, $margin-y: $nav-divider-margin-y, $ignore-warning: false) {
+  height: 0;
+  margin: $margin-y 0;
+  overflow: hidden;
+  border-top: 1px solid $color;
+  @include deprecate("The `nav-divider()` mixin", "v4.4.0", "v5", $ignore-warning);
+}

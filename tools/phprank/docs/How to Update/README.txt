@@ -1,0 +1,2 @@
+Update documentation is available at:
+https://lunatio.com/phprank/documentation#update

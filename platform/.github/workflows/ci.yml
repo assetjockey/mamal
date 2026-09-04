@@ -1,0 +1,58 @@
+name: ci
+
+on:
+  push: { branches: [main] }
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: mamal_test
+        options: >-
+          --health-cmd pg_isready --health-interval 5s
+          --health-timeout 5s --health-retries 10
+        ports: ['5432:5432']
+      redis:
+        image: redis:7
+        options: --health-cmd "redis-cli ping" --health-interval 5s --health-retries 10
+        ports: ['6379:6379']
+
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/mamal_test
+      # The suite runs as a NON-SUPERUSER on purpose: superusers bypass row
+      # level security, so an RLS suite run as the owner passes vacuously.
+      TEST_DATABASE_URL: postgres://mamal_app:mamal_dev_pw@localhost:5432/mamal_test
+      REDIS_URL: redis://localhost:6379
+      BETTER_AUTH_SECRET: ci-only-secret-0123456789
+      CREDENTIALS_SECRET: ci-only-secret-0123456789
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Migrate and seed
+        run: |
+          pnpm db:migrate
+          PGPASSWORD=postgres psql -h localhost -U postgres -d mamal_test \
+            -f packages/db/scripts/test-setup.sql
+          pnpm db:seed
+
+      - name: Lint, typecheck, test
+        # ci:check runs the build matrix too: the app must compile with each
+        # tool present in isolation.
+        run: pnpm ci:check
+
+      # Tool independence is a build constraint, not a convention: the app must
+      # compile with each tool present in isolation.
+      - name: Per-tool build matrix
+        run: node scripts/build-matrix.mjs

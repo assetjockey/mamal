@@ -1,0 +1,11 @@
+{
+    "name": "AdminShortLinks",
+    "alias": "adminshortlinks",
+    "description": "Admin dashboard and moderation for short links.",
+    "keywords": ["admin", "short links", "moderation"],
+    "priority": 1,
+    "providers": [
+        "Modules\\AdminShortLinks\\Providers\\AdminShortLinksServiceProvider"
+    ],
+    "files": []
+}

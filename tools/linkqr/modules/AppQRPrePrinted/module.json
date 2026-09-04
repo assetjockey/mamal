@@ -1,0 +1,8 @@
+{
+    "name": "AppQRPrePrinted",
+    "alias": "appqrpreprinted",
+    "description": "Pre-printed QR assets and print-ready export planning.",
+    "providers": [
+        "Modules\\AppQRPrePrinted\\Providers\\AppQRPrePrintedServiceProvider"
+    ]
+}

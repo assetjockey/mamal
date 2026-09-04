@@ -1,0 +1,304 @@
+/* Custom CSS classes */
+
+/* Filament table styles */
+.fi-ta-header-cell {
+    background-color: #f5f9fc !important;
+    color: #728096 !important;
+    font-weight: 700 !important;
+    text-transform: uppercase!important;
+    font-size: 11px!important;
+}
+
+.fi-ta-header-cell-checkbox,
+.fi-ta-selection-checkbox-cell,
+th.fi-ta-cell:first-child {
+    background-color: #f5f9fc !important;
+}
+
+/* Table heading tools (search, filters, actions) */
+.fi-ta-header-toolbar {
+    background-color: #ffffff !important;
+    padding: 1rem !important;
+    border-bottom: 1px solid #dbe2eb !important;
+}
+
+.fi-ta-search-field .fi-input-wrp {
+    @apply shadow-none border-(--default-border-color);
+    border-color: #dbe2eb !important;
+}
+
+/* Action buttons */
+.fi-ta-actions button {
+    background-color: transparent!important;
+    color: #728096 !important;
+}
+
+/* Pagination styles */
+.fi-pagination {
+    padding: 1rem !important;
+    border-top: none !important;
+}
+
+.fi-pagination-records-per-page-select-ctn .fi-pagination-records-per-page-select .fi-input-wrp{
+    border: 1px solid #dbe2eb !important;
+    box-shadow: none!important;
+}
+
+.fi-pagination-items {
+    box-shadow: none;
+    border: 1px solid #dbe2eb !important;
+}
+
+.fi-ta-text-item.fi-size-sm {
+    line-height: 1!important;
+}
+
+.fi-dropdown .fi-dropdown-panel .fi-dropdown-list-item {
+    font-size: 12px!important;
+}
+
+.fi-dropdown .fi-dropdown-panel .fi-dropdown-list-item svg.fi-icon {
+    font-size: 11px!important;
+}
+
+.custom-main-action-button-view:hover {
+    background-color: var(--gray-50)!important;
+}
+
+.custom-main-action-button-view svg {
+    width: 15px;
+    height: 15px;
+     @apply text-gray-950;
+}
+
+
+.custom-action-button-view:hover,
+.custom-action-button-view:hover span,
+.custom-action-button-view:hover .fi-dropdown-list-item-label,
+.custom-action-button-view:hover svg {
+    color: var(--default-primary-color) !important;
+}
+
+.text-primary {
+    color: var(--default-primary-color) !important;
+}
+
+.table-action-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    border-radius: 0.5rem;
+    border: 1px solid transparent;
+    background-color: oklch(26.9% 0 0);
+    color: #fff;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.table-action-button svg {
+    color: #fff;
+}
+
+.table-action-button:hover {
+    background-color: var(--default-primary-color);
+}
+
+.table-action-button:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.gateway-box {
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.gateway-box:hover, .gateway-box:focus {
+    border-color: transparent;
+    box-shadow: 0 0.9px 1.5px rgba(0, 0, 0, 0.03),0 3.1px 5.5px rgba(0, 0, 0, 0.08),0 14px 25px rgba(0, 0, 0, 0.12);
+    transform: translateY(-5px);
+}
+
+.dashboard-tool-box {
+    transition: all 0.3s ease;
+}
+
+.dashboard-tool-box:hover {
+    box-shadow: 0 20px 25px -5px #0f172a1a, 0 8px 10px -6px #0f172a1a;
+    transform: translateY(-5px);
+    border-color: var(--default-primary-color);
+}
+
+.dashboard-tool-box:hover i,
+.dashboard-tool-box:hover [data-flux-icon] {
+    color: var(--default-primary-color) !important;
+}
+
+[x-cloak] { display: none !important; }
+
+/* Hide scrollbar on sidebar — scroll via mousewheel / trackpad / touch only */
+.sidebar-thin-scrollbar,
+.sidebar-thin-scrollbar * {
+    scrollbar-width: none;           /* Firefox */
+    -ms-overflow-style: none;        /* IE / Edge legacy */
+}
+
+.sidebar-thin-scrollbar::-webkit-scrollbar,
+.sidebar-thin-scrollbar *::-webkit-scrollbar {
+    display: none;                   /* Chrome, Safari, Edge (Chromium) */
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Sidebar item theming  (PER-THEME)
+   ─────────────────────────────────────────────────────────────────────────
+
+   The dashboard layout writes the active theme name onto <body> as
+   `data-theme="{theme}"` (see resources/views/default/layouts/app/sidebar.blade.php).
+   Each `[data-theme="…"]` block below sets that theme's color tokens; the
+   `[data-theme="…"].dark` variant overrides for dark mode.
+
+   Edit the variables under whichever theme(s) you want to recolor — the
+   selector rules at the bottom of this file ([data-flux-sidebar-item], etc.)
+   read whichever variables are currently in scope.
+
+   To add a theme: copy any block, rename `data-theme="..."`, edit values.
+
+   Why `!important` is on every selector rule: Flux ships its own utility
+   classes (`text-zinc-500`, `data-current:bg-white`, `data-current:border-
+   zinc-200`, …) inline on each item. Those load AFTER our app.css, so
+   plain rules lose the cascade. `!important` is the simplest way to win.
+
+   Selector cheatsheet:
+     [data-flux-sidebar-item]                       — the row itself (default state)
+     [data-flux-sidebar-item][data-current]         — active row
+     [data-flux-sidebar-item]:hover                 — hovered row
+     [data-flux-sidebar-item][data-current]:hover   — hovered AND active
+     [data-flux-sidebar-item] [data-content]        — text inside
+     [data-flux-sidebar-item] svg                   — icon inside
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* ── Fallback (used when no [data-theme] above matches the body, e.g. on
+       routes that aren't rendered through the dashboard layout). ────── */
+:root {
+    --sidebar-item-bg:           transparent;
+    --sidebar-item-text:         #1e1e2d;
+    --sidebar-item-icon:         #737373;
+
+    --sidebar-item-hover-bg:     rgba(79, 70, 229, 0.08);
+    --sidebar-item-hover-text:   #0f172a;
+
+    --sidebar-item-active-bg:        rgba(79, 70, 229, 0.16);
+    --sidebar-item-active-text:      #4f46e5;
+    --sidebar-item-active-icon:      #4f46e5;
+    --sidebar-item-active-border:    transparent;
+
+    --sidebar-section-label-color: #09090b;       /* zinc-400 */
+    --sidebar-section-label-size: 10px;
+    --sidebar-section-label-weight: 400;
+    --sidebar-section-label-tracking: 0.14em;
+    --sidebar-section-label-transform: uppercase;
+}
+.dark {
+    --sidebar-item-bg:           transparent;
+    --sidebar-item-text:         rgba(255, 255, 255, 0.86);
+    --sidebar-item-icon:         rgba(255, 255, 255, 0.7);
+
+    --sidebar-item-hover-bg:     rgba(129, 140, 248, 0.12);
+    --sidebar-item-hover-text:   #ffffff;
+
+    --sidebar-item-active-bg:        rgba(129, 140, 248, 0.24);
+    --sidebar-item-active-text:      #a5b4fc;
+    --sidebar-item-active-icon:      #a5b4fc;
+    --sidebar-item-active-border:    transparent;
+
+    --sidebar-section-label-color: rgba(255, 255, 255, 0.45);
+}
+
+/* ── default ─────────────────────────────────────────────────────────── */
+[data-theme="default"] {
+    --sidebar-item-bg:           transparent;
+    --sidebar-item-text:         #1e1e2d;       /* zinc-600 */
+    --sidebar-item-icon:         #1e1e2d;       /* zinc-500 */
+
+    --sidebar-item-hover-bg:     rgba(79, 70, 229, 0.08); /* faint indigo wash — brand-tied hover */
+    --sidebar-item-hover-text:   #0f172a;                 /* slate-900 — secondary */
+
+    --sidebar-item-active-bg:        rgba(79, 70, 229, 0.16);   /* stronger than hover — clear selected state */
+    --sidebar-item-active-text:      #4f46e5;   /* indigo-600 — primary */
+    --sidebar-item-active-icon:      #4f46e5;
+    --sidebar-item-active-border:    transparent;
+
+    --sidebar-section-label-color: #09090b;       /* zinc-400 */
+    --sidebar-section-label-size: 9px;
+    --sidebar-section-label-weight: 400;
+    --sidebar-section-label-tracking: 0.14em;
+    --sidebar-section-label-transform: uppercase;
+}
+.dark [data-theme="default"] {
+    --sidebar-item-bg:           transparent;
+    --sidebar-item-text:         rgba(255, 255, 255, 0.86);
+    --sidebar-item-icon:         rgba(255, 255, 255, 0.7);
+
+    --sidebar-item-hover-bg:     rgba(129, 140, 248, 0.12); /* faint indigo-400 wash on dark */
+    --sidebar-item-hover-text:   #ffffff;
+
+    --sidebar-item-active-bg:        rgba(129, 140, 248, 0.24);   /* stronger than hover — clear selected state */
+    --sidebar-item-active-text:      #a5b4fc;   /* indigo-300 — bright on near-black */
+    --sidebar-item-active-icon:      #a5b4fc;   /* indigo-300 */
+    --sidebar-item-active-border:    transparent;
+
+    --sidebar-section-label-color: rgba(255, 255, 255, 0.45);  /* visible muted label on near-black */
+}
+
+/* Idle */
+[data-flux-sidebar-item] {
+    background-color: var(--sidebar-item-bg) !important;
+    color:            var(--sidebar-item-text) !important;
+    border-color:     transparent !important;
+    transition: background-color 150ms ease, color 150ms ease !important;
+}
+[data-flux-sidebar-item] svg {
+    color: var(--sidebar-item-icon) !important;
+    transition: color 150ms ease !important;
+}
+
+/* Hover (only when not the active item) */
+[data-flux-sidebar-item]:hover:not([data-current]) {
+    background-color: var(--sidebar-item-hover-bg) !important;
+    color:            var(--sidebar-item-hover-text) !important;
+}
+[data-flux-sidebar-item]:hover:not([data-current]) svg {
+    color: var(--sidebar-item-hover-text) !important;
+}
+
+/* Active / current page */
+[data-flux-sidebar-item][data-current] {
+    background-color: var(--sidebar-item-active-bg) !important;
+    color:            var(--sidebar-item-active-text) !important;
+    border-color:     var(--sidebar-item-active-border) !important;
+}
+[data-flux-sidebar-item][data-current] svg {
+    color: var(--sidebar-item-active-icon) !important;
+}
+
+/* Active + hover — keep the active styling (don't let the hover bg fight it) */
+[data-flux-sidebar-item][data-current]:hover {
+    background-color: var(--sidebar-item-active-bg) !important;
+    color:            var(--sidebar-item-active-text) !important;
+}
+
+[data-sidebar-section-label] > div {
+    color:           var(--sidebar-section-label-color) !important;
+    font-size:       var(--sidebar-section-label-size) !important;
+    font-weight:     var(--sidebar-section-label-weight) !important;
+    letter-spacing:  var(--sidebar-section-label-tracking) !important;
+    text-transform:  var(--sidebar-section-label-transform) !important;
+}

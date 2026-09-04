@@ -1,0 +1,44 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+THIS UPDATE IS NOW REQUIRING PHP VERSION PHP 7.4 TO BEST FUNCTION WITH ALL THE UPDATED DEPENDENCIES!
+
+FILE CHANGES
+———————————————————
+1. THE EASIEST WAY
+Replace all the folders / files except the "uploads" folder, "install" folder and the "config.php" file.
+
+2. THE ADVANCED WAY
+Copy/Paste the following files, replace if needed.
+
+vendor/
+app/controllers/Invoice.php
+app/controllers/admin/AdminSettings.php
+app/core/App.php
+app/core/Meta.php
+app/includes/daterangepicker_translations.php
+app/includes/notifications.php
+app/includes/product.php
+app/languages/english.json
+app/models/Page.php
+themes/altum/assets/css/admin-bootstrap-dark.min.css
+themes/altum/assets/css/daterangepicker.min.css
+themes/altum/assets/js/libraries/daterangepicker.min.js
+themes/altum/assets/js/libraries/moment.min.js
+themes/altum/assets/js/pixel-header.js
+themes/altum/views/account/index.php
+themes/altum/views/admin/index/index.php
+themes/altum/views/admin/page-update/index.php
+themes/altum/views/admin/partials/footer.php
+themes/altum/views/admin/plan-update/index.php
+themes/altum/views/admin/settings/index.php
+themes/altum/views/admin/statistics/index.php
+themes/altum/views/admin/statistics/partials/growth.php
+themes/altum/views/admin/statistics/partials/payments.php
+themes/altum/views/admin/user-update/index.php
+themes/altum/views/campaign/index.php
+themes/altum/views/campaign/settings.method.php
+themes/altum/views/campaign/statistics.method.php
+themes/altum/views/dashboard/index.php
+themes/altum/views/notification/ - WHOLE FOLDER

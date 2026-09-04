@@ -1,0 +1,4 @@
+name,target,project_id,dns_check_interval_seconds,dns_types,notifications
+Example A Record,example.com,1,300,A,1
+Example MX Record,example.org,2,600,MX,"1,2"
+Example Multi Type,example.net,,900,"A,AAAA,MX","1,3"

@@ -1,0 +1,26 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+FILE CHANGES
+———————————————————
+1. THE EASIEST WAY
+Replace all the folders / files except the "uploads" folder, "install" folder and the "app/config/config.php" file.
+
+2. THE ADVANCED WAY
+Copy/Paste the following files, replace if needed.
+
+app/controllers/Register.php
+app/controllers/Pixel.php
+app/controllers/admin/AdminPackageUpdate.php
+app/includes/product.php
+app/languages/english.json
+themes/altum/assets/css/custom.css
+themes/altum/views/login/index.php
+themes/altum/views/notification/settings/settings.conversions_counter.method.php
+themes/altum/views/notification/settings/settings.live_counter.method.php
+themes/altum/views/register/index.php
+themes/altum/views/admin/code-update/index.php
+themes/altum/views/notification/settings.method.php
+themes/altum/views/partials/notifications/latest_conversion.php

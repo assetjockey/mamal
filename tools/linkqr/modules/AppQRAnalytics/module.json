@@ -1,0 +1,8 @@
+{
+    "name": "AppQRAnalytics",
+    "alias": "appqranalytics",
+    "description": "Analytics module for QR code scans.",
+    "providers": [
+        "Modules\\AppQRAnalytics\\Providers\\AppQRAnalyticsServiceProvider"
+    ]
+}

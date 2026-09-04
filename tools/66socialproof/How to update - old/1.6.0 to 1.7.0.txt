@@ -1,0 +1,37 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+FILE CHANGES
+———————————————————
+This update is massive and all the files have been touched or changed.
+
+- Replace all the folders / files except the "uploads" folder, "install" folder and the "app/config/config.php" file.
+
+- Create a new folder named "cache" in the "uploads" folder and give it 777 chmod permissions.
+
+- Replace the whole "vendor" folder.
+
+
+DATABASE CHANGES 
+--------------------
+IMPORTANT: MAKE SURE YOU BACKUP YOUR DATABASE JUST TO BE SAFE. 
+
+You will have to run the following queries into your database. 
+
+You can run those with PhpMyAdmin -> selecting the database -> going to the SQL tab and running the following mysql query.
+
+
+COPY & RUN THE FOLLOWING QUERIES
+--------
+alter table users add country varchar(32) default '' not null;
+INSERT INTO `settings` (`key`, `value`) VALUES ('socialproofo', '{\"analytics_is_enabled\": true, \"pixel_cache\": 0}');
+--------
+
+
+NEW Notifications pack - Along with the update, the first plugin just launched -> 
+
+https://gum.co/socialproofo-pro-notifications
+
+

@@ -1,0 +1,8 @@
+{
+    "name": "AppBrandKit",
+    "alias": "appbrandkit",
+    "description": "Brand kit module for shared visual defaults.",
+    "providers": [
+        "Modules\\AppBrandKit\\Providers\\AppBrandKitServiceProvider"
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "name": "AppLinkBioABTesting",
+    "alias": "applinkbioabtesting",
+    "description": "A/B testing and per-link attribution controls for Link Bio buttons.",
+    "priority": 5,
+    "providers": [
+        "Modules\\AppLinkBioABTesting\\Providers\\AppLinkBioABTestingServiceProvider"
+    ],
+    "files": []
+}

@@ -1,0 +1,11 @@
+{
+  "format": "json",
+  "recurse": true,
+  "silent": true,
+  "concurrency": 17,
+  "skip": "🌳",
+  "skipFragment": ["^code/", "^!/"],
+  "directoryListing": false,
+  "userAgent": "ConfigCrawler/8.8",
+  "header": ["X-Config-Header:preserved"]
+}

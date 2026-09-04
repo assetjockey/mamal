@@ -1,0 +1,25 @@
+/*
+ * Copyright (c) 2026 AltumCode (https://altumcode.com/)
+ *
+ * This software is proprietary software owned and licensed by AltumCode.
+ * A valid license is required to use, modify, or distribute this software.
+ * Unauthorized use, reproduction, modification, or distribution is prohibited.
+ *
+ * 🌍 Explore all AltumCode projects: https://altumcode.com/
+ * 📧 Support & general inquiries: https://altumcode.com/contact
+ * 📤 Download the latest version: https://altumcode.com/downloads
+ *
+ * 🐦 X/Twitter: https://x.com/AltumCode
+ */
+
+// CSS image replacement
+@mixin text-hide($ignore-warning: false) {
+  // stylelint-disable-next-line font-family-no-missing-generic-family-keyword
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+
+  @include deprecate("`text-hide()`", "v4.1.0", "v5", $ignore-warning);
+}

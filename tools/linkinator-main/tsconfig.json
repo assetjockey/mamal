@@ -1,0 +1,16 @@
+{
+	"compilerOptions": {
+		"strict": true,
+		"target": "ES2022",
+		"declaration": true,
+		"rootDir": ".",
+		"outDir": "build",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"allowJs": true,
+		"skipLibCheck": true,
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true
+	},
+	"include": ["src/*.ts", "src/*.cjs", "test/*.ts"]
+}

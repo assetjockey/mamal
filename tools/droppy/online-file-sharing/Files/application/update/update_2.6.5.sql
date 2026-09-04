@@ -1,0 +1,1 @@
+ALTER TABLE droppy_settings ADD COLUMN `disabled_email_templates` TEXT NULL DEFAULT NULL;

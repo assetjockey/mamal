@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Http\Requests;
+
+use App\Rules\ValidateExtendedLicenseRule;
+use Illuminate\Foundation\Http\FormRequest;
+
+class StoreTaxRateRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     */
+    public function rules(): array
+    {
+        return [
+            'name' => ['required', 'max:128', new ValidateExtendedLicenseRule()],
+            'type' => ['required', 'min:0', 'max:1'],
+            'percentage' => ['required', 'numeric', 'min:0.01', 'max:100', 'decimal:0,2'],
+            'regions' => ['sometimes', 'nullable']
+        ];
+    }
+}

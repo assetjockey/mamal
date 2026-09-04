@@ -1,0 +1,4 @@
+name,host,scheme,domain_id,excluded_ips,outbound_clicks_is_enabled,events_children_is_enabled,sessions_replays_is_enabled,sessions_replays_hide_text_selector,email_reports_is_enabled,bot_exclusion_is_enabled,query_parameters_tracking_is_enabled,ip_storage_is_enabled,public_statistics_is_enabled,public_statistics_password,is_enabled
+Example Site,example.com,https://,1,192.168.1.1,1,1,1,#hide,1,1,1,1,1,secretpass,1
+Demo Site,demo.org,http://,,10.0.0.2,0,1,0,,0,0,1,0,0,,1
+Analytics Test,analytics.test,https://,2,,1,0,1,#private,1,0,0,1,1,password123,0

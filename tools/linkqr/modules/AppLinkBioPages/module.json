@@ -1,0 +1,8 @@
+{
+    "name": "AppLinkBioPages",
+    "alias": "applinkbiopages",
+    "description": "Link Bio page management capability.",
+    "providers": [
+        "Modules\\AppLinkBioPages\\Providers\\AppLinkBioPagesServiceProvider"
+    ]
+}

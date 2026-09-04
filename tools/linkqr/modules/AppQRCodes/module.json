@@ -1,0 +1,8 @@
+{
+    "name": "AppQRCodes",
+    "alias": "appqrcodes",
+    "description": "Advanced QR code workspace for dynamic and static QR campaigns.",
+    "providers": [
+        "Modules\\AppQRCodes\\Providers\\AppQRCodesServiceProvider"
+    ]
+}

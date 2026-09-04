@@ -1,0 +1,24 @@
+V2.0.6 (24 February, 2024)
+- Fixed issues with special character filenames
+
+V2.0.5 (14 May, 2023)
+- Added extra logging
+- Added path style option
+- Added part size option
+- Fixed some issues
+
+V2.0.4 (5 January, 2022)
+- Fixed an issue where the original filename wasn't used when the file was downloaded
+
+V2.0.3 (30 July, 2021)
+- Improved file downloading
+
+V2.0.2 (21 July, 2021)
+- Improved file downloading
+
+V2.0.1 (07 May, 2021) 
+- Updated the AWS SDK
+
+V2.0
++ Support for Droppy V2 (Plugin has been rewritten from scratch)
++ Added support for custom endpoints that support S3 (Like Digitalocean spaces, Wasabi storage and many more S3 supported cloud storage providers)

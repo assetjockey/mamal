@@ -1,0 +1,1 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="{{ $class ?? '' }}" viewBox="0 0 19 19"><rect width="9" height="9"/><rect y="10" width="9" height="9"/><rect x="10" width="9" height="9"/><rect x="10" y="10" width="9" height="9"/></svg>

@@ -1,0 +1,20 @@
+{
+  "name": "@mamal/worker-audit",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "start": "tsx src/main.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@mamal/bus": "workspace:*",
+    "@mamal/db": "workspace:*",
+    "@mamal/jobs": "workspace:*",
+    "@mamal/tool-audit": "workspace:*",
+    "bullmq": "^6.3.4",
+    "drizzle-orm": "^0.45.2"
+  },
+  "devDependencies": { "tsx": "^4.23.13", "typescript": "^5.9.3" }
+}

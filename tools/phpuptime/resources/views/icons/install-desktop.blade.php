@@ -1,0 +1,1 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="{{ $class ?? '' }}" viewBox="0 0 20 18"><path d="M18,14H2V2h8V0H2C.89,0,0,.89,0,2v12c0,1.1.89,2,2,2h4v2h8v-2h4c1.1,0,2-.9,2-2v-3h-2v3Z"/><polygon points="15 11 20 6 18.59 4.59 16 7.17 16 0 14 0 14 7.17 11.41 4.59 10 6 15 11"/></svg>

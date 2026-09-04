@@ -1,0 +1,96 @@
+# ─────────────────────────────────────────────
+# Default policy — public pages crawlable,
+# private/auth areas blocked for every bot.
+# ─────────────────────────────────────────────
+User-agent: *
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /install
+Disallow: /app
+Disallow: /login
+Disallow: /register
+Disallow: /password-reset
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /email/verify
+Disallow: /two-factor-challenge
+Disallow: /user/profile
+Disallow: /settings
+Disallow: /livewire
+Disallow: /storage/uploads
+Disallow: /tmp/
+
+# ─────────────────────────────────────────────
+# AI crawler permissions — explicit opt-in.
+# Lets AI search engines and training crawlers
+# index and reference this site's public pages.
+# ─────────────────────────────────────────────
+
+# OpenAI (ChatGPT search + training)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic (Claude)
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Google AI (Gemini + AI Overviews — separate from Googlebot)
+User-agent: Google-Extended
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Common Crawl (used as training data by many models)
+User-agent: CCBot
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot-Extended
+Allow: /
+
+# ByteDance / TikTok
+User-agent: Bytespider
+Allow: /
+
+# Meta AI
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+# Mistral
+User-agent: MistralAI-User
+Allow: /
+
+# You.com
+User-agent: YouBot
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+# Diffbot
+User-agent: Diffbot
+Allow: /
+
+# Sitemap: replace with your production domain
+# Sitemap: https://yourdomain.com/sitemap.xml

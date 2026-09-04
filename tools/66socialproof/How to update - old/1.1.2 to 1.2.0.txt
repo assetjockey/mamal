@@ -1,0 +1,53 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+FILE CHANGES
+———————————————————
+1. THE EASIEST WAY
+Replace all the folders / files except the "uploads" folder, "install" folder and the "core/config/config.php" file.
+
+2. THE ADVANCED WAY
+Copy/Paste the following files, replace if needed.
+
+
+assets/css/pixel.css
+assets/js/functions.js
+assets/js/pixel-header.js
+
+controllers/campaigns_ajax.php
+controllers/create_notification.php
+controllers/login.php
+controllers/notification.php
+controllers/notification_data_ajax.php
+controllers/notifications_ajax.php
+controllers/pixel.php
+controllers/dashboard.php
+controllers/campaign.php
+
+core/config/extra.php
+core/includes/router.php
+core/includes/product.php
+
+languages/english.json
+
+views/campaign.php
+views/create_notification.php
+views/dashboard.php
+views/notification.php
+views/partials/notification/data.partial.php
+views/partials/notification/settings.latest_conversion.partial.php
+views/partials/notification/settings.partial.php
+views/partials/notification/settings.social_share.partial.php
+views/shared_includes/notifications/coupon.php
+views/shared_includes/notifications/email_collector.php
+views/shared_includes/notifications/informational.php
+views/shared_includes/notifications/latest_conversion.php
+views/shared_includes/notifications/live_counter.php
+views/shared_includes/notifications/social_share.php
+views/shared_includes/notifications/video.php
+views/shared_includes/widgets/create_campaign_modal.php
+views/shared_includes/widgets/create_notification_data_modal.php
+
+vendor/ -- WHOLE FOLDER

@@ -1,0 +1,80 @@
+@extends('layouts.app')
+
+@section('site_title', formatTitle([__('Developers'), config('settings.title')]))
+
+@section('head_content')
+
+@endsection
+
+@section('content')
+    <div class="bg-base-1 flex-fill">
+        <div class="container h-100 py-6">
+
+            <div class="text-center">
+                <h1 class="h2 mb-3 d-inline-block">{{ __('Developers') }}</h1>
+                <div class="m-auto">
+                    <p class="text-muted font-weight-normal font-size-lg pb-4 mb-3">{{ __('Explore our API documentation.') }}</p>
+                </div>
+            </div>
+
+            @php
+                $resources = [
+                    [
+                        'icon' => 'monitor-heart',
+                        'title' => __('Monitors'),
+                        'description' => __('Manage the monitors.'),
+                        'route' => route('developers.monitors')
+                    ],
+                    [
+                        'icon' => 'podcasts',
+                        'title' => __('Status pages'),
+                        'description' => __('Manage the status pages.'),
+                        'route' => route('developers.status_pages')
+                    ],
+                    [
+                        'icon' => 'error',
+                        'title' => __('Incidents'),
+                        'description' => __('Manage the incidents.'),
+                        'route' => route('developers.incidents')
+                    ],
+                    [
+                        'icon' => 'stats',
+                        'title' => __('Stats'),
+                        'description' => __('Manage the stats.'),
+                        'route' => route('developers.stats')
+                    ],
+                    [
+                        'icon' => 'account-box',
+                        'title' => __('Account'),
+                        'description' => __('Manage the account.'),
+                        'route' => route('developers.account')
+                    ]
+                ];
+            @endphp
+
+            <div class="row m-n2">
+                @foreach($resources as $resource)
+                    <div class="col-12 col-sm-6 col-md-4 p-2">
+                        <div class="card border-0 h-100 shadow-sm">
+                            <div class="card-body d-flex">
+                                <div class="d-flex position-relative text-primary width-12 height-12 align-items-center justify-content-center flex-shrink-0 {{ (__('lang_dir') == 'rtl' ? 'ml-3' : 'mr-3') }}">
+                                    <div class="position-absolute bg-primary opacity-10 top-0 right-0 bottom-0 left-0 border-radius-xl"></div>
+                                    @include('icons.' . $resource['icon'], ['class' => 'fill-current width-6 height-6'])
+                                </div>
+                                <div class="d-flex flex-column justify-content-center">
+                                    <a href="{{ $resource['route'] }}" class="text-dark font-weight-medium text-decoration-none stretched-link">{{ $resource['title'] }}</a>
+
+                                    <div class="text-muted">
+                                        {{ $resource['description'] }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+@endsection
+
+@include('shared.sidebars.user')

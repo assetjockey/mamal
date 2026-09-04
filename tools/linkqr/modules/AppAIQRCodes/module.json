@@ -1,0 +1,8 @@
+{
+    "name": "AppAIQRCodes",
+    "alias": "appaiqrcodes",
+    "description": "AI-assisted QR code image generation.",
+    "providers": [
+        "Modules\\AppAIQRCodes\\Providers\\AppAIQRCodesServiceProvider"
+    ]
+}

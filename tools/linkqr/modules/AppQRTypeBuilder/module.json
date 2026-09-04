@@ -1,0 +1,8 @@
+{
+    "name": "AppQRTypeBuilder",
+    "alias": "appqrtypebuilder",
+    "description": "Schema-driven content builders for QR code types.",
+    "providers": [
+        "Modules\\AppQRTypeBuilder\\Providers\\AppQRTypeBuilderServiceProvider"
+    ]
+}

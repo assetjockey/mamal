@@ -1,0 +1,11 @@
+{
+    "name": "AppShortLinkQr",
+    "alias": "appshortlinkqr",
+    "description": "QR code rendering and download helpers for short links.",
+    "keywords": ["short links", "qr", "download"],
+    "priority": 1,
+    "providers": [
+        "Modules\\AppShortLinkQr\\Providers\\AppShortLinkQrServiceProvider"
+    ],
+    "files": []
+}

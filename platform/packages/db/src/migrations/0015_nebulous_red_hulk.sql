@@ -1,0 +1,1 @@
+ALTER TABLE "rank_configs" ADD CONSTRAINT "rank_configs_key" UNIQUE("project_id","domain","location_code","language_code");

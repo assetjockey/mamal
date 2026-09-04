@@ -1,0 +1,8 @@
+{
+    "name": "AppLinkBioShareKit",
+    "alias": "applinkbiosharekit",
+    "description": "Share kit capability for Link Bio.",
+    "providers": [
+        "Modules\\AppLinkBioShareKit\\Providers\\AppLinkBioShareKitServiceProvider"
+    ]
+}

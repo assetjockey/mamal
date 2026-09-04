@@ -1,0 +1,4 @@
+name,target,ssl_port,project_id,whois_notifications,whois_notifications_timing,ssl_notifications,ssl_notifications_timing
+Example Domain,example.com,443,1,1,2,3,2
+My Website,https://mywebsite.com,443,,1,1,2,1
+Demo Site,demo.net,8443,2,2,3,4,3

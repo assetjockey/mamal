@@ -1,0 +1,14 @@
+{
+  "aws": {
+    "endpoint": "",
+    "key"     : "",
+    "secret"  : ""
+  },
+  "s3": {
+    "region"  : "",
+    "bucket"  : "",
+    "path"    : "",
+    "part_size" : 5242880,
+    "path_style": false
+  }
+}

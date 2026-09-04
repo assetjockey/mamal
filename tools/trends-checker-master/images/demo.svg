@@ -1,0 +1,216 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="430" viewBox="0 0 700 430">
+  <defs>
+    <style>
+      text { font-family: 'Courier New', Courier, monospace; font-size: 13px; }
+      .bg       { fill: #1e1e2e; }
+      .titlebar { fill: #313244; }
+      .prompt   { fill: #50fa7b; }
+      .cmd      { fill: #cdd6f4; }
+      .str      { fill: #f1fa8c; }
+      .dim      { fill: #6c7086; }
+      .header   { fill: #f1fa8c; }
+      .border   { fill: #585b70; }
+      .data     { fill: #cdd6f4; }
+      .rising   { fill: #a6e3a1; }
+      .stable   { fill: #f9e2af; }
+      .sh       { fill: #a6e3a1; }
+      .sm       { fill: #f9e2af; }
+      .sl       { fill: #45475a; }
+
+      .L1  { animation: fi .3s ease forwards; animation-delay: 0.2s; opacity:0; }
+      .L2  { animation: fi .3s ease forwards; animation-delay: 0.7s; opacity:0; }
+      .L3  { animation: fi .3s ease forwards; animation-delay: 1.0s; opacity:0; }
+      .L4  { animation: fi .3s ease forwards; animation-delay: 1.3s; opacity:0; }
+      .L5  { animation: fi .3s ease forwards; animation-delay: 1.6s; opacity:0; }
+      .L6  { animation: fi .3s ease forwards; animation-delay: 1.9s; opacity:0; }
+      .L7  { animation: fi .3s ease forwards; animation-delay: 2.2s; opacity:0; }
+      .L8  { animation: fi .3s ease forwards; animation-delay: 2.5s; opacity:0; }
+      .L9  { animation: fi .3s ease forwards; animation-delay: 2.8s; opacity:0; }
+      .L10 { animation: fi .3s ease forwards; animation-delay: 3.1s; opacity:0; }
+      .L11 { animation: fi .3s ease forwards; animation-delay: 3.4s; opacity:0; }
+      .L12 { animation: fi .3s ease forwards; animation-delay: 3.7s; opacity:0; }
+      .L13 { animation: fi .3s ease forwards; animation-delay: 4.0s; opacity:0; }
+      .L14 { animation: fi .3s ease forwards; animation-delay: 4.3s; opacity:0; }
+      .L15 { animation: fi .3s ease forwards; animation-delay: 4.6s; opacity:0; }
+      .cur { animation: blink 1s step-end infinite; }
+
+      @keyframes fi {
+        from { opacity:0; transform:translateY(3px); }
+        to   { opacity:1; transform:translateY(0); }
+      }
+      @keyframes blink {
+        0%,100% { opacity:1; } 50% { opacity:0; }
+      }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="700" height="430" rx="10" class="bg"/>
+  <!-- Titlebar -->
+  <rect width="700" height="36" rx="10" class="titlebar"/>
+  <rect y="18" width="700" height="18" class="titlebar"/>
+  <circle cx="20" cy="18" r="6" fill="#f38ba8"/>
+  <circle cx="40" cy="18" r="6" fill="#f9e2af"/>
+  <circle cx="60" cy="18" r="6" fill="#a6e3a1"/>
+  <text x="350" y="23" text-anchor="middle" class="dim" font-size="12">trends-checker — bash</text>
+
+  <!--
+    Monospace char width at 13px ≈ 7.8px
+    x=16 is left margin
+    Line height = 19px, first line y=62
+  -->
+
+  <!-- L1: prompt + command (split into safe segments, no touching spans) -->
+  <g class="L1">
+    <text x="16"   y="62" class="prompt">&#x276F; </text>
+    <text x="31"   y="62" class="cmd">trends-checker --keywords </text>
+    <text x="234"  y="62" class="str">"AI agents,vibe coding,cursor ide"</text>
+    <text x="502"  y="62" class="cmd"> --geo US</text>
+  </g>
+
+  <!-- L2: status -->
+  <g class="L2">
+    <text x="16" y="81" class="dim">Fetching trends via DataForSEO... (3 keywords x 1 region)</text>
+  </g>
+
+  <!-- Table lines — each rendered as a single text node to keep alignment -->
+  <g class="L3">
+    <text x="16" y="106" class="border">+----------------------+--------+----------+------------+----------+</text>
+  </g>
+  <g class="L4">
+    <text x="16" y="125" class="border">|</text>
+    <text x="24" y="125" class="header"> Keyword              </text>
+    <text x="196" y="125" class="border">|</text>
+    <text x="204" y="125" class="header"> Region </text>
+    <text x="266" y="125" class="border">|</text>
+    <text x="274" y="125" class="header"> Interest </text>
+    <text x="344" y="125" class="border">|</text>
+    <text x="352" y="125" class="header"> Sparkline  </text>
+    <text x="438" y="125" class="border">|</text>
+    <text x="446" y="125" class="header"> Trend    </text>
+    <text x="516" y="125" class="border">|</text>
+  </g>
+  <g class="L5">
+    <text x="16" y="144" class="border">+----------------------+--------+----------+------------+----------+</text>
+  </g>
+
+  <!-- Row 1: AI agents US -->
+  <g class="L6">
+    <text x="16"  y="163" class="border">|</text>
+    <text x="24"  y="163" class="data"> AI agents            </text>
+    <text x="196" y="163" class="border">|</text>
+    <text x="204" y="163" class="data"> US     </text>
+    <text x="266" y="163" class="border">|</text>
+    <text x="274" y="163" class="data">       87 </text>
+    <text x="344" y="163" class="border">|</text>
+    <text x="352" y="163" class="sl"> ##</text><text x="375" y="163" class="sm">##</text><text x="391" y="163" class="sh">####</text>
+    <text x="422" y="163" class="data"> </text>
+    <text x="438" y="163" class="border">|</text>
+    <text x="446" y="163" class="rising"> rising   </text>
+    <text x="516" y="163" class="border">|</text>
+  </g>
+
+  <!-- Row 2: vibe coding US -->
+  <g class="L7">
+    <text x="16"  y="182" class="border">|</text>
+    <text x="24"  y="182" class="data"> vibe coding          </text>
+    <text x="196" y="182" class="border">|</text>
+    <text x="204" y="182" class="data"> US     </text>
+    <text x="266" y="182" class="border">|</text>
+    <text x="274" y="182" class="data">       74 </text>
+    <text x="344" y="182" class="border">|</text>
+    <text x="352" y="182" class="sl"> #</text><text x="360" y="182" class="sm">###</text><text x="384" y="182" class="sh">###</text><text x="407" y="182" class="sm">#</text>
+    <text x="422" y="182" class="data"> </text>
+    <text x="438" y="182" class="border">|</text>
+    <text x="446" y="182" class="rising"> rising   </text>
+    <text x="516" y="182" class="border">|</text>
+  </g>
+
+  <!-- Row 3: cursor ide US -->
+  <g class="L8">
+    <text x="16"  y="201" class="border">|</text>
+    <text x="24"  y="201" class="data"> cursor ide           </text>
+    <text x="196" y="201" class="border">|</text>
+    <text x="204" y="201" class="data"> US     </text>
+    <text x="266" y="201" class="border">|</text>
+    <text x="274" y="201" class="data">       61 </text>
+    <text x="344" y="201" class="border">|</text>
+    <text x="352" y="201" class="sl"> ##</text><text x="375" y="201" class="sm">###</text><text x="399" y="201" class="sh">##</text><text x="415" y="201" class="sm">#</text>
+    <text x="422" y="201" class="data"> </text>
+    <text x="438" y="201" class="border">|</text>
+    <text x="446" y="201" class="rising"> rising   </text>
+    <text x="516" y="201" class="border">|</text>
+  </g>
+
+  <g class="L9">
+    <text x="16" y="220" class="border">+----------------------+--------+----------+------------+----------+</text>
+  </g>
+
+  <!-- Row 4: AI agents WW -->
+  <g class="L10">
+    <text x="16"  y="239" class="border">|</text>
+    <text x="24"  y="239" class="dim"> AI agents            </text>
+    <text x="196" y="239" class="border">|</text>
+    <text x="204" y="239" class="dim"> WW     </text>
+    <text x="266" y="239" class="border">|</text>
+    <text x="274" y="239" class="dim">       92 </text>
+    <text x="344" y="239" class="border">|</text>
+    <text x="352" y="239" class="sl"> #</text><text x="360" y="239" class="sm">#</text><text x="368" y="239" class="sh">######</text>
+    <text x="422" y="239" class="dim"> </text>
+    <text x="438" y="239" class="border">|</text>
+    <text x="446" y="239" class="rising"> rising   </text>
+    <text x="516" y="239" class="border">|</text>
+  </g>
+
+  <!-- Row 5: vibe coding WW -->
+  <g class="L11">
+    <text x="16"  y="258" class="border">|</text>
+    <text x="24"  y="258" class="dim"> vibe coding          </text>
+    <text x="196" y="258" class="border">|</text>
+    <text x="204" y="258" class="dim"> WW     </text>
+    <text x="266" y="258" class="border">|</text>
+    <text x="274" y="258" class="dim">       68 </text>
+    <text x="344" y="258" class="border">|</text>
+    <text x="352" y="258" class="sl"> ##</text><text x="375" y="258" class="sm">###</text><text x="399" y="258" class="sh">###</text>
+    <text x="422" y="258" class="dim"> </text>
+    <text x="438" y="258" class="border">|</text>
+    <text x="446" y="258" class="rising"> rising   </text>
+    <text x="516" y="258" class="border">|</text>
+  </g>
+
+  <!-- Row 6: cursor ide WW -->
+  <g class="L12">
+    <text x="16"  y="277" class="border">|</text>
+    <text x="24"  y="277" class="dim"> cursor ide           </text>
+    <text x="196" y="277" class="border">|</text>
+    <text x="204" y="277" class="dim"> WW     </text>
+    <text x="266" y="277" class="border">|</text>
+    <text x="274" y="277" class="dim">       55 </text>
+    <text x="344" y="277" class="border">|</text>
+    <text x="352" y="277" class="sl"> ###</text><text x="383" y="277" class="sm">###</text><text x="407" y="277" class="sh">##</text>
+    <text x="422" y="277" class="dim"> </text>
+    <text x="438" y="277" class="border">|</text>
+    <text x="446" y="277" class="stable"> stable   </text>
+    <text x="516" y="277" class="border">|</text>
+  </g>
+
+  <g class="L13">
+    <text x="16" y="296" class="border">+----------------------+--------+----------+------------+----------+</text>
+  </g>
+
+  <!-- Summary -->
+  <g class="L14">
+    <text x="16" y="321" class="dim">6 results  Google Trends (web)  timeframe: today 12-m  0.8s</text>
+  </g>
+
+  <!-- Next prompt -->
+  <g class="L15">
+    <text x="16" y="350" class="prompt">&#x276F; </text>
+    <rect x="31" y="337" width="8" height="14" class="prompt cur"/>
+  </g>
+
+  <!-- Footer -->
+  <text x="350" y="415" text-anchor="middle" font-size="11" class="dim">
+    No 429s  ·  pip install trends-checker  ·  trendproof.dev for velocity API
+  </text>
+</svg>

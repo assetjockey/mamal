@@ -1,0 +1,65 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+FILE CHANGES
+———————————————————
+1. THE EASIEST WAY
+Replace all the folders / files except the "uploads" folder, "install" folder and the "app/config/config.php" file.
+
+2. THE ADVANCED WAY
+Copy/Paste the following files, replace if needed.
+
+app/controllers/InstallPixel.php
+app/controllers/Login.php
+app/controllers/Notification.php
+app/controllers/Pay.php
+app/controllers/Register.php
+app/controllers/WebhookStripe.php
+app/controllers/admin/AdminCodeCreate.php
+app/controllers/admin/AdminCodeUpdate.php
+app/controllers/admin/AdminIndex.php
+app/controllers/admin/AdminPackageCreate.php
+app/controllers/admin/AdminPackageUpdate.php
+app/controllers/admin/AdminStatistics.php
+app/controllers/admin/AdminUserUpdate.php
+app/core/App.php
+app/core/Router.php
+app/helpers/Date.php
+app/helpers/others.php
+app/includes/notifications.php
+app/includes/product.php
+app/languages/english.json
+themes/altum/assets/js/pixel-header.js
+themes/altum/views/admin/index/index.php
+themes/altum/views/admin/package-create/index.php
+themes/altum/views/admin/package-update/index.php
+themes/altum/views/admin/packages/index.php
+themes/altum/views/admin/statistics/index.php
+themes/altum/views/dashboard/index.php
+themes/altum/views/install/index.php
+themes/altum/views/notification/data.method.php
+themes/altum/views/notification/settings.method.php
+themes/altum/views/notification/statistics.method.php
+themes/altum/views/partials/menu.php
+themes/altum/views/partials/notifications/ - WHOLE FOLDER
+themes/altum/views/partials/packages.php
+
+
+DATABASE CHANGES 
+--------------------
+IMPORTANT: MAKE SURE YOU BACKUP YOUR DATABASE JUST TO BE SAFE. 
+
+You will have to run the following queries into your database. 
+
+You can run those with PhpMyAdmin -> selecting the database -> going to the SQL tab and running the following mysql queries:
+
+
+1. COPY & RUN THE FOLLOWING QUERIES
+--------
+alter table packages change is_enabled status tinyint not null;
+UPDATE settings SET value = '{\"package_id\":\"custom\",\"name\":\"Custom\",\"status\":1}' WHERE `key` = 'package_custom';
+--------
+
+2. Go to the Packages page in the Admin panel and go through the Free and Trial package and make sure to edit it and save it again with the new settings available. 

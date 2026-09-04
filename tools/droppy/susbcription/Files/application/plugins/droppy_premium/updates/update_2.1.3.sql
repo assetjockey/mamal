@@ -1,0 +1,1 @@
+UPDATE droppy_pm_settings SET plugin_version = '2.1.3';

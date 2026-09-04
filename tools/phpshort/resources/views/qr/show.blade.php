@@ -1,0 +1,1 @@
+{!! QrCode::encoding('UTF-8')->size(250)->margin(0)->generate(request()->input('url')); !!}

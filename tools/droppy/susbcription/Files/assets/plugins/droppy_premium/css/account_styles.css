@@ -1,0 +1,39 @@
+#table_value {
+    padding-left: 20px;
+}
+#submitDetailsChange {
+    float: right;
+}
+#submitNewSub {
+    float: right;
+}
+
+#submitLogin {
+    float: right;
+}
+#submitForgot {
+    float: right;
+}
+#forgotDiv {
+    margin-top: 90px;
+    display: none;
+}
+#loginDiv {
+    margin-top: 70px;
+}
+#submitReset {
+    float: right;
+}
+.openForm {
+    font-size: 13px;
+    padding-left: 3px;
+}
+.tab#tab-account .tabs {
+    font-size: 17px !important;
+}
+.tab#tab-account .account-tab {
+    display: none;
+}
+.tab#tab-account .account-tab.active {
+    display: block;
+}

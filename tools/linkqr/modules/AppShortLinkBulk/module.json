@@ -1,0 +1,11 @@
+{
+    "name": "AppShortLinkBulk",
+    "alias": "appshortlinkbulk",
+    "description": "Bulk CSV creation workflow for short links.",
+    "keywords": ["short links", "bulk", "csv"],
+    "priority": 1,
+    "providers": [
+        "Modules\\AppShortLinkBulk\\Providers\\AppShortLinkBulkServiceProvider"
+    ],
+    "files": []
+}

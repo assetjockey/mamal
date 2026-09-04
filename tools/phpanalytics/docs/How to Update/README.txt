@@ -1,0 +1,2 @@
+Update documentation is available at:
+https://lunatio.com/phpanalytics/documentation#update

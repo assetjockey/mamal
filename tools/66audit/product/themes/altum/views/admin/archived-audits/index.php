@@ -1,0 +1,319 @@
+<?php defined('ALTUMCODE') || die() ?>
+
+<div class="d-flex flex-column flex-md-row justify-content-between mb-4">
+    <h1 class="h3 mb-3 mb-md-0 text-truncate"><i class="fas fa-fw fa-xs fa-archive text-primary-900 mr-2"></i> <?= l('admin_archived_audits.header') ?></h1>
+
+    <div class="d-flex position-relative d-print-none">
+        <div class="ml-3">
+            <a href="<?= url('admin/statistics/archived_audits') ?>" class="btn btn-gray-300" data-tooltip title="<?= l('global.statistics') ?>">
+                <i class="fas fa-fw fa-sm fa-chart-bar"></i>
+            </a>
+        </div>
+
+        <div class="ml-3">
+            <div class="dropdown">
+                <button type="button" class="btn btn-gray-300 dropdown-toggle-simple <?= count($data->archived_audits) ? null : 'disabled' ?>" data-toggle="dropdown" data-boundary="viewport" data-tooltip title="<?= l('global.export') ?>" data-tooltip-hide-on-click>
+                    <i class="fas fa-fw fa-sm fa-download"></i>
+                </button>
+
+                <div class="dropdown-menu dropdown-menu-right d-print-none">
+                    <a href="<?= url('admin/archived-audits?' . $data->filters->get_get() . '&export=csv')  ?>" target="_blank" class="dropdown-item <?= $this->user->plan_settings->export->csv ? null : 'disabled pointer-events-all' ?>" <?= $this->user->plan_settings->export->csv ? null : get_plan_feature_disabled_info() ?>>
+                        <i class="fas fa-fw fa-sm fa-file-csv mr-2"></i> <?= sprintf(l('global.export_to'), 'CSV') ?>
+                    </a>
+                    <a href="<?= url('admin/archived-audits?' . $data->filters->get_get() . '&export=json') ?>" target="_blank" class="dropdown-item <?= $this->user->plan_settings->export->json ? null : 'disabled pointer-events-all' ?>" <?= $this->user->plan_settings->export->json ? null : get_plan_feature_disabled_info() ?>>
+                        <i class="fas fa-fw fa-sm fa-file-code mr-2"></i> <?= sprintf(l('global.export_to'), 'JSON') ?>
+                    </a>
+                    <a href="#" class="dropdown-item <?= $this->user->plan_settings->export->pdf ? null : 'disabled pointer-events-all' ?>" <?= $this->user->plan_settings->export->pdf ? 'onclick="event.preventDefault(); window.print();"' : get_plan_feature_disabled_info() ?>>
+                        <i class="fas fa-fw fa-sm fa-file-pdf mr-2"></i> <?= sprintf(l('global.export_to'), 'PDF') ?>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="ml-3">
+            <div class="dropdown">
+                <button type="button" class="btn <?= $data->filters->has_applied_filters ? 'btn-dark' : 'btn-gray-300' ?> filters-button dropdown-toggle-simple <?= !empty($data->archived_audits) || $data->filters->has_applied_filters ? null : 'disabled' ?>" data-toggle="dropdown" data-boundary="viewport" data-tooltip data-html="true" title="<?= l('global.filters.tooltip') ?>" data-tooltip-hide-on-click>
+                    <i class="fas fa-fw fa-sm fa-filter"></i>
+                </button>
+
+                <div class="dropdown-menu dropdown-menu-right filters-dropdown">
+                    <div class="dropdown-header d-flex justify-content-between">
+                        <span class="h6 m-0"><?= l('global.filters.header') ?></span>
+
+                        <?php if($data->filters->has_applied_filters): ?>
+                            <a href="<?= url(\Altum\Router::$original_request) ?>" class="text-muted"><?= l('global.filters.reset') ?></a>
+                        <?php endif ?>
+                    </div>
+
+                    <div class="dropdown-divider"></div>
+
+                    <form action="" method="get" role="form">
+                        <div class="form-group px-4">
+                            <label for="filters_search" class="small"><?= l('global.filters.search') ?></label>
+                            <input type="search" name="search" id="filters_search" class="form-control form-control-sm" value="<?= $data->filters->search ?>" />
+                        </div>
+
+                        <div class="form-group px-4">
+                            <label for="search_by" class="small"><?= l('global.filters.search_by') ?></label>
+                            <select name="search_by" id="search_by" class="custom-select custom-select-sm">
+                                <option value="url" <?= $data->filters->search_by == 'url' ? 'selected="selected"' : null ?>><?= l('global.url') ?></option>
+                                <option value="host" <?= $data->filters->search_by == 'host' ? 'selected="selected"' : null ?>><?= l('audits.host') ?></option>
+                                <option value="title" <?= $data->filters->search_by == 'title' ? 'selected="selected"' : null ?>><?= l('audits.page_title') ?></option>
+                            </select>
+                        </div>
+
+                        <div class="form-group px-4">
+                            <label for="filters_datetime_field" class="small"><?= l('global.filters.datetime_field') ?></label>
+                            <select name="datetime_field" id="filters_datetime_field" class="custom-select custom-select-sm" data-toggle-datetime-filters="#filters_datetime">
+                                <option value=""><?= l('global.none') ?></option>
+                                <option value="datetime" <?= $data->filters->datetime_field == 'datetime' ? 'selected="selected"' : null ?>><?= l('global.filters.order_by_datetime') ?></option>
+                                <option value="expiration_datetime" <?= $data->filters->datetime_field == 'expiration_datetime' ? 'selected="selected"' : null ?>><?= l('audits.expiration_datetime') ?></option>
+                            </select>
+                        </div>
+
+                        <div id="filters_datetime">
+                            <div class="form-group px-4">
+                                <label for="filters_datetime_start" class="small"><?= l('global.filters.datetime_start') ?></label>
+                                <input type="datetime-local" name="datetime_start" id="filters_datetime_start" class="form-control form-control-sm" value="<?= $data->filters->datetime_start ?? null ?>" />
+                            </div>
+
+                            <div class="form-group px-4">
+                                <label for="filters_datetime_end" class="small"><?= l('global.filters.datetime_end') ?></label>
+                                <input type="datetime-local" name="datetime_end" id="filters_datetime_end" class="form-control form-control-sm" value="<?= $data->filters->datetime_end ?? null ?>" />
+                            </div>
+                        </div>
+
+                        <div class="form-group px-4">
+                            <label for="order_by" class="small"><?= l('global.filters.order_by') ?></label>
+                            <select name="order_by" id="order_by" class="custom-select custom-select-sm">
+                                <option value="archived_audit_id" <?= $data->filters->order_by == 'archived_audit_id' ? 'selected="selected"' : null ?>><?= l('global.id') ?></option>
+                                <option value="datetime" <?= $data->filters->order_by == 'datetime' ? 'selected="selected"' : null ?>><?= l('global.filters.order_by_datetime') ?></option>
+                                <option value="expiration_datetime" <?= $data->filters->order_by == 'expiration_datetime' ? 'selected="selected"' : null ?>><?= l('audits.expiration_datetime') ?></option>
+                                <option value="url" <?= $data->filters->order_by == 'url' ? 'selected="selected"' : null ?>><?= l('global.url') ?></option>
+                                <option value="host" <?= $data->filters->order_by == 'host' ? 'selected="selected"' : null ?>><?= l('audits.host') ?></option>
+                                <option value="title" <?= $data->filters->order_by == 'title' ? 'selected="selected"' : null ?>><?= l('audits.page_title') ?></option>
+                                <option value="score" <?= $data->filters->order_by == 'score' ? 'selected="selected"' : null ?>><?= l('audits.score') ?></option>
+                                <option value="total_issues" <?= $data->filters->order_by == 'total_issues' ? 'selected="selected"' : null ?>><?= l('audits.total_issues') ?></option>
+                            </select>
+                        </div>
+
+                        <div class="form-group px-4">
+                            <label for="filters_order_type" class="small"><?= l('global.filters.order_type') ?></label>
+                            <select name="order_type" id="filters_order_type" class="custom-select custom-select-sm">
+                                <option value="ASC" <?= $data->filters->order_type == 'ASC' ? 'selected="selected"' : null ?>><?= l('global.filters.order_type_asc') ?></option>
+                                <option value="DESC" <?= $data->filters->order_type == 'DESC' ? 'selected="selected"' : null ?>><?= l('global.filters.order_type_desc') ?></option>
+                            </select>
+                        </div>
+
+                        <div class="form-group px-4">
+                            <label for="filters_results_per_page" class="small"><?= l('global.filters.results_per_page') ?></label>
+                            <select name="results_per_page" id="filters_results_per_page" class="custom-select custom-select-sm">
+                                <?php foreach($data->filters->allowed_results_per_page as $key): ?>
+                                    <option value="<?= $key ?>" <?= $data->filters->results_per_page == $key ? 'selected="selected"' : null ?>><?= $key ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+
+                        <div class="form-group px-4 mt-4">
+                            <button type="submit" name="submit" class="btn btn-sm btn-primary btn-block"><?= l('global.submit') ?></button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="ml-3">
+            <button id="bulk_enable" type="button" class="btn btn-gray-300" data-toggle="tooltip" title="<?= l('global.bulk_actions') ?>"><i class="fas fa-fw fa-sm fa-list"></i></button>
+
+            <div id="bulk_group" class="btn-group d-none" role="group">
+                <div class="btn-group dropdown" role="group">
+                    <button id="bulk_actions" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false">
+                        <?= l('global.bulk_actions') ?> <span id="bulk_counter" class="d-none"></span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="bulk_actions">
+                        <a href="#" class="dropdown-item" data-toggle="modal" data-target="#bulk_delete_modal"><i class="fas fa-fw fa-sm fa-trash-alt mr-2"></i> <?= l('global.delete') ?></a>
+                    </div>
+                </div>
+
+                <button id="bulk_disable" type="button" class="btn btn-secondary" data-toggle="tooltip" title="<?= l('global.close') ?>"><i class="fas fa-fw fa-times"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?= \Altum\Alerts::output_alerts() ?>
+
+<?php if (!empty($data->archived_audits)): ?>
+    <form id="table" action="<?= SITE_URL . 'admin/archived-audits/bulk' ?>" method="post" role="form">
+        <input type="hidden" name="token" value="<?= \Altum\Csrf::get() ?>" />
+        <input type="hidden" name="type" value="" data-bulk-type />
+        <input type="hidden" name="original_request" value="<?= base64_encode(\Altum\Router::$original_request) ?>" />
+        <input type="hidden" name="original_request_query" value="<?= base64_encode(\Altum\Router::$original_request_query) ?>" />
+
+        <div class="table-responsive table-custom-container">
+            <table class="table table-custom">
+                <thead>
+                <tr>
+                    <th data-bulk-table class="d-none">
+                        <div class="custom-control custom-checkbox">
+                            <input id="bulk_select_all" type="checkbox" class="custom-control-input" />
+                            <label class="custom-control-label" for="bulk_select_all"></label>
+                        </div>
+                    </th>
+                    <th><?= l('global.user') ?></th>
+                    <th><?= l('audits.audit') ?></th>
+                    <th><?= l('audits.score') ?></th>
+                    <th></th>
+                    <th><?= l('audits.total_issues') ?></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <?php foreach($data->archived_audits as $row): ?>
+
+                    <tr>
+                        <td data-bulk-table class="d-none">
+                            <div class="custom-control custom-checkbox">
+                                <input id="selected_audit_id_<?= $row->audit_id ?>" type="checkbox" class="custom-control-input" name="selected[]" value="<?= $row->audit_id ?>" />
+                                <label class="custom-control-label" for="selected_audit_id_<?= $row->audit_id ?>"></label>
+                            </div>
+                        </td>
+
+                        <td class="text-nowrap">
+                            <div class="d-flex">
+                                <?php if($row->user_id): ?>
+                                    <a href="<?= url('admin/user-view/' . $row->user_id) ?>">
+                                        <img src="<?= get_user_avatar($row->user_avatar, $row->user_email) ?>" referrerpolicy="no-referrer" loading="lazy" class="user-avatar rounded-circle mr-3" alt="" />
+                                    </a>
+
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <div>
+                                            <a href="<?= url('admin/user-view/' . $row->user_id) ?>"><?= $row->user_name ?></a>
+                                        </div>
+
+                                        <span class="text-muted small"><?= $row->user_email ?></span>
+                                    </div>
+                                <?php else: ?>
+                                    <img src="<?= get_user_avatar($row->user_avatar, $row->user_email) ?>" referrerpolicy="no-referrer" loading="lazy" class="user-avatar rounded-circle mr-3" alt="" />
+
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <?= l('global.unknown') ?>
+                                    </div>
+                                <?php endif ?>
+                            </div>
+                        </td>
+
+                        <td class="text-nowrap">
+                            <div>
+                                <span title="<?= remove_url_protocol_from_url($row->url) ?>"><?= string_truncate(remove_url_protocol_from_url($row->url), 32) ?></span>
+                            </div>
+
+                            <div class="small">
+                                <img referrerpolicy="no-referrer" src="<?= get_favicon_url_from_domain($row->host) ?>" class="img-fluid icon-favicon-small mr-1" loading="lazy" />
+
+                                <span class="text-muted"><?= $row->host ?></span>
+
+                                <a href="<?= $row->url ?>" target="_blank" rel="noreferrer"><i class="fas fa-fw fa-xs fa-external-link-alt text-muted ml-1"></i></a>
+                            </div>
+                        </td>
+
+                        <td class="text-nowrap text-muted">
+                            <?php if($row->refresh_error || $row->is_external_redirected): ?>
+                                <span class="font-weight-bold small"><?= l('global.na') ?></span>
+                            <?php else: ?>
+                                <span class="font-weight-bold small"><?= get_audit_score_display($row) ?></span>
+                            <?php endif ?>
+                        </td>
+
+                        <td class="text-nowrap text-muted">
+                            <?php if($row->refresh_error || $row->is_external_redirected): ?>
+                                <div class="d-flex align-items-center">
+                                    <?php for($i = 0; $i <= 9; $i++): ?>
+                                        <div class="audit-badge <?= $row->is_queued ? 'audit-badge-loading' : 'bg-gray-200' ?> mr-1"></div>
+                                    <?php endfor ?>
+                                </div>
+                            <?php else: ?>
+
+                                <div class="d-flex align-items-center">
+                                    <?php $rounded_score = round($row->score / 10); ?>
+
+                                    <?php for($i = 0; $i <= 9; $i++): ?>
+                                        <?php
+                                        if($i <= $rounded_score - 1) {
+                                            $audit_badge_bg_class_name = match (true) {
+                                                $rounded_score >= 8 => 'success',
+                                                $rounded_score >= 5 => 'warning',
+                                                $rounded_score >= 0 => 'danger',
+                                            };
+                                        } else {
+                                            $audit_badge_bg_class_name = 'gray-200';
+                                        }
+                                        ?>
+
+                                        <div class="audit-badge bg-<?= $audit_badge_bg_class_name ?> mr-1"></div>
+                                    <?php endfor ?>
+                                </div>
+                            <?php endif ?>
+                        </td>
+
+                        <?php
+                        $audit_badge_bg_class_name = 'success';
+                        if($row->minor_issues > 0) $audit_badge_bg_class_name = 'light';
+                        if($row->moderate_issues > 0) $audit_badge_bg_class_name = 'warning';
+                        if($row->major_issues > 0) $audit_badge_bg_class_name = 'danger';
+
+                        $badge_tooltip = '<div class=\'text-left\'>';
+                        $badge_tooltip .= '<div><i class=\'fas fa-fw fa-sm fa-exclamation-circle text-danger mr-1\'></i> ' . sprintf(l('audits.major_issues_x'), nr($row->major_issues)) . '</div>';
+                        $badge_tooltip .= '<div><i class=\'fas fa-fw fa-sm fa-exclamation-triangle text-warning mr-1\'></i> ' . sprintf(l('audits.moderate_issues_x'), nr($row->moderate_issues)) . '</div>';
+                        $badge_tooltip .= '<div><i class=\'fas fa-fw fa-sm fa-circle text-muted mr-1\'></i> ' . sprintf(l('audits.minor_issues_x'), nr($row->minor_issues)) . '</div>';
+                        $badge_tooltip .= '<div><i class=\'fas fa-fw fa-sm fa-check-circle text-success mr-1\'></i> ' . sprintf(l('audits.passed_tests_x'), nr($row->passed_tests)) . '</div>';
+                        $badge_tooltip .= '</div>';
+                        ?>
+
+                        <?php if($row->refresh_error): ?>
+                            <span class="badge badge-danger" data-toggle="tooltip" title="<?= e($row->refresh_error) ?>">
+                                <?= l('audits.refresh_error_small') ?>
+                            </span>
+                        <?php elseif($row->is_external_redirected): ?>
+                            <span class="badge badge-danger" data-toggle="tooltip" title="<?= l('audits.is_external_redirected') ?>">
+                                <?= l('audits.is_external_redirected_small') ?>
+                            </span>
+                        <?php else: ?>
+                            <span class="badge badge-<?= $audit_badge_bg_class_name ?>" data-html="true" data-toggle="tooltip" title="<?= $badge_tooltip ?>">
+                                <?= sprintf(l('audits.total_issues_x'), nr($row->total_issues)) ?>
+                            </span>
+                        <?php endif ?>
+
+                        <td class="text-nowrap text-muted">
+                            <span class="mr-2" data-toggle="tooltip" data-html="true" title="<?= sprintf(l('global.datetime_tooltip'), '<br />' . \Altum\Date::get($row->datetime, 2) . '<br /><small>' . \Altum\Date::get($row->datetime, 3) . '</small>' . '<br /><small>(' . \Altum\Date::get_timeago($row->datetime) . ')</small>') ?>">
+                                <i class="fas fa-fw fa-calendar text-muted"></i>
+                            </span>
+                        </td>
+
+                        <td>
+                            <div class="d-flex justify-content-end">
+                                <?= include_view(THEME_PATH . 'views/admin/archived-audits/admin_archived_audit_dropdown_button.php', ['id' => $row->audit_id, 'resource_name' => remove_url_protocol_from_url($row->url), 'url' => $row->url]) ?>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+
+                </tbody>
+            </table>
+        </div>
+    </form>
+
+    <div class="mt-3"><?= $data->pagination ?></div>
+<?php else: ?>
+    <?= include_view(THEME_PATH . 'views/partials/no_data.php', [
+        'filters_get' => $data->filters->get ?? [],
+        'name' => 'archived_audits',
+        'has_secondary_text' => true,
+    ]); ?>
+<?php endif ?>
+
+<?php require THEME_PATH . 'views/partials/js_bulk.php' ?>
+<?php \Altum\Event::add_content(fn() => include_view(THEME_PATH . 'views/partials/bulk_delete_modal.php'), 'modals'); ?>

@@ -1,0 +1,8 @@
+{
+    "name": "AppLinkBioTemplates",
+    "alias": "applinkbiotemplates",
+    "description": "Link Bio template library capability.",
+    "providers": [
+        "Modules\\AppLinkBioTemplates\\Providers\\AppLinkBioTemplatesServiceProvider"
+    ]
+}

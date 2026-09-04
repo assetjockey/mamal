@@ -1,0 +1,23 @@
+{
+  "name": "@mamal/worker-core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "retention": "tsx src/retention.ts",
+    "domains": "tsx src/domains.ts"
+  },
+  "dependencies": {
+    "@mamal/db": "workspace:*",
+    "@mamal/domains": "workspace:*",
+    "@mamal/retention": "workspace:*",
+    "@mamal/tool-audit": "workspace:*",
+    "@mamal/tool-confirm": "workspace:*",
+    "drizzle-orm": "^0.45.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "tsx": "^4.20.6"
+  }
+}

@@ -1,0 +1,17 @@
+<div class="dropdown-menu {{ (__('lang_dir') == 'rtl' ? 'dropdown-menu' : 'dropdown-menu-right') }} border-0 shadow">
+    <a class="dropdown-item d-flex align-items-center" href="{{ route('admin.plans.edit', $plan->id) }}">@include('icons.edit', ['class' => 'text-muted fill-current w-4 h-4 me-4']) {{ __('Edit') }}</a>
+
+    @if($plan->isPriced())
+        <a class="dropdown-item d-flex align-items-center" href="{{ route('checkout.index', ['id' => $plan->id]) }}">@include('icons.eye', ['class' => 'text-muted fill-current w-4 h-4 me-4']) {{ __('View') }}</a>
+    @endif
+
+    @if(!$plan->isDefault())
+        @if($plan->trashed())
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-success d-flex align-items-center" href="#" data-toggle="modal" data-target="#modal" data-action="{{ route('admin.plans.restore', $plan->id) }}" data-button-class="btn btn-success position-relative" data-title="{{ __('Restore') }}" data-text="{{ __('Are you sure you want to restore :name?', ['name' => $plan->name]) }}">@include('icons.settings-backup-restore', ['class' => 'fill-current w-4 h-4 me-4']) {{ __('Restore') }}</a>
+        @else
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item text-danger d-flex align-items-center" href="#" data-toggle="modal" data-target="#modal" data-action="{{ route('admin.plans.disable', $plan->id) }}" data-button-class="btn btn-danger position-relative" data-title="{{ __('Disable') }}" data-text="{{ __('Are you sure you want to disable :name?', ['name' => $plan->name]) }}">@include('icons.block', ['class' => 'fill-current w-4 h-4 me-4']) {{ __('Disable') }}</a>
+        @endif
+    @endif
+</div>

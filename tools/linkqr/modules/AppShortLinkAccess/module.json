@@ -1,0 +1,11 @@
+{
+    "name": "AppShortLinkAccess",
+    "alias": "appshortlinkaccess",
+    "description": "Access rules for short links, including expiry, click limits, and password protection.",
+    "keywords": ["short links", "password", "expiry", "limits"],
+    "priority": 1,
+    "providers": [
+        "Modules\\AppShortLinkAccess\\Providers\\AppShortLinkAccessServiceProvider"
+    ],
+    "files": []
+}

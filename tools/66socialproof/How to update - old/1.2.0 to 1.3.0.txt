@@ -1,0 +1,62 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+FILE CHANGES
+———————————————————
+1. THE EASIEST WAY
+Replace all the folders / files except the "uploads" folder, "install" folder and the "core/config/config.php" file.
+
+2. THE ADVANCED WAY
+Copy/Paste the following files, replace if needed.
+
+
+assets/css/custom.css
+assets/css/pixel.css
+assets/images/emojis/
+assets/js/pixel-header.js
+controllers/account.php
+controllers/admin/user_edit.php
+controllers/dashboard.php
+controllers/notification.php
+controllers/pay_paypal_create.php
+controllers/pay_paypal_process.php
+controllers/pay_stripe_create.php
+controllers/pay_stripe_process.php
+controllers/pixel.php
+controllers/track.php
+controllers/webhook_paypal.php
+controllers/webhook_stripe.php
+controllers/webhook_track.php
+core/classes/Language.php
+core/config/extra.php
+core/includes/debug.php
+core/includes/language.php
+core/includes/product.php
+core/includes/router.php
+core/init.php
+languages/english.json
+views/admin/pages_management.php
+views/admin/website_settings.php
+views/campaign.php
+views/dashboard.php
+views/index.php
+views/partials/notification/- REPLACE WHOLE FOLDER
+views/shared_includes/notifications/ - REPLACE WHOLE FOLDER
+views/pay.php
+views/shared_includes/footer.php
+views/shared_includes/widgets/create_notification_data_review_modal.php
+
+
+DATABASE CHANGES 
+--------------------
+IMPORTANT: MAKE SURE YOU BACKUP YOUR DATABASE JUST TO BE SAFE. 
+
+You will have to run the following queries into your database. 
+
+You can run those with PhpMyAdmin -> selecting the database -> going to the SQL tab and running the following mysql query.
+
+
+ALTER TABLE users MODIFY payment_subscription_id varchar(64);
+

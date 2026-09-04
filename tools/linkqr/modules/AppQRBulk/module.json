@@ -1,0 +1,8 @@
+{
+    "name": "AppQRBulk",
+    "alias": "appqrbulk",
+    "description": "Bulk QR code generation module.",
+    "providers": [
+        "Modules\\AppQRBulk\\Providers\\AppQRBulkServiceProvider"
+    ]
+}

@@ -1,0 +1,8 @@
+{
+    "name": "AppLinkBioInsights",
+    "alias": "applinkbioinsights",
+    "description": "Insights and analytics capability for Link Bio.",
+    "providers": [
+        "Modules\\AppLinkBioInsights\\Providers\\AppLinkBioInsightsServiceProvider"
+    ]
+}

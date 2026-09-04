@@ -1,0 +1,31 @@
+/*
+ * Copyright (c) 2026 AltumCode (https://altumcode.com/)
+ *
+ * This software is proprietary software owned and licensed by AltumCode.
+ * A valid license is required to use, modify, or distribute this software.
+ * Unauthorized use, reproduction, modification, or distribution is prohibited.
+ *
+ * 🌍 Explore all AltumCode projects: https://altumcode.com/
+ * 📧 Support & general inquiries: https://altumcode.com/contact
+ * 📤 Download the latest version: https://altumcode.com/downloads
+ *
+ * 🐦 X/Twitter: https://x.com/AltumCode
+ */
+
+@mixin badge-variant($bg) {
+  color: color-yiq($bg);
+  background-color: $bg;
+
+  @at-root a#{&} {
+    @include hover-focus() {
+      color: color-yiq($bg);
+      background-color: darken($bg, 10%);
+    }
+
+    &:focus,
+    &.focus {
+      outline: 0;
+      box-shadow: 0 0 0 $badge-focus-width rgba($bg, .5);
+    }
+  }
+}

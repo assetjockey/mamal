@@ -1,0 +1,10 @@
+{
+    "name": "guest/linkqrpro",
+    "description": "Focused LinkQR Pro guest theme",
+    "type": "laravel-theme",
+    "extra": {
+        "laravel-theme": {
+            "name": "guest/linkqrpro"
+        }
+    }
+}

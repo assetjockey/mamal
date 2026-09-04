@@ -1,0 +1,1 @@
+Make sure that when you update the plugin you won't include the settings.json file, if you do then all your S3 settings will be overwritten.

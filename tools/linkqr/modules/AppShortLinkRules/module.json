@@ -1,0 +1,11 @@
+{
+    "name": "AppShortLinkRules",
+    "alias": "appshortlinkrules",
+    "description": "Rotator, A/B, geo, device, and time based redirect rules for short links.",
+    "keywords": ["short links", "rotator", "ab testing", "targeting"],
+    "priority": 1,
+    "providers": [
+        "Modules\\AppShortLinkRules\\Providers\\AppShortLinkRulesServiceProvider"
+    ],
+    "files": []
+}

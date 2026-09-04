@@ -1,0 +1,8 @@
+{
+    "name": "AppTrackingPixels",
+    "alias": "apptrackingpixels",
+    "description": "Tracking pixels module for campaign attribution.",
+    "providers": [
+        "Modules\\AppTrackingPixels\\Providers\\AppTrackingPixelsServiceProvider"
+    ]
+}

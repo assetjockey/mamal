@@ -1,0 +1,8 @@
+{
+  "upload": {
+  	"name": "Droppy Amazon S3",
+  	"version": "2.0.6",
+    "load": "droppy_s3",
+    "handler_library": "libraries/HandlerLibrary.php"
+  }
+}

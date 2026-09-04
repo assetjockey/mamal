@@ -1,0 +1,6 @@
+{
+  "skip": [
+    "example.invalid",
+    "fake2.local"
+  ]
+}

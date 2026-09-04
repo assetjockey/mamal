@@ -1,0 +1,54 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+FILE CHANGES
+———————————————————
+1. THE EASIEST WAY
+Replace all the folders / files except the "uploads" folder, "install" folder and the "core/config/config.php" file.
+
+2. THE ADVANCED WAY
+Copy/Paste the following files, replace if needed.
+
+assets/css/pixel.css
+assets/js/functions.js
+assets/js/pixel-header.js
+controllers/admin/payments_list_ajax.php
+controllers/admin/user_edit.php
+controllers/admin/user_view.php
+controllers/admin/users_management_ajax.php
+controllers/admin/website_settings.php
+controllers/account_details.php
+controllers/index.php
+controllers/track.php
+core/classes/Logger.php
+core/includes/product.php
+languages/english.json
+views/account_details.php
+views/admin/user_edit.php
+views/admin/user_view.php
+views/admin/website_settings.php
+views/admin/website_statistics.php
+views/admin/wrapper.php
+views/campaign.php
+views/dashboard.php
+views/index.php
+views/shared_includes/notifications/live_counter.php
+views/wrapper.php
+views/partials/notification/ - THE WHOLE FOLDER CONTENT
+
+DATABASE CHANGES 
+--------------------
+IMPORTANT: MAKE SURE YOU BACKUP YOUR DATABASE JUST TO BE SAFE. 
+
+You will have to run the following queries into your database. 
+
+You can run those with PhpMyAdmin -> selecting the database -> going to the SQL tab and running the following mysql query.
+
+
+ALTER TABLE users_logs DROP user_agent;
+ALTER TABLE track_logs DROP user_agent;
+ALTER TABLE track_notifications DROP user_agent;
+INSERT INTO `settings` (`key`, `value`)
+VALUES ('index_url', '');

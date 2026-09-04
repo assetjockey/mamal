@@ -1,0 +1,8 @@
+66qrcode by AltumCode.com
+-------------------------
+
+Website: https://altumco.de/66qrcode
+
+Documentation: https://altumco.de/66qrcode-docs
+
+Changelog: https://altumco.de/66qrcode-changelog

@@ -1,0 +1,8 @@
+# Disable ap_trust_cgilike_cl
+SetEnv ap_trust_cgilike_cl 0
+
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?/$1 [L]

@@ -1,0 +1,14 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+  - "workers/*"
+  - "services/*"
+  - "tools/*"
+  - "plugins/*"
+
+allowBuilds:
+  esbuild: true
+  msgpackr-extract: true
+
+minimumReleaseAgeExclude:
+  - lucide-react@1.40.0

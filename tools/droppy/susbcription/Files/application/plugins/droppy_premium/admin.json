@@ -1,0 +1,9 @@
+{
+  "premium" : {
+    "title": "Premium settings",
+    "load": "droppy_premium",
+    "view": "views/admin/admin",
+    "post_handler": "handler.php",
+    "get_handler": "handler.php"
+  }
+}

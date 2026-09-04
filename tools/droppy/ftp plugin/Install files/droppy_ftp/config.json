@@ -1,0 +1,8 @@
+{
+  "upload": {
+  	"name": "Droppy FTP",
+  	"version": "2.0.4",
+    "load": "droppy_ftp",
+    "handler_library": "libraries/HandlerLibrary.php"
+  }
+}

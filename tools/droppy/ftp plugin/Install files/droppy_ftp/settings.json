@@ -1,0 +1,13 @@
+{
+  "ftp": {
+  	"type"	  	  : "ftp",
+  	"method"	    : "password",
+    "host"     	  : "127.0.0.1",
+    "port"        : "21",
+    "username"    : "",
+    "password" 	  : "",
+    "passphrase"  : "",
+    "key"         : "",
+    "remote_path" : "/"
+  }
+}

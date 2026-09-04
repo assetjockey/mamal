@@ -1,0 +1,6 @@
+name,domain,domain_id,branding_name,branding_url,email_reports,email_reports_is_enabled,is_enabled
+Example,example.com,1,Example Inc,https://example.com,1,1,1
+My Shop,myshop.net,2,MyShop,https://myshop.net,2,1,1
+Blog Site,blogsite.org,,BlogSite,https://blogsite.org,3,0,1
+Landing Page,landing.mystore.com,3,MyStore,https://mystore.com,1,1,1
+Portfolio,portfolio.dev,,Portfolio,https://portfolio.dev,1,0,1

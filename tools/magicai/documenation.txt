@@ -1,0 +1,71 @@
+
+🎩 MagicAI License Patch
+================================
+
+📥 Step 1: Download Main MagicAI
+
+# Download latest MagicAI file
+🔗 URL: https://www.mediafire.com/file/xuqamabt77l6qzd/new-version9.50.zip/file
+
+# Extract into ROOT DIRECTORY of your project
+📁 Location: Project Root Folder
+
+===================================================================================================
+🔓 Step 2: Remove License Error
+
+# Download license patch
+🔗 URL: https://www.mediafire.com/file/fpiradipy5lnv6s/magicai_license_patch.zip/file
+
+# Extract into ROOT DIRECTORY
+📁 Location: Project Root Folder
+
+================================================================================================================================================
+🗄️ Step 3: Database Update required to use extended version 
+sql
+
+-- Go to phpMyAdmin → SQL Tab → Run this command:
+
+UPDATE `settings_two` 
+SET `liquid_license_type` = 'Extended License', 
+    `liquid_license_domain_key` = 'License' 
+WHERE `settings_two`.`id` = 1;
+
+================================================================================================================================
+
+🔄 Step 4: Update MagicAI If you have latest code and you want to update all site including database file etc from old version to latest version
+
+🌐 Visit: https://yourdomain.com/update-manual
+✅ MagicAI will auto-update
+
+=============================================================================================================================
+
+🧹 Step 5: Clear Cache
+http
+🗑️ Main Cache: https://yourdomain.com/cache-clear
+📱 Menu Cache: https://yourdomain.com/cache-clear-menu
+
+================================================================================================================================================
+
+✅ Step 6: Completion
+🎉 You can now update, install & uninstall all paid extensions from MagicAI marketplace without license errors.
+
+⚠️ Important Notes
+🔄 After each main script update:
+Re-apply the license patch (Step #2)
+
+==================================================================================================================================================
+
+#### ⚙️ Update your .env file (optional) to use all paid/free themes & extensions : ##########
+
+.env
+
+THEME_API_TOKEN=to_install_latest_themes
+EXTENSION_API_TOKEN=to_install_themes_&_extensions
+
+💰 Get Paid Themes & Tokens:
+📩 Telegram: http://t.me/cloudonext
+
+📱 WhatsApp: http://wa.me/918218647076
+
+=========================================================================================================
+

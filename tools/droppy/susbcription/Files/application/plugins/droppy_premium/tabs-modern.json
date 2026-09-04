@@ -1,0 +1,27 @@
+{
+  "gopremium": {
+    "type": "inline",
+    "plugin": "droppy_premium",
+    "translation": "premium_tab_go_premium",
+    "view": "views/themes/modern/tabs/premium.php"
+  },
+  "account": {
+    "type": "inline",
+    "plugin": "droppy_premium",
+    "translation": "premium_tab_my_account",
+    "view": "views/themes/modern/tabs/account.php"
+  },
+  "uploads": {
+    "type": "inline",
+    "plugin": "droppy_premium",
+    "translation": "premium_tab_my_uploads",
+    "view": "views/themes/modern/tabs/uploads.php"
+  },
+  "logout": {
+    "type": "url",
+    "plugin": "droppy_premium",
+    "translation": "premium_tab_logout",
+    "url": "page/premium?action=logout",
+    "new_tab": false
+  }
+}

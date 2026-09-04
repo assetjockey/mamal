@@ -1,0 +1,37 @@
+{
+    "name": "jdenticon/jdenticon",
+    "description": "Render PNG and SVG identicons.",
+    "license": "MIT",
+    "keywords": [
+        "jdenticon",
+        "identicon",
+        "avatar"
+    ],
+    "authors": [
+        {
+            "name": "Daniel Mester Pirttijärvi"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/dmester/jdenticon-php/issues",
+        "source": "https://github.com/dmester/jdenticon-php",
+        "docs": "https://jdenticon.com/php-api.html"
+    },
+    "homepage": "https://jdenticon.com/",
+    "autoload": {
+        "psr-4": {
+            "Jdenticon\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=7.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    },
+    "scripts": {
+        "test": [
+            "phpunit tests"
+        ]
+    }
+}

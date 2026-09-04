@@ -1,0 +1,11 @@
+{
+    "name": "AppShortLinkAnalytics",
+    "alias": "appshortlinkanalytics",
+    "description": "Click event storage and analytics recording for short links.",
+    "keywords": ["short links", "analytics", "clicks"],
+    "priority": 1,
+    "providers": [
+        "Modules\\AppShortLinkAnalytics\\Providers\\AppShortLinkAnalyticsServiceProvider"
+    ],
+    "files": []
+}

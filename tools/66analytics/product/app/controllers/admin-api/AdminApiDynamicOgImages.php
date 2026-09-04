@@ -1,0 +1,120 @@
+<?php
+/*
+ * Copyright (c) 2026 AltumCode (https://altumcode.com/)
+ *
+ * This software is proprietary software owned and licensed by AltumCode.
+ * A valid license is required to use, modify, or distribute this software.
+ * Unauthorized use, reproduction, modification, or distribution is prohibited.
+ *
+ * 🌍 Explore all AltumCode projects: https://altumcode.com/
+ * 📧 Support & general inquiries: https://altumcode.com/contact
+ * 📤 Download the latest version: https://altumcode.com/downloads
+ *
+ * 🐦 X/Twitter: https://x.com/AltumCode
+ */
+namespace Altum\Controllers;
+
+use Altum\Response;
+use Altum\Traits\Apiable;
+use Altum\Uploads;
+
+defined('ALTUMCODE') || die();
+
+class AdminApiDynamicOgImages extends Controller {
+    use Apiable;
+
+    public function index() {
+
+        $this->verify_request(true);
+
+        /* Decide what to continue with */
+        switch($_SERVER['REQUEST_METHOD']) {
+            case 'POST':
+
+                $this->post();
+
+                break;
+        }
+
+        $this->return_404();
+
+    }
+
+    private function post() {
+
+        $required_fields = ['image_name'];
+
+        /* Check for any errors */
+        foreach($required_fields as $field) {
+            if(!isset($_POST[$field]) || trim($_POST[$field]) === '') {
+                $this->response_error(l('global.error_message.empty_fields'), 401);
+                break 1;
+            }
+        }
+
+        if(empty($_FILES['image']['name'])) {
+            $this->response_error(l('global.error_message.empty_fields'), 401);
+        }
+
+        /* Determine the error response */
+        $return_error = function($message) {
+            Response::json($message, 'error');
+        };
+
+        $file_extension = mb_strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+        $file_temp = $_FILES['image']['tmp_name'];
+
+        if($_FILES['image']['error'] == UPLOAD_ERR_INI_SIZE) {
+            $return_error(sprintf(l('global.error_message.file_size_limit'), get_max_upload()));
+        }
+
+        if($_FILES['image']['error'] && $_FILES['image']['error'] != UPLOAD_ERR_INI_SIZE) {
+            $return_error(l('global.error_message.file_upload') . ' (' . $_FILES['image']['error'] . ')');
+        }
+
+        if(!in_array($file_extension, Uploads::get_whitelisted_file_extensions('dynamic_og_images'))) {
+            $return_error(l('global.error_message.invalid_file_type'));
+        }
+
+        if(!\Altum\Plugin::is_active('offload') || (\Altum\Plugin::is_active('offload') && !settings()->offload->uploads_url)) {
+            if(!is_writable(UPLOADS_PATH . Uploads::get_path('dynamic_og_images'))) {
+                $return_error(sprintf(l('global.error_message.directory_not_writable'), UPLOADS_PATH . Uploads::get_path('dynamic_og_images')));
+            }
+        }
+
+        if(get_max_upload() && $_FILES['image']['size'] > get_max_upload() * 1000000) {
+            $return_error(sprintf(l('global.error_message.file_size_limit'), get_max_upload()));
+        }
+
+        /* Generate new name for image */
+        $image_new_name = get_slug($_POST['image_name']);
+
+        /* Offload uploading */
+        if(\Altum\Plugin::is_active('offload') && settings()->offload->uploads_url) {
+            try {
+                $s3 = new \Aws\S3\S3Client(get_aws_s3_config());
+
+                /* Upload image */
+                $result = $s3->putObject([
+                    'Bucket' => settings()->offload->storage_name,
+                    'Key' => UPLOADS_URL_PATH . Uploads::get_path('dynamic_og_images') . $image_new_name,
+                    'ContentType' => mime_content_type($file_temp),
+                    'SourceFile' => $file_temp,
+                    'ACL' => 'public-read'
+                ]);
+            } catch (\Exception $exception) {
+                $return_error($exception->getMessage());
+            }
+        }
+
+        /* Upload the original */
+        move_uploaded_file($file_temp, UPLOADS_PATH . Uploads::get_path('dynamic_og_images') . $image_new_name);
+
+        /* Delete pending file */
+        $image_pending_name = str_replace('.webp', '.pending', $image_new_name);
+        if(file_exists(UPLOADS_PATH . Uploads::get_path('dynamic_og_images') . $image_pending_name)) unlink(UPLOADS_PATH . Uploads::get_path('dynamic_og_images') . $image_pending_name);
+
+        Response::jsonapi_success([]);
+    }
+
+}

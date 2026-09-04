@@ -1,0 +1,11 @@
+{
+    "name": "AppShortLinks",
+    "alias": "appshortlinks",
+    "description": "First-party URL shortener with branded redirect links and click tracking.",
+    "keywords": ["short links", "url shortener", "redirect", "analytics"],
+    "priority": 0,
+    "providers": [
+        "Modules\\AppShortLinks\\Providers\\AppShortLinksServiceProvider"
+    ],
+    "files": []
+}

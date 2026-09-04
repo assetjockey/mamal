@@ -1,0 +1,8 @@
+66pusher by AltumCode.com
+-------------------------
+
+Website: https://66pusher.com/
+
+Documentation: https://66pusher.com/docs
+
+Changelog: https://66pusher.com/changelog

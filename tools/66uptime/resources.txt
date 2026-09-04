@@ -1,0 +1,8 @@
+66uptime by AltumCode.com
+-------------------------
+
+Website: https://66uptime.com/
+
+Documentation: https://66uptime.com/docs
+
+Changelog: https://66uptime.com/changelog

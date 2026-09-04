@@ -1,0 +1,11 @@
+{
+    "name": "AppShortLinkCampaigns",
+    "alias": "appshortlinkcampaigns",
+    "description": "Campaign, folder, and tag metadata for short links.",
+    "keywords": ["short links", "campaigns", "folders", "tags"],
+    "priority": 1,
+    "providers": [
+        "Modules\\AppShortLinkCampaigns\\Providers\\AppShortLinkCampaignsServiceProvider"
+    ],
+    "files": []
+}

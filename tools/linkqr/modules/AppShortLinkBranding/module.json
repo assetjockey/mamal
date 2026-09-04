@@ -1,0 +1,11 @@
+{
+    "name": "AppShortLinkBranding",
+    "alias": "appshortlinkbranding",
+    "description": "Brand domain, UTM preset, tracking pixel, and social preview integrations for short links.",
+    "keywords": ["short links", "brand", "domains", "utm", "pixels"],
+    "priority": 1,
+    "providers": [
+        "Modules\\AppShortLinkBranding\\Providers\\AppShortLinkBrandingServiceProvider"
+    ],
+    "files": []
+}

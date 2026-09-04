@@ -1,0 +1,4 @@
+name,run_interval,run_interval_type,run_interval_grace,run_interval_grace_type,project_id,email_reports_is_enabled,is_ok_notifications
+API Ping,60,seconds,5,minutes,1,1,2,3
+Server Cron,15,minutes,1,hours,,0,1
+Backup Job,24,hours,1,days,2,1,4

@@ -1,0 +1,196 @@
+<?php
+
+include_once(__DIR__ . '/InitTests.php');
+
+use Jdenticon\IdenticonStyle;
+
+final class IdenticonStyleTest extends PHPUnit\Framework\TestCase
+{
+    // BackgroundGrayscale
+    public function testSetBackColorInvalid()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $style = new IdenticonStyle();
+        $style->backgroundColor = "rbg(1,2,3)";
+    }
+    public function testSetBackColorValid()
+    {
+        $style = new IdenticonStyle();
+        $style->backgroundColor = "hsl(0, 100%, 50%)";
+        $this->assertEquals("#ff0000ff", $style->backgroundColor->__toString());
+    }
+
+    // Padding
+    public function testSetPaddingTooLarge()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $style = new IdenticonStyle();
+        $style->padding = 0.5;
+    }
+    public function testSetPaddingTooSmall()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $style = new IdenticonStyle();
+        $style->padding = -0.1;
+    }
+    public function testSetPaddingValid()
+    {
+        $style = new IdenticonStyle();
+        $style->padding = 0.08;
+        $this->assertEquals(0.08, $style->getPadding());
+    }
+
+    // Hues
+    public function testSetHuesWrongType()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $style = new IdenticonStyle();
+        $style->hues = "Not a hue";
+    }
+    public function testSetHuesWrongInnerType()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $style = new IdenticonStyle();
+        $style->hues = ["Not a hue"];
+    }
+    public function testSetHuesSingle()
+    {
+        $style = new IdenticonStyle();
+        $style->hues = 367;
+        $this->assertEquals([7], $style->getHues());
+    }
+    public function testSetHuesMultiple()
+    {
+        $style = new IdenticonStyle();
+        $style->hues = [-1, 99, 721];
+        $this->assertEquals([359, 99, 1], $style->getHues());
+    }
+    public function testSetHuesNull()
+    {
+        $style = new IdenticonStyle();
+        $style->hues = [-1, 99, 721];
+        $style->hues = null;
+        $this->assertNull($style->getHues());
+    }
+    public function testSetHuesEmpty()
+    {
+        $style = new IdenticonStyle();
+        $style->setHues([-1, 99, 721]);
+        $style->setHues([]);
+        $this->assertNull($style->getHues());
+    }
+
+    // ColorSaturation
+    public function testColorSaturationTooLarge()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $style = new IdenticonStyle();
+        $style->colorSaturation = 1.5;
+    }
+    public function testColorSaturationTooSmall()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $style = new IdenticonStyle();
+        $style->colorSaturation = -0.1;
+    }
+    public function testColorSaturationValid()
+    {
+        $style = new IdenticonStyle();
+        $style->colorSaturation = 0.5;
+        $this->assertEquals(0.5, $style->getColorSaturation());
+    }
+
+    // GrayscaleSaturation
+    public function testGrayscaleSaturationTooLarge()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $style = new IdenticonStyle();
+        $style->grayscaleSaturation = 1.5;
+    }
+    public function testGrayscaleSaturationTooSmall()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $style = new IdenticonStyle();
+        $style->grayscaleSaturation = -0.1;
+    }
+    public function testGrayscaleSaturationValid()
+    {
+        $style = new IdenticonStyle();
+        $style->grayscaleSaturation = 0.5;
+        $this->assertEquals(0.5, $style->getGrayscaleSaturation());
+    }
+
+    // ColorLightness
+    public function testColorLightnessTooLarge()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $style = new IdenticonStyle();
+        $style->colorLightness = [1.1, 0.5];
+    }
+    public function testColorLightnessTooSmall()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $style = new IdenticonStyle();
+        $style->colorLightness = [0.5, -0.01];
+    }
+    public function testColorLightnessValid()
+    {
+        $style = new IdenticonStyle();
+        $style->colorLightness = [0.1, 0.3, 55667, "hello"];
+        $this->assertEquals([0.1, 0.3], $style->getColorLightness());
+    }
+
+    // GrayscaleLightness
+    public function testGrayscaleLightnessTooLarge()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $style = new IdenticonStyle();
+        $style->grayscaleLightness = [1.1, 0.5];
+    }
+    public function testGrayscaleLightnessTooSmall()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $style = new IdenticonStyle();
+        $style->grayscaleLightness = [0.5, -0.01];
+    }
+    public function testGrayscaleLightnessValid()
+    {
+        $style = new IdenticonStyle();
+        $style->grayscaleLightness = [0.1, 0.3, 55667, "hello"];
+        $this->assertEquals([0.1, 0.3], $style->getGrayscaleLightness());
+    }
+
+    // GetOptions / SetOptions
+    public function testOptions()
+    {
+        $options = [
+            'backgroundColor' => '#f00a',
+            'colorLightness' => [0.1, 0.2],
+            'grayscaleLightness' => [0.3, 0.4],
+            'colorSaturation' => 0.5,
+            'grayscaleSaturation' => 0.6,
+            'padding' => 0.16,
+            'hues' => [1, 2, 3]
+        ];
+
+        $style = new IdenticonStyle($options);
+        $options2 = $style->getOptions();
+
+        $options['backgroundColor'] = '#ff0000aa';
+
+        $this->assertEquals($options, $options2);
+    }
+}

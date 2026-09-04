@@ -1,0 +1,26 @@
+{
+  "premium" : {
+    "load": "droppy_premium",
+    "view": "views/pages/premium",
+    "post_handler": "handler.php",
+    "get_handler": "handler.php"
+  },
+  "ipn": {
+    "load": "droppy_premium",
+    "view": "",
+    "post_handler": "gateway/paypal/ipn.php",
+    "get_handler": "gateway/paypal/ipn.php"
+  },
+  "stripe": {
+    "load": "droppy_premium",
+    "view": "",
+    "post_handler": "gateway/stripe/webhook.php",
+    "get_handler": "gateway/stripe/webhook.php"
+  },
+  "razorpay": {
+    "load": "droppy_premium",
+    "view": "",
+    "post_handler": "gateway/razorpay/webhook.php",
+    "get_handler": "gateway/razorpay/webhook.php"
+  }
+}

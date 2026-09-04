@@ -1,0 +1,6 @@
+@import 'tailwindcss';
+@import '@mamal/ui/tokens.css';
+
+@source "../../../packages/ui/src/**/*.{ts,tsx}";
+@source "../app/**/*.{ts,tsx}";
+@source "../components/**/*.{ts,tsx}";

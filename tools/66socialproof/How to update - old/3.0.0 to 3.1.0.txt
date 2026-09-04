@@ -1,0 +1,102 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+FILE CHANGES
+———————————————————
+1. THE EASIEST WAY
+Replace all the folders / files except the "uploads" folder, "install" folder and the "config.php" file.
+
+2. THE ADVANCED WAY
+Copy/Paste the following files, replace if needed.
+
+app/controllers/AccountLogs.php
+app/controllers/AccountPayments.php
+app/controllers/AccountPlan.php
+app/controllers/Campaign.php
+app/controllers/Dashboard.php
+app/controllers/Login.php
+app/controllers/Notification.php
+app/controllers/Pixel.php
+app/controllers/PixelTrack.php
+app/controllers/Register.php
+app/controllers/admin-api/AdminApiUsers.php
+app/controllers/admin/AdminPageUpdate.php
+app/controllers/admin/AdminPagesCategoryCreate.php
+app/controllers/admin/AdminPagesCategoryUpdate.php
+app/controllers/admin/AdminPayments.php
+app/controllers/admin/AdminSettings.php
+app/controllers/admin/AdminStatistics.php
+app/controllers/admin/AdminUserCreate.php
+app/controllers/admin/AdminUsers.php
+app/core/Language.php
+app/helpers/Date.php
+app/helpers/Filters.php
+app/helpers/Paginator.php
+app/includes/ - WHOLE FOLDER
+app/init.php
+app/languages/english.json
+app/middlewares/Authentication.php
+composer.json
+install/dump.sql
+themes/altum/assets/css/admin-custom.css
+themes/altum/assets/css/bootstrap-dark.min.css
+themes/altum/assets/css/bootstrap.min.css
+themes/altum/assets/images/no_rows.svg
+themes/altum/assets/js/admin_chartjs_defaults.js
+themes/altum/assets/js/chartjs_defaults.js
+themes/altum/assets/js/functions.js
+themes/altum/assets/js/libraries/jquery-scrollto.js
+themes/altum/assets/js/libraries/lozad.min.js
+themes/altum/assets/js/pixel-header-original.js
+themes/altum/assets/js/pixel-header.js
+themes/altum/assets/scss/bootstrap-dark.scss
+themes/altum/assets/scss/bootstrap.scss
+themes/altum/views/account-payments/index.php
+themes/altum/views/admin/pages/index.php
+themes/altum/views/admin/payments/index.php
+themes/altum/views/admin/settings/index.php
+themes/altum/views/admin/statistics/index.php
+themes/altum/views/admin/users/index.php
+themes/altum/views/admin/wrapper.php
+themes/altum/views/campaign/settings.method.php
+themes/altum/views/campaign/statistics.method.php
+themes/altum/views/dashboard/index.php
+themes/altum/views/index/index.php
+themes/altum/views/login/index.php
+themes/altum/views/lost-password/index.php
+themes/altum/views/notification/data.method.php
+themes/altum/views/notification/statistics.method.php
+themes/altum/views/partials/email.html
+themes/altum/views/partials/footer.php
+themes/altum/views/partials/notifications/ - WHOLE FOLDER
+themes/altum/views/register/index.php
+themes/altum/views/resend-activation/index.php
+themes/altum/views/reset-password/index.php
+vendor/ WHOLE FOLDER
+
+DATABASE CHANGES 
+--------------------
+IMPORTANT: MAKE SURE YOU BACKUP YOUR DATABASE JUST TO BE SAFE. 
+
+You will have to run the following queries into your database. 
+
+You can run those with PhpMyAdmin -> selecting the database -> going to the SQL tab and running the following mysql queries:
+
+
+COPY & RUN THE FOLLOWING QUERIES
+--------
+alter table track_logs drop column last_date;
+alter table track_logs drop column count;
+alter table track_logs drop column dynamic_id;
+alter table track_logs change date datetime datetime not null;
+alter table track_logs modify url varchar(2048) charset utf8mb4 not null;
+alter table track_notifications change date datetime datetime not null;
+alter table track_notifications drop column last_date;
+alter table track_notifications drop column count;
+alter table track_notifications drop column dynamic_id;
+alter table track_conversions change date datetime datetime not null;
+--------
+
+Go to your /uploads/cache/ folder and delete the folder that you find inside.

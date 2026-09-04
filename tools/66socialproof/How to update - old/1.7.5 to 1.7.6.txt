@@ -1,0 +1,59 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+FILE CHANGES
+———————————————————
+1. THE EASIEST WAY
+Replace all the folders / files except the "uploads" folder, "install" folder and the "app/config/config.php" file.
+
+2. THE ADVANCED WAY
+Copy/Paste the following files, replace if needed.
+
+app/controllers/Notification.php
+app/controllers/Pay.php
+app/controllers/admin/AdminSettings.php
+app/controllers/admin/AdminStatistics.php
+app/controllers/admin/AdminUserCreate.php
+app/helpers/email.php
+app/includes/product.php
+app/languages/english.json
+themes/altum/assets/css/admin-bootstrap-dark.min.css
+themes/altum/assets/css/admin-bootstrap.min.css
+themes/altum/assets/css/admin-custom.css
+themes/altum/assets/images/altumcode.png
+themes/altum/assets/js/libraries/bootstrap.min.js
+themes/altum/assets/js/libraries/pickr.min.js
+themes/altum/assets/js/libraries/popper.min.js
+themes/altum/views/admin/code-create/index.php
+themes/altum/views/admin/code-update/index.php
+themes/altum/views/admin/codes/code_delete_modal.php
+themes/altum/views/admin/codes/index.php
+themes/altum/views/admin/index/index.php
+themes/altum/views/admin/package-create/index.php
+themes/altum/views/admin/package-update/index.php
+themes/altum/views/admin/packages/index.php
+themes/altum/views/admin/page-create/index.php
+themes/altum/views/admin/page-update/index.php
+themes/altum/views/admin/pages-category-create/index.php
+themes/altum/views/admin/pages-category-update/index.php
+themes/altum/views/admin/pages/index.php
+themes/altum/views/admin/pages/page_delete_modal.php
+themes/altum/views/admin/pages/pages_category_delete_modal.php
+themes/altum/views/admin/partials/admin_sidebar.php
+themes/altum/views/admin/partials/footer.php
+themes/altum/views/admin/payments/index.php
+themes/altum/views/admin/settings/index.php
+themes/altum/views/admin/statistics/index.php
+themes/altum/views/admin/statistics/partials/growth.php
+themes/altum/views/admin/statistics/partials/notifications.php
+themes/altum/views/admin/statistics/partials/payments.php
+themes/altum/views/admin/statisticsx/index.php
+themes/altum/views/admin/user-create/index.php
+themes/altum/views/admin/user-update/index.php
+themes/altum/views/admin/user-view/index.php
+themes/altum/views/admin/users/index.php
+themes/altum/views/admin/users/user_login_modal.php
+themes/altum/views/admin/wrapper.php
+

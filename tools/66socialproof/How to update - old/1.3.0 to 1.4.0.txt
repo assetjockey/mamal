@@ -1,0 +1,81 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+ABOUT THE UPDATE
+———————————————————
+This update is an extremely large one in terms of what has been changed in the background.
+
+Everything has been changed, every single file and folder structure.
+
+The whole framework was redesigned to allow for better and cleaner code for the future while maintaining all the functionality that was already there.
+
+Besides the inhouse built framework change, other great and superb features were added and you can read about them on Codecanyon on my product page description ( Changelog ).
+
+
+HOW TO UPDATE
+———————————————————
+Please read the first line of this document and make sure you understand that you are fully responsible for updating the product or installing it freshly. 
+
+
+
+1. BACKUP
+
+Backup all your files and your existing database in case something happens while you update.
+
+DO NOT SKIP THIS STEP AS AT LEAST THE 'core/config/config.php' FILE IS MANDATORY TO BE SAVED.
+
+
+2. DELETE THE OLD
+
+Delete all the files of the SocialProof installation excluding the "uploads" folder.
+
+
+3. UPLOAD
+
+Upload the new files of the SocialProof "product" folder content.
+
+
+4. CONFIG FILE
+
+Go to 'app/config/config.php' file and open it up. Add your database details from your previous 'core/config/config.php' file that you saved in the new format of the config file.
+
+It should look like this after you added the details:
+
+<?php
+
+/* Configuration of the site */
+define('DATABASE_SERVER',   'your_server_ip');
+define('DATABASE_USERNAME', 'your_db_username');
+define('DATABASE_PASSWORD', 'your_database_password');
+define('DATABASE_NAME',     'your_database_name');
+define('SITE_URL',          'https://your_domain.com/');
+
+
+5. UPDATE DATABASE
+
+You will have to run the following queries into your database. 
+
+You can run those with PhpMyAdmin -> selecting the database -> going to the SQL tab and running the following mysql query.
+
+
+
+alter table track_conversions add location varchar(512) null;
+INSERT INTO `settings` (`key`, `value`)
+VALUES
+	('package_custom', '{\"package_id\":\"custom\",\"name\":\"Custom\",\"is_enabled\":true}'),
+	('privacy_policy_url', ''),
+	('terms_and_conditions_url', '');
+
+
+6. UPDATE THE PACKAGES
+
+As a lot of new features have been added, you also need to:
+
+6.1 login to the Admin Panel
+6.2 go to Packages page
+6.3 update the package settings as you wish and save it
+6.4 update the subscribers of the package by clicking the 'update' of the 'Update Package Subscribers' heading on the Packge Update page.
+
+Repeat for all the packages so that you have all the new proper settings for each package you created.

@@ -1,0 +1,43 @@
+IMPORTANT
+———————————————————
+Please make sure to always back up your files before updating. I am not responsible for any update going wrong and messing / losing your previous or actual files. 
+
+
+FILE CHANGES
+———————————————————
+1. THE EASIEST WAY
+Replace all the folders / files except the "uploads" folder, "install" folder and the "app/config/config.php" file.
+
+2. THE ADVANCED WAY
+Copy/Paste the following files, replace if needed.
+
+app/includes/product.php
+app/controllers/Pay.php
+app/controllers/Register.php
+app/controllers/admin/AdminSettings.php
+app/controllers/admin/AdminUserUpdate.php
+app/languages/english.json
+themes/altum/views/admin/settings/index.php
+themes/altum/views/admin/statistics/index.php
+themes/altum/views/admin/user-view/index.php
+themes/altum/views/index/index.php
+themes/altum/views/login/index.php
+themes/altum/views/partials/ads_footer.php
+themes/altum/views/partials/ads_header.php
+themes/altum/views/partials/menu.php
+themes/altum/views/partials/notifications/live_counter.php
+themes/altum/views/pay/index.php
+themes/altum/views/wrapper.php
+
+DATABASE CHANGES 
+--------------------
+IMPORTANT: MAKE SURE YOU BACKUP YOUR DATABASE JUST TO BE SAFE. 
+
+You will have to run the following queries into your database. 
+
+You can run those with PhpMyAdmin -> selecting the database -> going to the SQL tab and running the following mysql query.
+
+
+INSERT INTO `settings` (`key`, `value`) VALUES ('register_is_enabled', '1');
+INSERT INTO `settings` (`key`, `value`) VALUES ('custom', '{\"custom_js\":\"\",\"custom_css\":\"\"}');
+

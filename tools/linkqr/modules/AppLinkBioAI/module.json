@@ -1,0 +1,8 @@
+{
+    "name": "AppLinkBioAI",
+    "alias": "applinkbioai",
+    "description": "AI assistant capability for Link Bio.",
+    "providers": [
+        "Modules\\AppLinkBioAI\\Providers\\AppLinkBioAIServiceProvider"
+    ]
+}
