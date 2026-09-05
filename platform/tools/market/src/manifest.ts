@@ -267,8 +267,14 @@ export const marketManifest = defineTool({
     // out on claim, so the sweep is cheap and an outage cannot become a loop.
     { key: 'market.visibility.due', schedule: '35 * * * *', description: 'Run due AI visibility probes' },
     { key: 'market.opportunities', schedule: '40 4 * * *', description: 'Recompute opportunities' },
+    // Every minute: "scheduled for 09:00" must mean 09:00, and a half-hourly
+    // sweep quietly turns it into "some time before 09:30".
     { key: 'market.publish.due', schedule: '* * * * *', description: 'Publish due social posts' },
-    { key: 'market.trends', schedule: '*/30 * * * *', description: 'Poll trend watches' },
+    // Trends, pipelines and publishing run together and in that order: each
+    // feeds the next, and splitting them means acting on stale triggers.
+    { key: 'market.content.due', schedule: '*/30 * * * *', description: 'Trend watches, content pipelines, publishing' },
+    // Per minute, and cheap: one HTTP call per in-flight job. The alternative
+    // is holding a worker open for the five minutes a video render takes.
     { key: 'market.creatives.poll', schedule: '* * * * *', description: 'Poll in-flight generations' },
     { key: 'market.ads.sync', schedule: '25 */4 * * *', description: 'Pull ad spend and results' },
   ],

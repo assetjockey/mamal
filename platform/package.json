@@ -16,7 +16,7 @@
     "db:migrate": "pnpm --filter @mamal/db migrate",
     "db:seed": "pnpm --filter @mamal/db seed",
     "db:reset": "pnpm --filter @mamal/db reset",
-    "ci:check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build && node scripts/build-matrix.mjs && node scripts/check-nav.mjs",
+    "ci:check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build && node scripts/build-matrix.mjs && node scripts/check-nav.mjs && node scripts/check-client-imports.mjs",
     "db:test:setup": "pnpm --filter @mamal/db test:setup",
     "e2e": "playwright test",
     "load": "node scripts/load.mjs",

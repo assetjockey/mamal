@@ -432,6 +432,279 @@ already drawn on the chart.
 
 ---
 
+## Content: a pipeline produced nothing, or a draft will not publish
+
+```bash
+pnpm --filter @mamal/worker-core market-content   # trends, then pipelines, then publishing
+```
+
+```sql
+select r.status, r.error, r.credits_spent, r.trigger->>'subject' as subject, r.created_at
+  from content_runs r join content_pipelines p on p.id = r.pipeline_id
+ where p.project_id = :project order by r.created_at desc limit 20;
+
+select id, name, source, schedule, is_active, auto_publish, next_run_at
+  from content_pipelines where project_id = :project;
+```
+
+**A `skipped` run is the system working.** It means no trigger cleared the bar:
+nothing rising, nothing new in the opportunity list, or the subject was already
+written about. Skips are stored with `error = null` and shown in a neutral
+colour precisely so a quiet week does not read as a fault.
+
+**A topic is written about once per 90 days.** A trend stays hot for a week; the
+same pipeline firing daily would produce seven near-identical articles, which
+damages a site rather than growing it. Ninety days rather than forever, because
+a topic worth revisiting next year is a different article.
+
+**With AI unavailable a run still completes.** It writes the document, the
+trigger and the brief — the questions from the workspace's own Search Console
+rows, the topics to cover — and stops before the prose, with
+`drafted = false` and a note saying why. That is the lifetime-plan and
+kill-switch experience, and it is deliberately a `completed` run: the customer
+has a commissioning brief, not an error.
+
+**Nothing publishes unless two switches are on.** `content_pipelines.auto_publish`
+(default false) *and* a destination. Even then the destination's
+`default_status` decides, and that defaults to `draft`.
+
+**Publishing failures leave the document `approved`, so the next run retries.**
+Check `meta->>'externalStatus'` on a document that claims to be published:
+
+| What you see | What happened |
+|---|---|
+| `externalStatus: pending` on WordPress | The account lacks `publish_posts`. WordPress downgrades silently and returns 201; we read the status back rather than assuming it. |
+| A Ghost post with no body | Only possible if `?source=html` was dropped — Ghost ignores `html` without it and still returns 201. |
+| `reason: server` or `network` in the log | Nobody's problem. It retries. The destination is *not* marked broken, for the same reason a rate-limited Search Console connection is not. |
+| `reason: unauthorised` / `forbidden` | The customer's. Reconnect, or grant the account permission to post. |
+
+**Trend watches:**
+
+```sql
+select name, keywords, geos, threshold_pct, last_run_at, jsonb_pretty(snapshot)
+  from trend_watches where project_id = :project;
+```
+
+- **The first check alerts on nothing.** It stores a baseline. "New" is not
+  "rising", and firing here would mean every watch screams on the run that
+  creates it.
+- **A quiet run does not move the baseline.** That is what catches a gradual
+  climb: 20 → 24 → 29 is a 45% rise where no single step clears 25%. The
+  baseline is rebased when a shift fires, or after 30 days, so it cannot drift
+  forever.
+- **Moves between small numbers are ignored.** Google Trends is a 0–100
+  relative index; 1 → 3 is a 200% rise and four extra searches. Both ends must
+  clear 10.
+- **Empty `TRENDS_SERVICE_URL` means no readings, not an error.** The Python
+  sidecar is optional; without it every watch stays intact with its baseline
+  untouched and simply has nothing new to say.
+
+**The editor's score never costs anything.** It is arithmetic over the draft —
+the same function runs in the browser as you type and on the server when you
+save, and the server's number is the stored one. If a document's `seo_score`
+looks stale, it was written by something that bypassed `saveDoc`.
+
+---
+
+## Social: a post did not go out, or went out to only some networks
+
+```bash
+pnpm --filter @mamal/worker-core market-social   # claim due targets and publish
+```
+
+```sql
+select p.status as post, a.provider, t.status, t.attempts, t.error,
+       t.next_run_at, t.published_at, t.remote_url
+  from social_targets t
+  join social_posts p on p.id = t.post_id
+  join social_accounts a on a.id = t.account_id
+ where p.project_id = :project
+ order by t.next_run_at desc nulls last limit 40;
+```
+
+**A post is a row; a network is a row.** Publishing to five networks succeeds
+four times and fails once, routinely — so the post's status is *derived* from
+its targets and never set directly. `published` means at least one network took
+it; the target rows carry which one did not and why. A post showing `published`
+with a failed target is not a contradiction, it is the point.
+
+| Post status | What it means |
+|---|---|
+| `draft` | No targets yet, or waiting on review |
+| `scheduled` | At least one target pending, review passed or not required |
+| `publishing` | A target is claimed and in flight |
+| `published` | Everything settled and at least one network accepted |
+| `failed` | Everything settled and none did |
+| `cancelled` | A reviewer rejected it — its targets are `skipped` |
+
+**Retries are per target, on that target's clock.** A rate-limited network goes
+back to `pending` with its own `next_run_at`; the other four are not held up.
+After `MAX_ATTEMPTS` (3) it is left `failed` rather than logging the same
+failure forever. `retryable` comes from the transport, because only it knows: a
+503 is worth another go and a rejected caption is not.
+
+**"Publishing to X is not connected on this instance yet"** is the expected
+error until that network's transport is added. Each of the nine needs its own
+OAuth app and review; the scheduling, claiming, retry and outcome handling are
+finished and tested, and `PUBLISHERS` in
+`services/worker-core/src/market-social.ts` is where each one plugs in. It fails
+the target rather than leaving the post pending forever, which is what makes a
+scheduler look broken.
+
+**A post awaiting review is invisible to the claim.** `approval_state` must be
+`none` or `approved`; `pending` keeps it on the calendar and out of the queue.
+Rejecting *cancels* — a reviewer's "no" that the scheduler ignores an hour later
+is not a no.
+
+**Queue slots are per account and per timezone.**
+
+```sql
+select a.display_name, a.provider, q.timezone, jsonb_pretty(q.slots)
+  from social_accounts a left join social_queues q on q.account_id = a.id
+ where a.project_id = :project;
+```
+
+- A 09:00 slot stays 09:00 to the account's owner across a DST change, so the
+  UTC instant moves by an hour twice a year. That is correct, not drift.
+- A wall-clock hour that does not exist — 02:00 on a spring-forward morning —
+  is **skipped**, not nudged to 03:00.
+- An empty grid means a queued post gets `next_run_at = null` and never becomes
+  due. The composer says so at the time; if a post is sitting unscheduled, check
+  the account's slots first.
+- Nothing is ever silently posted "now" because the queue was full.
+
+**Validation happens at compose time, and that is where to look first.**
+Character counts are code points, not `String.length`, and X charges 23 for
+every URL however long. A post refused at compose lists *every* reason at once.
+If something was accepted here and rejected by the network, the limit in
+`tools/market/src/networks.ts` has moved and needs updating.
+
+---
+
+## Ads: a generation is stuck, or the numbers look wrong
+
+```bash
+pnpm --filter @mamal/worker-core market-creatives   # poll in-flight generations
+```
+
+```sql
+select id, type, status, poll_count, next_poll_at, credits_spent, error, created_at
+  from ad_creatives where project_id = :project order by created_at desc limit 20;
+```
+
+**A generation lives in a row, not a process.** `status = 'polling'` with a
+`provider_job_id` means the provider took the job and we are asking about it
+every 20 seconds. Killing the worker costs one poll and nothing else.
+
+**A failed poll is not a failed generation.** If the provider is briefly
+unreachable the row stays `polling` and the next tick asks again — throwing away
+a video that is still rendering because we could not reach the API would be the
+wrong call.
+
+**Money, and the one non-obvious part.** `ai.execute` reserves and captures
+inside a single call. That is right for a synchronous image and leaves a gap for
+an asynchronous video: by the time the provider says "failed" an hour later, the
+hold is long gone. So a late failure issues a **refund**, keyed
+`<creative-id>:generation-refund` so a retried worker refunds once:
+
+```sql
+select idempotency_key, delta, created_at from credit_entries
+ where workspace_id = :ws and idempotency_key like '%generation-refund' order by created_at desc;
+```
+
+| Symptom | What happened |
+|---|---|
+| `abandoned` in the log | The provider never answered in `MAX_POLLS` (60) checks — about 20 minutes. The credits were refunded. |
+| `failed` with credits still spent | Check for the refund entry above. If it is missing, the failure came from a path that did not go through `pollCreative`. |
+| `completed` with `asset_id` null | Expected today: the media pipeline that fetches the provider URL into R2 is `worker-media`'s and lands with it. The cost and status are recorded honestly rather than showing a broken image. |
+| `polling` forever, `poll_count` climbing | No transport for that provider yet, so `poll` returns `running`. It is abandoned and refunded at 60. |
+
+**Copy is measured after generation, not trusted from the prompt.** A model told
+"under 30 characters" writes 32 often enough to matter; `validateCopy` marks the
+variants that will not fit rather than dropping them, because a headline two
+characters over is worth editing. If something was marked usable here and
+rejected at upload, the limit in `tools/market/src/ad-platforms.ts` has moved.
+
+**The spend numbers use no AI at all.** `ad-performance.ts` is arithmetic —
+that is what makes the ads screen complete on a lifetime plan.
+`market.ai_insight` narrates those findings; it never produces them.
+
+- **Blank, not zero, where a rate has no denominator.** A campaign with spend
+  and no conversions has *no* cost-per-conversion. Printing £0.00 or ∞ are both
+  lies.
+- **Comparisons skip the last three days.** Platforms restate recent days as
+  conversions attribute late, so including them shows a decline that is not
+  there. Both halves of a comparison are equal length and settled.
+- **Small numbers are not trends.** Under 10 conversions or 50 units of spend,
+  no finding fires. Three conversions becoming five is a 67% rise and noise.
+- **`stalled` compares cost per conversion, not conversion count.** Halving a
+  budget halves conversions with nothing wrong; CPA getting worse is the signal.
+- **`creative_fatigue` requires impressions to hold.** Click-through falling
+  while reach stays flat is tired creative; falling because the campaign is
+  shown less is a different problem with a different fix.
+
+---
+
+## Local: the grid looks wrong, or a listing keeps getting flagged
+
+```sql
+select keyword, captured_on, count(*) as points,
+       count(position) as found, round(avg(position), 1) as avg_where_found
+  from market_local_rank_points where profile_id = :profile
+ group by keyword, captured_on order by captured_on desc;
+```
+
+**The grid is square on the ground, not in degrees.** A degree of latitude is
+~111 km everywhere; a degree of longitude is 111 km at the equator and ~64 km at
+55°N. Spacing by equal degrees would make a UK grid 1.6× wider than it is tall —
+the customer would be told about coverage they do not have, on points they paid
+for. The cosine correction in `buildGrid` is what prevents that; the grid is
+tested at Quito, London and Tromsø for exactly this reason.
+
+**Absences are not bad rankings.** `averagePosition` is taken over the points
+where the business *appeared*. Substituting a sentinel (21, or the grid depth)
+would make a business that ranks first in three places and nowhere else score
+worse than one ranking eighth everywhere. Coverage carries the absences and is
+always shown next to the average.
+
+**Grid sizes are odd** so there is a true centre — the business's own address,
+which is the first reading anybody looks at. An even grid has no centre and the
+map reads wrong.
+
+**A grid is priced before it runs and never half-runs.** The allowance is checked
+once for all N² points; checking per point would let a 7×7 stop at point 31 with
+31 credits spent and a hole in the map. A single point whose lookup fails is
+stored as "not found here" rather than abandoning the other 48.
+
+**Reviews are triaged by arithmetic, not by AI.** Urgency is `(6 − rating)²`,
+multiplied for a written complaint and *decayed* with age — a new one-star sits
+at the top of the profile where everybody sees it, and sorting old grievances
+first would bury it. That ordering is the part that decides whether the work gets
+done, so it does not disappear when AI is switched off; only the drafted reply
+does, and the refusal says the review still needs answering.
+
+**NAP: almost every difference is cosmetic, and flagging them all is why people
+abandon this.** `123 High Street, Suite 4` and `123 High St #4` are the same
+place; `123` and `132` are not, and differ by less. So the comparison normalises
+hard — street types, unit markers, ordinals, compass points, accents, phone
+formatting — then compares exactly and reports *what* differs rather than a
+similarity score.
+
+- `formatting` means they normalise to the same thing. Never alert on these.
+- `differs` needs fixing. `missing` is a different problem with a different fix.
+- `Suite`, `#`, `Unit` and `Apt` collapse to one token; `floor` and `room`
+  deliberately do not — those are different places in the same building.
+- A national phone number cannot be compared with an international one without
+  knowing the country, and the checker says so rather than guessing.
+
+**Two things land with their integrations, and both fail visibly rather than
+silently:** the per-point local-pack lookup (DataForSEO) currently returns "not
+found" for every point, drawing an honest empty map; and the directory clients
+that supply the other side of a NAP comparison. The comparison logic itself is
+finished and tested.
+
+---
+
 ## A short link is going to the wrong place
 
 Work down the resolver's own order — it is the same order `resolve()` evaluates,

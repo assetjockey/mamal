@@ -4,7 +4,7 @@ import { useState, useTransition } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Button, EmptyState, SectionLabel, StatusBadge, Table, Td, Th, Tr, useToast } from '@mamal/ui';
-import type { DocRow } from '@mamal/tool-market';
+import type { DocRow } from '@mamal/tool-market/scoring';
 import { newDoc } from '../actions';
 
 const STATUS_LABEL: Record<string, string> = {

@@ -26,7 +26,9 @@ const WIDTHS = [
 /** One per tool, plus a table-heavy page and a three-pane editor. */
 const ROUTES = [
   '/', '/link', '/link/qr', '/link/bio', '/audit', '/confirm', '/settings',
-  '/market/opportunities', '/market/visibility',
+  '/market/opportunities', '/market/visibility', '/market/content', '/market/trends',
+  '/market/social', '/market/calendar', '/market/ads', '/market/studio',
+  '/market/local',
 ];
 
 test.describe('shell geometry', () => {

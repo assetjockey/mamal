@@ -3,7 +3,12 @@
 import { useMemo, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, Card, SectionLabel, StatusBadge, useToast } from '@mamal/ui';
-import { scoreContent, type Brief, type ContentScore, type DocRow } from '@mamal/tool-market';
+/*
+ * The scoring subpath, not the barrel: `@mamal/tool-market` re-exports the
+ * runners, which reach @mamal/db and drag `postgres` into the client bundle.
+ * `/scoring` is pure and browser-safe by construction.
+ */
+import { scoreContent, type Brief, type ContentScore, type DocRow } from '@mamal/tool-market/scoring';
 import { saveDocument } from '../../actions';
 
 /**
@@ -153,12 +158,17 @@ export function Editor({
         <Card>
           <div className="flex items-baseline justify-between gap-2">
             <SectionLabel>Score</SectionLabel>
-            <span className="text-[11px] text-[var(--text-secondary)]">
+            <span className="text-[11px] text-[var(--text-secondary)]" data-testid="word-count">
               {score.wordCount.toLocaleString()} words
             </span>
           </div>
           <div className="mt-2 flex items-baseline gap-3">
-            <span className="text-[40px] leading-none font-light tabular-nums">{score.score}</span>
+            <span
+              className="text-[40px] leading-none font-light tabular-nums"
+              data-testid="seo-score"
+            >
+              {score.score}
+            </span>
             <span className="text-[12px] text-[var(--text-secondary)]">
               out of 100 across {score.checks.length} checks
             </span>

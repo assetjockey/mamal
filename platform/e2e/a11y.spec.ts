@@ -20,6 +20,9 @@ const ROUTES = [
   '/link/utm', '/link/folders', '/link/splash', '/link/domains',
   '/audit', '/confirm', '/settings',
   '/market', '/market/opportunities', '/market/visibility', '/market/connections',
+  '/market/content', '/market/pipelines', '/market/trends',
+  '/market/social', '/market/calendar', '/market/ads', '/market/studio',
+  '/market/local',
 ];
 
 const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'];

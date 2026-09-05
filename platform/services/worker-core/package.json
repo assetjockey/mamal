@@ -8,7 +8,10 @@
     "retention": "tsx src/retention.ts",
     "domains": "tsx src/domains.ts",
     "market": "tsx src/market.ts",
-    "market-visibility": "tsx src/market-visibility.ts"
+    "market-visibility": "tsx src/market-visibility.ts",
+    "market-content": "tsx src/market-content.ts",
+    "market-social": "tsx src/market-social.ts",
+    "market-creatives": "tsx src/market-creatives.ts"
   },
   "dependencies": {
     "@mamal/ai": "workspace:*",
@@ -19,10 +22,11 @@
     "@mamal/tool-audit": "workspace:*",
     "@mamal/tool-confirm": "workspace:*",
     "@mamal/tool-market": "workspace:*",
-    "drizzle-orm": "^0.45.2"
+    "drizzle-orm": "^0.45.2",
+    "marked": "^18.0.11"
   },
   "devDependencies": {
-    "typescript": "^5.9.3",
-    "tsx": "^4.20.6"
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
   }
 }
